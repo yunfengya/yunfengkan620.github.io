@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkdajian_vue3"]=self["webpackChunkdajian_vue3"]||[]).push([[514],{514:function(n,a,e){e.r(a),e.d(a,{default:function(){return v}});var t=e(3396);const u=n=>((0,t.dD)("data-v-6f2fbf8c"),n=n(),(0,t.Cn)(),n),c={class:"notPermisstionAdmin"},f=u((()=>(0,t._)("h1",null,"你没有权限访问该页面。。。。。。",-1))),r=[f];function s(n,a,e,u,f,s){return(0,t.wg)(),(0,t.iD)("div",c,r)}var d={},i=e(89);const o=(0,i.Z)(d,[["render",s],["__scopeId","data-v-6f2fbf8c"]]);var v=o}}]);
-//# sourceMappingURL=514.c442c70a.js.map

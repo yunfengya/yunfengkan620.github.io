@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkdajian_vue3"]=self["webpackChunkdajian_vue3"]||[]).push([[702],{2702:function(n,e,t){t.r(e),t.d(e,{default:function(){return d}});var i=t(3396);const s={class:"notPermisstionAdmin"};function a(n,e,t,a,r,u){return(0,i.wg)(),(0,i.iD)("div",s," notPermisstionAdmin页面 ")}var r={},u=t(89);const c=(0,u.Z)(r,[["render",a],["__scopeId","data-v-78e36b66"]]);var d=c}}]);
-//# sourceMappingURL=702.6405938e.js.map

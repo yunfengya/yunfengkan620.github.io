@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkdajian_vue3"]=self["webpackChunkdajian_vue3"]||[]).push([[434],{8434:function(n,u,e){e.r(u),e.d(u,{default:function(){return o}});var a=e(3396);const r=(0,a._)("h1",null,"404页面了",-1),t=[r];function c(n,u,e,r,c,i){return(0,a.wg)(),(0,a.iD)("div",null,t)}var i={name:"NotFound"},d=e(89);const l=(0,d.Z)(i,[["render",c]]);var o=l}}]);
-//# sourceMappingURL=434.f432cee3.js.map
