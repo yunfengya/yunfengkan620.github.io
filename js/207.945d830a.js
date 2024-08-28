@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkdajian_vue3"]=self["webpackChunkdajian_vue3"]||[]).push([[207],{2938:function(n,e,u){u.r(e),u.d(e,{default:function(){return d}});var a=u(3396);const r=(0,a._)("h1",null,"设置",-1),t=[r];function c(n,e,u,r,c,i){return(0,a.wg)(),(0,a.iD)("div",null,t)}var i={name:"Set"},l=u(89);const s=(0,l.Z)(i,[["render",c]]);var d=s}}]);
+//# sourceMappingURL=207.945d830a.js.map
