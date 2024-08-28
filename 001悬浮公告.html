@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVD 无信号效果</title>
+    <style>
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            margin: 0; /* 去除默认 margin */
+            background-color: #fff; /* 设置背景颜色为黑色 */
+        }
+
+        .DVD_box {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            background-color: #cbc7c7;
+            border: 3px solid #659a03;
+            /* animation: horizontal 6s infinite -2.8s linear alternate,
+                       vertical 8s infinite -4.2s linear alternate;
+                        animation-composition: accumulate; */
+            animation: horizontal 6s infinite 0s linear alternate,
+                       vertical 8s infinite 0s linear alternate;
+                        animation-composition: accumulate;
+        }
+        /* 停止动画 */
+        .DVD_box:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes horizontal {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(100vw - 100%));
+            }
+        }
+
+        @keyframes vertical {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(calc(100vh - 100%));
+            }
+        }
+
+        .DVD_box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .title{
+            color: #659a03;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- 可根据 v-if 判断 用户是否有工告消息，进行显示 -->
+    <div class="DVD_box">
+        <div class="title">请各位用户及时点击查看公告详情</div>
+    </div>
+</body>
+</html>
