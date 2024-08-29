@@ -6,6 +6,7 @@ const routes = [
     path: '/',
     component: () => import('@/layout/Index.vue'),
     children: [
+      // 首页
       {
         path: '',
         component: () => import('@/views/Home.vue'),
@@ -15,29 +16,37 @@ const routes = [
           title: '首页'
         }
       },
+
+
+
+
+
+
+      // 文章列表
       {
-        path: '/article',
-        component: () => import('@/views/ArticleList.vue'),
-        name: 'article-list',
+        path: '/ArticleList',
+        component: () => import('@/views/ArticleList/index.vue'),
+        name: 'articleList',
         meta: {
           keepAlive: true,
           title: '文章列表'
-        }
+        },
       },
       {
-        path: '/article/:id',
-        component: () => import('@/views/ArticleDetail.vue'),
-        name: 'article-detail',
+        path: '/ArticleList/articleDetail/:id',
+        component: () => import('@/views/ArticleList/ArticleDetail.vue'),
+        name: 'articleDetail',
         props: true,
         meta: {
           keepAlive: true,
           title: '文章详情'
         }
       },
+      // 记录滚动位置
       {
         path: '/KeepScroll',
-        component: () => import('@/views/KeepScroll.vue'),
-        name: 'KeepScroll',
+        component: () => import('@/views/KeepScroll/index.vue'),
+        name: 'keepScroll',
         meta: {
           keepAlive: true,
           title: '记录滚动位置'

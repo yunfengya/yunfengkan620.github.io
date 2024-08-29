@@ -48,7 +48,7 @@ export default {
           title: '首页'
         },
         {
-          link: '/article',
+          link: '/ArticleList',
           title: '文章列表'
         },
         {

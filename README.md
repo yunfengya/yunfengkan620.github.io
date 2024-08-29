@@ -1,5 +1,5 @@
 # vue2
-空项目模版 vue2
+
 ## Project setup
 ```
 yarn install
