@@ -1,25 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import app from './modules/app'
-import dict from './modules/dict'
-import user from './modules/user'
-import tagsView from './modules/tagsView'
-import permission from './modules/permission'
-import settings from './modules/settings'
-import getters from './getters'
+import cacheModule from './cache'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
   modules: {
-    app,
-    dict,
-    user,
-    tagsView,
-    permission,
-    settings
+    'cache': cacheModule
   },
-  getters
+  state: {
+    isRenderTab: true
+  },
+  mutations: {
+    setIsRenderTab (state, data) {
+      state.isRenderTab = data
+    }
+  }
 })
-
-export default store

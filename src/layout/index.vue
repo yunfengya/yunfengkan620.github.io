@@ -1,111 +1,98 @@
 <template>
-  <div :class="classObj" class="app-wrapper" :style="{'--current-color': theme}">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
-    <sidebar v-if="!sidebar.hide" class="sidebar-container"/>
-    <div :class="{hasTagsView:needTagsView,sidebarHide:sidebar.hide}" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <navbar/>
-        <tags-view v-if="needTagsView"/>
-      </div>
-      <app-main/>
-      <right-panel>
-        <settings/>
-      </right-panel>
-    </div>
-  </div>
+  <el-container class="layout-container-demo" style="height: 100vh;">
+    <el-aside width="200px">
+      <el-scrollbar>
+        <el-menu router>
+          <el-menu-item 
+            v-for="(menu, index) in menus" 
+            :index="String(index)"
+            :route="{ path: menu.link }"
+            :key="index">
+            {{menu.title}}
+          </el-menu-item>
+        </el-menu>
+      </el-scrollbar>
+    </el-aside>
+
+    <el-container>
+      <el-header style="text-align: right; font-size: 12px">
+        <layout-tabs></layout-tabs>
+      </el-header>
+        
+      <p style="color: #999; padding: 0 20px 5px;">缓存组件：{{caches}}</p>
+      <el-main id="app-main-scroller">
+        <div style="padding: 20px;">
+          <router-view-cache scroller="#app-main-scroller" :isRender="isRenderTab"></router-view-cache>
+        </div>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
-import RightPanel from '@/components/RightPanel'
-import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
+import LayoutTabs from './LayoutTabs.vue'
 import { mapState } from 'vuex'
-import variables from '@/assets/styles/variables.scss'
+import RouterViewCache, { routeCache } from '@/components/router-view-cache'
 
 export default {
-  name: 'Layout',
   components: {
-    AppMain,
-    Navbar,
-    RightPanel,
-    Settings,
-    Sidebar,
-    TagsView
+    LayoutTabs,
+    RouterViewCache
   },
-  mixins: [ResizeMixin],
+  data () {
+    return {
+      caches: routeCache.caches,
+      menus: [
+        {
+          link: '/',
+          title: '首页'
+        },
+        {
+          link: '/ArticleList',
+          title: '文章列表'
+        },
+        {
+          link: '/child',
+          title: '多级缓存'
+        },
+        {
+          link: '/KeepScroll',
+          title: '记录滚动位置'
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapState({
-      theme: state => state.settings.theme,
-      sideTheme: state => state.settings.sideTheme,
-      sidebar: state => state.app.sidebar,
-      device: state => state.app.device,
-      needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
-    }),
-    classObj() {
-      return {
-        hideSidebar: !this.sidebar.opened,
-        openSidebar: this.sidebar.opened,
-        withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
-      }
-    },
-    variables() {
-      return variables;
-    }
-  },
-  methods: {
-    handleClickOutside() {
-      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
-    }
+    ...mapState(['isRenderTab'])
   }
 }
 </script>
 
-<style lang="scss" scoped>
-  @import "~@/assets/styles/mixin.scss";
-  @import "~@/assets/styles/variables.scss";
-
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    height: 100%;
-    width: 100%;
-
-    &.mobile.openSidebar {
-      position: fixed;
-      top: 0;
-    }
+<style lang="less" scoped>
+:deep(.el-menu-item.is-active) {
+  &:focus {
+    color: #303133;
+    background: transparent !important;
   }
-
-  .drawer-bg {
-    background: #000;
-    opacity: 0.3;
-    width: 100%;
-    top: 0;
-    height: 100%;
-    position: absolute;
-    z-index: 999;
-  }
-
-  .fixed-header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9;
-    width: calc(100% - #{$base-sidebar-width});
-    transition: width 0.28s;
-  }
-
-  .hideSidebar .fixed-header {
-    width: calc(100% - 54px);
-  }
-
-  .sidebarHide .fixed-header {
-    width: 100%;
-  }
-
-  .mobile .fixed-header {
-    width: 100%;
-  }
+  color: #303133;
+}
+.layout-container-demo .el-header {
+  position: relative;
+}
+.layout-container-demo .el-aside {
+  border-right: 1px solid #eee;
+}
+.layout-container-demo .el-menu {
+  border-right: none;
+}
+.layout-container-demo .el-main {
+  padding: 0;
+}
+.layout-container-demo .toolbar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  right: 20px;
+}
 </style>

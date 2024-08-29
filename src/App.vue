@@ -1,28 +1,26 @@
 <template>
   <div id="app">
-    <router-view />
-    <theme-picker />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import ThemePicker from "@/components/ThemePicker";
-
 export default {
-  name: "App",
-  components: { ThemePicker },
-    metaInfo() {
-        return {
-            title: this.$store.state.settings.dynamicTitle && this.$store.state.settings.title,
-            titleTemplate: title => {
-                return title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
-            }
-        }
-    }
-};
+  name: 'App'
+}
 </script>
-<style scoped>
-#app .theme-picker {
-  display: none;
+
+<style lang='less'>
+* {
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  overflow-y: hidden;
+}
+@media (max-width: 768px) {
+  #app {
+    width: 300%;
+  }
 }
 </style>
