@@ -1,41 +1,88 @@
-import Layout from "@/layout/index.vue";
-import Vue from "vue";
-import Router from "vue-router";
-import { admin } from "./modules/admin";
-import { chart } from "./modules/chart";
-import { Home } from "./modules/home";
-import { jsPlumb } from "./modules/jsPlumb";
-import { keyProject } from "./modules/keyProject";
-Vue.use(Router);
-export const adminRouter = [
+import Vue from 'vue'
+import Router from 'vue-router'
+
+const routes = [
   {
-    path: "/",
-    component: Layout,
-    redirect: "/home",
+    path: '/',
+    component: () => import('@/layout/Index.vue'),
     children: [
       {
-        path: "home",
-        component: () => import("@/pages/home/index"),
+        path: '',
+        component: () => import('@/views/Home.vue'),
+        name: 'home',
+        meta: {
+          // keepAlive: true,
+          title: '首页'
+        }
       },
-    ],
-  },
-  {
-    path: "/login",
-    component: () => import("@/pages/login/index"),
-    hidden: true,
-  },
-];
-export const routerPath = [
-  ...Home,
-  ...admin,
-  ...keyProject,
-  ...chart,
-  ...jsPlumb,
-];
-const createRouter = () =>
-  new Router({
-    scrollBehavior: () => ({ y: 0 }),
-    routes: adminRouter.concat(routerPath),
-  });
-const router = createRouter();
-export default router;
+      {
+        path: '/article',
+        component: () => import('@/views/ArticleList.vue'),
+        name: 'article-list',
+        meta: {
+          keepAlive: true,
+          title: '文章列表'
+        }
+      },
+      {
+        path: '/article/:id',
+        component: () => import('@/views/ArticleDetail.vue'),
+        name: 'article-detail',
+        props: true,
+        meta: {
+          keepAlive: true,
+          title: '文章详情'
+        }
+      },
+      {
+        path: '/KeepScroll',
+        component: () => import('@/views/KeepScroll.vue'),
+        name: 'KeepScroll',
+        meta: {
+          keepAlive: true,
+          title: '记录滚动位置'
+        }
+      },
+      {
+        // 多级缓存
+        path: '/child',
+        name: 'child',
+        component: () => import('@/views/Child/Index.vue'),
+        meta: {
+          title: '多级缓存',
+          keepAlive: true,
+        },
+        redirect: {
+          path: '/soon1'
+        },
+        children: [
+          {
+            path: '/soon1',
+            name: 'soon1',
+            component: () => import('@/views/Child/Soon1.vue'),
+            meta: {
+              keepAlive: true
+            }
+          },
+          {
+            path: '/soon2',
+            name: 'soon2',
+            component: () => import('@/views/Child/Soon2.vue'),
+            meta: {
+              keepAlive: true
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
+
+Vue.use(Router)
+
+const router = new Router({
+  // mode: 'history',
+  routes
+})
+
+export default router
