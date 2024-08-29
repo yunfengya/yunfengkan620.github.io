@@ -1,6 +1,6 @@
 # admin_pc
 ```
-未打包vue2项目
+未打包vue2项目，初始化项目
 ```
 ## Project setup
 ```
