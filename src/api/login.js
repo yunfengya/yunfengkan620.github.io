@@ -1,59 +1,23 @@
-import request from '@/utils/request'
-
-// 登录方法
-export function login(username, password, code, uuid) {
-  const data = {
-    username,
-    password,
-    code,
-    uuid
-  }
-  return request({
-    url: '/login',
-    headers: {
-      isToken: false
+export const queryFace = () => {
+  return Promise.resolve({
+    status: 200,
+    message: "ok",
+    data: {
+      image: "", //识别人脸背景图片
+      witdh: "", // 图片宽度
+      hegith: "", //图片高度
+      //人脸数据集合
+      list: [
+        {
+          id: 1, //唯一标识
+          gender: 1, // 性别表示
+          scacle: 1, //距离缩放表示
+          location: {
+            x: "", //人脸的x坐标
+            y: "", //人脸的y坐标
+          },
+        },
+      ],
     },
-    method: 'post',
-    data: data
-  })
-}
-
-// 注册方法
-export function register(data) {
-  return request({
-    url: '/register',
-    headers: {
-      isToken: false
-    },
-    method: 'post',
-    data: data
-  })
-}
-
-// 获取用户详细信息
-export function getInfo() {
-  return request({
-    url: '/getInfo',
-    method: 'get'
-  })
-}
-
-// 退出方法
-export function logout() {
-  return request({
-    url: '/logout',
-    method: 'post'
-  })
-}
-
-// 获取验证码
-export function getCodeImg() {
-  return request({
-    url: '/captchaImage',
-    headers: {
-      isToken: false
-    },
-    method: 'get',
-    timeout: 20000
-  })
-}
+  });
+};

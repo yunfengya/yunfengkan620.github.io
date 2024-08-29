@@ -1,111 +1,109 @@
 <template>
-  <div :class="classObj" class="app-wrapper" :style="{'--current-color': theme}">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
-    <sidebar v-if="!sidebar.hide" class="sidebar-container"/>
-    <div :class="{hasTagsView:needTagsView,sidebarHide:sidebar.hide}" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <navbar/>
-        <tags-view v-if="needTagsView"/>
-      </div>
-      <app-main/>
-      <right-panel>
-        <settings/>
-      </right-panel>
+  <div class="wrapper">
+    <div class="container" :class="classObj">
+      <!-- <div
+        class="sidebar-container"
+        :style="{ width: sidebar ? '54px' : '220px' }"
+      >
+        <sidebar></sidebar>
+      </div> -->
+      <el-container>
+        <el-aside :style="{ width: sidebar ? '54px' : '200px' }">
+                   
+          <div class="sidebar-container">        <sidebar></sidebar>      </div>
+                 
+        </el-aside>
+
+        <el-main class="main">
+          <div class="main_hd">
+            <Header></Header>
+          </div>
+          <div class="main_content">
+            <Main> </Main>
+          </div>
+        </el-main>
+      </el-container>
+      <!-- <div class="main">
+        <Header></Header>
+        <Main> </Main>
+      </div> -->
     </div>
   </div>
 </template>
-
 <script>
-import RightPanel from '@/components/RightPanel'
-import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
-import { mapState } from 'vuex'
-import variables from '@/assets/styles/variables.scss'
-
+import Main from './components/main.vue'
+import sidebar from './components/sidebar.vue'
+import Header from './components/header.vue'
+import { mapGetters } from 'vuex'
 export default {
-  name: 'Layout',
-  components: {
-    AppMain,
-    Navbar,
-    RightPanel,
-    Settings,
-    Sidebar,
-    TagsView
-  },
-  mixins: [ResizeMixin],
   computed: {
-    ...mapState({
-      theme: state => state.settings.theme,
-      sideTheme: state => state.settings.sideTheme,
-      sidebar: state => state.app.sidebar,
-      device: state => state.app.device,
-      needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
-    }),
+    ...mapGetters(['sidebar']),
     classObj() {
       return {
-        hideSidebar: !this.sidebar.opened,
-        openSidebar: this.sidebar.opened,
-        withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
+        hideSidebar: this.sidebar,
       }
     },
-    variables() {
-      return variables;
-    }
   },
-  methods: {
-    handleClickOutside() {
-      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
-    }
-  }
+  components: {
+    sidebar,
+    Header,
+    Main,
+  },
+  name: 'Layout',
+  data() {
+    return {}
+  },
+  created() {
+    // console.log(this.$route, '路由模块')
+  },
+  watch: {
+    $route(route) {},
+  },
 }
 </script>
-
 <style lang="scss" scoped>
-  @import "~@/assets/styles/mixin.scss";
-  @import "~@/assets/styles/variables.scss";
-
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    height: 100%;
-    width: 100%;
-
-    &.mobile.openSidebar {
-      position: fixed;
-      top: 0;
-    }
-  }
-
-  .drawer-bg {
-    background: #000;
-    opacity: 0.3;
-    width: 100%;
-    top: 0;
-    height: 100%;
-    position: absolute;
-    z-index: 999;
-  }
-
-  .fixed-header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9;
-    width: calc(100% - #{$base-sidebar-width});
-    transition: width 0.28s;
-  }
-
-  .hideSidebar .fixed-header {
-    width: calc(100% - 54px);
-  }
-
-  .sidebarHide .fixed-header {
-    width: 100%;
-  }
-
-  .mobile .fixed-header {
-    width: 100%;
-  }
+@import '../style/sidebar.scss';
+.wrapper {
+  position: relative;
+  height: 100vh;
+}
+.container {
+  // min-height: calc(100vh - 84px);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.sidebar-container {
+  width: 200px;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+  // overflow: hidden;
+  // box-sizing: border-box;
+  // padding: 20px;
+}
+// ::v-deep .el-header {
+//   padding: 0;
+// }
+::v-deep .el-main {
+  padding: 5px;
+}
+::v-deep .el-aside {
+  transition: 0.5s ease-in;
+}
+.main_hd {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 110;
+}
+.main_content {
+  flex: 1;
+  padding-top: 50px;
+}
 </style>
