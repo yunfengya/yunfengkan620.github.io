@@ -1,6 +1,7 @@
 <template>
   <div class="logo">
-    <img src="https://dbyxs.xyz:3006/uploads/fae4e814a5d9510d10277ff78ea6dc12" alt="">
+    <!-- <img src="https://dbyxs.xyz:3006/uploads/fae4e814a5d9510d10277ff78ea6dc12" alt=""> -->
+    <img src="../../assets/cartoonFigure.png" alt="">
     <div class="pc_name">后台管理系统</div>
   </div>
 </template>
