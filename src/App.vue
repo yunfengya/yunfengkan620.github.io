@@ -1,51 +1,28 @@
 <template>
   <div id="app">
     <router-view />
+    <theme-picker />
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
+import ThemePicker from "@/components/ThemePicker";
 
 export default {
-  name: 'App',
-  components: {
-    // HelloWorld
-  },
-  deleted() {
-    window.onresize = null
-  },
-  methods: {
-    handleScreen() {
-      const w = 1920
-      const h = 960
-      const scale =
-        document.documentElement.clientWidth /
-          document.documentElement.clientHeight <
-        w / h
-          ? document.documentElement.clientWidth / w
-          : document.documentElement.clientHeight / h
-      //缩放比例
-      document.querySelector(
-        '#app'
-      ).style.transform = `scale(${scale}) translate(-50%)`
-    },
-  },
-  mounted() {
-    // this.handleScreen()
-    // window.onresize = () => this.handleScreen()
-  },
-}
+  name: "App",
+  components: { ThemePicker },
+    metaInfo() {
+        return {
+            title: this.$store.state.settings.dynamicTitle && this.$store.state.settings.title,
+            titleTemplate: title => {
+                return title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
+            }
+        }
+    }
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  color: #2c3e50;
-
-  /* margin-top: 60px; */
+<style scoped>
+#app .theme-picker {
+  display: none;
 }
 </style>

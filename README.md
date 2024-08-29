@@ -1,26 +1,28 @@
-# admin_pc
-```
-我的记录项目，vue2
-```
-## Project setup
-```
+## 开发
+
+```bash
+# ruoyi项目
+模版更改后的前端，去除接口
+
+
+# 安装依赖
 npm install
+
+# 建议不要直接使用 cnpm 安装依赖，会有各种诡异的 bug。可以通过如下操作解决 npm 下载速度慢的问题
+npm install --registry=https://registry.npmmirror.com
+
+# 启动服务
+npm run dev
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+浏览器访问 http://localhost:80
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 发布
 
-### Lints and fixes files
-```
-npm run lint
-```
+```bash
+# 构建测试环境
+npm run build:stage
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# 构建生产环境
+npm run build:prod
+```
