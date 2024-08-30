@@ -1,6 +1,6 @@
 <template>
-    <div class="app-container">
-        <h1>待开发2</h1>
+    <div class="contain_box">
+        <h1>待开发1</h1>
     </div>
 </template>
 <script>
@@ -18,11 +18,17 @@ export default {
     methods: {},
 };
 </script>
-
+  
 <style scoped lang="scss">
-h1 {
-    font-size: 3rem;
-    color: #b4a4a4;
-    text-align: center;
+.contain_box {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    h1 {
+        font-size: 3rem;
+        color: #b4a4a4;
+        text-align: center;
+    }
 }
 </style>

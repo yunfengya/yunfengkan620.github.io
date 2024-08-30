@@ -1,11 +1,34 @@
 <template>
-  <div>管理1员12131</div>
+  <div class="contain_box">
+      <h1>待开发1</h1>
+  </div>
 </template>
 <script>
 export default {
-  name: 'page',
+  name: "index",
+  components: {},
   data() {
-    return {}
+      return {
+          // 遮罩层
+          loading: true,
+      };
   },
-}
+  watch: {},
+  created() { },
+  methods: {},
+};
 </script>
+
+<style scoped lang="scss">
+.contain_box {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  h1 {
+      font-size: 3rem;
+      color: #b4a4a4;
+      text-align: center;
+  }
+}
+</style>

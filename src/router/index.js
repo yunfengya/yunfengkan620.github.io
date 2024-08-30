@@ -4,9 +4,7 @@ import Router from "vue-router";
 import { adaikaifa } from "./modules/adaikaifa.js";
 import { admin } from "./modules/admin";
 import { chart } from "./modules/chart";
-import { Project } from "./modules/project";
 import { a_b_daikaifa } from "./modules/a_b_daikaifa";
-import { keyProject } from "./modules/keyProject";
 Vue.use(Router);
 export const adminRouter = [
   // {
@@ -52,9 +50,7 @@ export const routerPath = [
   ...a_b_daikaifa,
   ...adaikaifa,
 
-  ...Project,
   ...admin,
-  ...keyProject,
   ...chart,
 ];
 // 防止连续点击多次路由报错

@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="contain_box">
     <div
       class="main_face"
       v-for="item in data"
@@ -35,10 +35,11 @@ export default {
 }
 </script>
 <style scoped>
-.main {
+.contain_box {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: auto;
   background-color: aqua;
 }
 .main_face {

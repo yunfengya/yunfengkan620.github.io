@@ -91,7 +91,7 @@ export default {
 //   padding: 0;
 // }
 ::v-deep .el-main {
-  padding: 5px;
+  padding: 0px;
 }
 ::v-deep .el-aside {
   transition: 0.5s ease-in;
@@ -103,7 +103,9 @@ export default {
   z-index: 110;
 }
 .main_content {
-  flex: 1;
-  padding-top: 50px;
+  // flex: 1;
+  height: calc(100% - 54px);
+  overflow: hidden;
+  padding-top: 54px;
 }
 </style>

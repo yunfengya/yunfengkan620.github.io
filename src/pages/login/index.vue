@@ -94,7 +94,7 @@ export default {
 .login_in {
   width: 400px;
   height: 300px;
-  background: #fff;
+  background: #c4c2c2;
   transition: ease-in-out 0.5s;
 }
 .login_form {
