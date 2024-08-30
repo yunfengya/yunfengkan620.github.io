@@ -22,7 +22,7 @@ export default {
 <style scoped lang="less">
 h1 {
     font-size: 3rem;
-    color: #fff;
+    color: #f79595;
     text-align: center;
 }
 </style>

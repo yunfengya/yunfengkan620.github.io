@@ -48,6 +48,10 @@ export default {
           title: '首页'
         },
         {
+          link: '/daikaifa',
+          title: '待开发模版'
+        },
+        {
           link: '/ArticleList',
           title: '文章列表'
         },

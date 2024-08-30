@@ -15,9 +15,7 @@
           <el-link type="primary" @click="gotoDetail(row)">进入详情</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
-        <button @click="daikaifaFn()">go待开发</button>
-      </el-table-column>
+      
     </el-table>
     <el-pagination
       :currentPage.sync="currentPage"
@@ -67,14 +65,7 @@ export default {
         }
       });
     },
-    daikaifaFn () {
-      this.$router.push({
-        path: "/ArticleList/daikaifa",
-        // query: {
-        //   id:row.id,
-        // }
-      });
-    },
+    
   },
   created () {
     this.getData()
