@@ -5,9 +5,10 @@ export const adaikaifa = [
     path: "/adaikaifaAll",
     component: Layout,
     name: "adaikaifaAll",
+    redirect: '/adaikaifaAll/daikaifaOne',
     meta: {
-      title: "待开发菜单",
-      icon: "el-icon-s-home",
+      title: "待开发多页菜单",
+      icon: "el-icon-star-on",
     },
     children: [
       {
@@ -15,7 +16,7 @@ export const adaikaifa = [
         component: () => import("@/pages/adaikaifaAll/daikaifaOne.vue"),
         meta: {
           title: "待开发1",
-          icon: "el-icon-s-home",
+          icon: "el-icon-star-on",
         },
       },
       {
@@ -23,7 +24,7 @@ export const adaikaifa = [
         component: () => import("@/pages/adaikaifaAll/daikaifaTwo.vue"),
         meta: {
           title: "待开发2",
-          icon: "el-icon-s-home",
+          icon: "el-icon-star-on",
         },
       },
     ],

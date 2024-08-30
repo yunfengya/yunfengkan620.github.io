@@ -11,16 +11,17 @@ export const admin = [
     },
     children: [
       {
-        hidden: true,
-        path: 'page',
+        // hidden: true,//
+        path: '/admin/page',
         name: 'page',
         component: () => import('@/pages/admin/index'),
         meta: {
           title: '管理',
+          icon: 'el-icon-coordinate',
         },
       },
       {
-        path: 'user',
+        path: '/admin/user',
         name: 'user',
         component: () => import('@/pages/admin/user'),
         meta: {
@@ -29,7 +30,7 @@ export const admin = [
         },
       },
       {
-        path: 'adduser',
+        path: '/admin/adduser',
         name: 'adduser',
         component: () => import('@/pages/admin/adduser'),
         meta: {

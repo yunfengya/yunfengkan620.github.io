@@ -5,7 +5,7 @@ import { adaikaifa } from "./modules/adaikaifa.js";
 import { admin } from "./modules/admin";
 import { chart } from "./modules/chart";
 import { Project } from "./modules/project";
-import { jsPlumb } from "./modules/jsPlumb";
+import { a_b_daikaifa } from "./modules/a_b_daikaifa";
 import { keyProject } from "./modules/keyProject";
 Vue.use(Router);
 export const adminRouter = [
@@ -40,21 +40,22 @@ export const routerPath = [
       {
         path: "/home",
         component: () => import("@/pages/home/index"),
+        // hidden: true,//设置不显示菜单
         name: "home",
         meta: {
           title: "首页",
-          icon: "el-icon-grape",
+          icon: "el-icon-s-home",
         },
       },
     ],
   },
+  ...a_b_daikaifa,
   ...adaikaifa,
 
   ...Project,
   ...admin,
   ...keyProject,
   ...chart,
-  ...jsPlumb,
 ];
 // 防止连续点击多次路由报错
 let routerPush = Router.prototype.push;

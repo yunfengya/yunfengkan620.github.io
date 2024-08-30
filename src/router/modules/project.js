@@ -3,15 +3,15 @@ export const Project = [
   {
     path: "/projectlist",
     component: Layout,
-    redirect: "/projectlist",
+    redirect: "/projectlist/table",
     name: "projectlist",
     meta: {
       title: "项目列表",
-      icon: "el-icon-s-home",
+      icon: "el-icon-folder-checked",
     },
     children: [
       {
-        path: "/table",
+        path: "/projectlist/table",
         component: (resolve) => require(["@/pages/table/index.vue"], resolve),
         name: "table",
         meta: {
@@ -20,7 +20,7 @@ export const Project = [
         },
       },
       {
-        path: "/bubbleTable",
+        path: "/projectlist/bubbleTable",
         component: () => import("@/pages/table/bubbleTable/index.vue"),
         name: "bubbleTable",
         meta: {
@@ -29,7 +29,7 @@ export const Project = [
         },
       },
       {
-        path: "/margeTable",
+        path: "/projectlist/margeTable",
         component: (resolve) =>
           require(["@/pages/margeTable/index.vue"], resolve),
         name: "margeTable",
@@ -39,7 +39,7 @@ export const Project = [
         },
       },
       {
-        path: "project",
+        path: "/projectlist/project",
         component: () => import("@/pages/project"),
         name: "project",
         meta: {
@@ -48,7 +48,7 @@ export const Project = [
         },
       },
       {
-        path: "label",
+        path: "/projectlist/label",
         component: () => import("@/pages/label"),
         name: "label",
         meta: {
@@ -57,7 +57,7 @@ export const Project = [
         },
       },
       {
-        path: "echarts",
+        path: "/projectlist/echarts",
         component: () => import("@/pages/echarts"),
         name: "echarts",
         meta: {
@@ -66,7 +66,7 @@ export const Project = [
         },
       },
       {
-        path: "editor",
+        path: "/projectlist/editor",
         component: () => import("@/pages/editor"),
         name: "editor",
         meta: {
@@ -75,13 +75,13 @@ export const Project = [
         },
       },
       {
-        path: "/projectlists",
+        path: "/projectlist/projectlists",
         name: "projectlists",
         component: () => import("@/pages/projectList/index"),
         hidden: true,
       },
       {
-        path: "/list",
+        path: "/projectlist/list",
         name: "list",
         component: () => import("@/pages/list/index"),
         meta: {
@@ -90,7 +90,7 @@ export const Project = [
         },
       },
       {
-        path: "/select",
+        path: "/projectlist/select",
         name: "select",
         component: () => import("@/pages/select/index"),
         meta: {

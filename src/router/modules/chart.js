@@ -5,6 +5,7 @@ export const chart = [
     path: "/chart",
     component: Layout,
     name: "chart",
+    redirect: '/chart/index',
     meta: {
       title: "关系图",
       icon: "el-icon-grape",
@@ -14,7 +15,7 @@ export const chart = [
         path: "/chart/index",
         component: () => import("@/pages/chart/index.vue"),
         meta: {
-          title: "关系图",
+          title: "关系图1",
           icon: "el-icon-grape",
         },
       },

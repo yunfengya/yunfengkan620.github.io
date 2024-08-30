@@ -13,54 +13,58 @@ export const keyProject = [
       title: '重点项目管理',
     },
     children: [
+      // 1
       {
-        path: 'portrait',
-        name: 'portrait',
-        component: () => import('@/pages/keyProjects/projectPortrait/index'),
-        meta: { title: '项目画像', icon: 'el-icon-folder-add' },
-      },
-      {
-        path: 'index',
+        path: '/keyproject/index',
         component: () => import('@/pages/keyProjects/index'), // Parent router-view
         name: 'keyproject',
         meta: { title: '重点项目库', icon: 'el-icon-folder-add' },
       },
       {
-        path: 'addproject',
+        path: '/keyproject/addproject',
         component: () => import('@/pages/keyProjects/keyproject/addProject'), // Parent router-view
         name: 'addproject',
         hidden: true,
         meta: { title: '新建项目' },
       },
       {
-        path: 'editproject',
+        path: '/keyproject/editproject',
         component: () => import('@/pages/keyProjects/keyproject/addProject'), // Parent router-view
         name: 'editproject',
         hidden: true,
         meta: { title: '编辑项目' },
       },
       {
-        path: 'seeproject',
+        path: '/keyproject/seeproject',
         component: () => import('@/pages/keyProjects/keyproject/seeProject'), // Parent router-view
         name: 'seeproject',
         hidden: true,
         meta: { title: '查看项目' },
       },
       {
-        path: 'projectfile',
+        path: '/keyproject/projectfile',
         component: () => import('@/pages/keyProjects/keyproject/projectFile'), // Parent router-view
         name: 'projectfile',
         hidden: true,
         meta: { title: '项目文件归档', icon: 'el-icon-folder-add' },
       },
+      // 2
       {
-        path: 'intention',
+        path: '/keyproject/portrait',
+        name: 'portrait',
+        component: () => import('@/pages/keyProjects/projectPortrait/index'),
+        meta: { title: '项目画像', icon: 'el-icon-folder-add' },
+      },
+      
+      
+      {
+        path: '/keyproject/intention',
         component: () => import('@/pages/keyProjects/intentionProject/index'), // Parent router-view
         name: 'intention',
         meta: { title: '意向项目库', icon: 'el-icon-folder-add' },
       },
       {
-        path: 'progress',
+        path: '/keyproject/progress',
         component: () => import('@/pages/keyProjects/projectProgress/index'), // Parent router-view
         name: 'progress',
         meta: { title: '项目进展概览', icon: 'el-icon-folder-add' },
