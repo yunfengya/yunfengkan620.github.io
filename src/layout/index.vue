@@ -91,19 +91,19 @@ export default {
 //   padding: 0;
 // }
 ::v-deep .el-main {
-  padding: 5px;
+  padding: 0px;
 }
 ::v-deep .el-aside {
   transition: 0.5s ease-in;
 }
 .main_hd {
-  position: fixed;
-  top: 0;
+  // position: fixed;
+  // top: 0;
   width: 100%;
   z-index: 110;
 }
 .main_content {
   flex: 1;
-  padding-top: 50px;
+  padding-top: 0px;
 }
 </style>

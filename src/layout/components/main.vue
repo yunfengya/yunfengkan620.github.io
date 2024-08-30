@@ -24,7 +24,8 @@ export default {
 <style scoped>
 .content {
   background-color: #f0f2f5;
-  padding: 10px;
+  /* padding: 10px; */
+  padding: 0px;
   height: 100%;
 }
 .app-main {
@@ -36,7 +37,8 @@ export default {
   /* height: 100vh; */
   padding: 15px;
   /* background-color: #f0f2f5; */
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: transparent;
   box-sizing: border-box;
 }
 
