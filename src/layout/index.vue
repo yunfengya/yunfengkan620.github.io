@@ -97,13 +97,14 @@ export default {
   transition: 0.5s ease-in;
 }
 .main_hd {
-  // position: fixed;
-  // top: 0;
+  position: fixed;
+  top: 0;
   width: 100%;
   z-index: 110;
 }
 .main_content {
-  flex: 1;
-  padding-top: 0px;
+  // flex: 1;
+  height: calc(100% - 54px);
+  padding-top: 54px;
 }
 </style>
