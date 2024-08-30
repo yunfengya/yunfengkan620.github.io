@@ -35,7 +35,7 @@ export default {
   /* min-height: calc(100vh- 50px); */
   height: 100%;
   /* height: 100vh; */
-  padding: 15px;
+  padding: 10px;
   /* background-color: #f0f2f5; */
   /* background-color: #fff; */
   background-color: transparent;

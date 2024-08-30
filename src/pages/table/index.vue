@@ -314,9 +314,10 @@ export default {
 </script>
 <style scoped lang="scss">
 .table {
+  height: 100%;
   /* margin: 20px; */
   /* background: #fff; */
-  overflow: hidden;
+  overflow: auto;
   /* height: 100%; */
   /* padding: 10px; */
 }

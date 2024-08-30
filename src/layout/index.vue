@@ -105,6 +105,7 @@ export default {
 .main_content {
   // flex: 1;
   height: calc(100% - 54px);
+  overflow: hidden;
   padding-top: 54px;
 }
 </style>
