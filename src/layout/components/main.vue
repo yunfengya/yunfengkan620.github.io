@@ -25,8 +25,9 @@ export default {
 .content {
   background-color: #f0f2f5;
   /* padding: 10px; */
-  padding: 0px;
-  height: 100%;
+  padding: 10px;
+  height: calc(100% - 20px);
+  overflow: hidden;
 }
 .app-main {
   /* padding: 10px; */
@@ -35,7 +36,8 @@ export default {
   /* min-height: calc(100vh- 50px); */
   height: 100%;
   /* height: 100vh; */
-  padding: 10px;
+  padding: 0px;
+  /* overflow: auto; */
   /* background-color: #f0f2f5; */
   /* background-color: #fff; */
   background-color: transparent;
