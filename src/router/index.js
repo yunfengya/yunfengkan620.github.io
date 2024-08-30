@@ -9,6 +9,29 @@ import { jsPlumb } from "./modules/jsPlumb";
 import { keyProject } from "./modules/keyProject";
 Vue.use(Router);
 export const adminRouter = [
+  // {
+  //   path: "/",
+  //   component: Layout,
+  //   redirect: "/home",
+  //   children: [
+  //     {
+  //       path: "/home",
+  //       component: () => import("@/pages/home/index"),
+  //       name: "home",
+  //       meta: {
+  //         title: "首页",
+  //         icon: "el-icon-grape",
+  //       },
+  //     },
+  //   ],
+  // },
+  {
+    path: "/login",
+    component: () => import("@/pages/login/index"),
+    hidden: true,//设置不显示菜单
+  },
+];
+export const routerPath = [
   {
     path: "/",
     component: Layout,
@@ -18,16 +41,13 @@ export const adminRouter = [
         path: "/home",
         component: () => import("@/pages/home/index"),
         name: "home",
+        meta: {
+          title: "首页",
+          icon: "el-icon-grape",
+        },
       },
     ],
   },
-  {
-    path: "/login",
-    component: () => import("@/pages/login/index"),
-    hidden: true,
-  },
-];
-export const routerPath = [
   ...adaikaifa,
 
   ...Project,
@@ -47,5 +67,7 @@ const createRouter = () =>
     scrollBehavior: () => ({ y: 0 }),
     routes: adminRouter.concat(routerPath),
   });
+console.log(routerPath);
+console.log(adminRouter);
 const router = createRouter();
 export default router;
