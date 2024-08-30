@@ -31,9 +31,31 @@ const routes = [
           keepAlive: true,
           title: '文章列表'
         },
+        children: [
+          // {
+          //   path: '/ArticleList/articleDetail',
+          //   component: () => import('@/views/ArticleList/ArticleDetail.vue'),
+          //   name: 'articleDetail',
+          //   props: true,
+          //   meta: {
+          //     keepAlive: true,
+          //     title: '文章详情'
+          //   }
+          // },
+          {
+            path: '/ArticleList/daikaifa',
+            component: () => import('@/views/ArticleList/daikaifa.vue'),
+            name: 'daikaifa',
+            props: true,
+            meta: {
+              keepAlive: true,
+              title: '待开发'
+            }
+          },
+        ],
       },
       {
-        path: '/ArticleList/articleDetail/:id',
+        path: '/ArticleList/articleDetail',
         component: () => import('@/views/ArticleList/ArticleDetail.vue'),
         name: 'articleDetail',
         props: true,
@@ -87,10 +109,15 @@ const routes = [
   }
 ]
 
+// 防止连续点击多次路由报错
+let routerPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(err => err)
+}
 Vue.use(Router)
 
 const router = new Router({
-  // mode: 'history',
+  // mode: 'history',// 去掉url中的#
   routes
 })
 
