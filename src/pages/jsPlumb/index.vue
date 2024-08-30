@@ -1,0 +1,197 @@
+<template>
+  <div>
+    <div id="diagramContainer">
+      <div class="list" v-for="item in list" :key="item.id" :id="item.id">
+        <div class="list_title">{{ item.text }}</div>
+        <div
+          class="list_item"
+          v-for="Item in item.list"
+          :key="Item.id"
+          :id="Item.id"
+        >
+          {{ Item.text }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import jsPlumb from 'jsplumb'
+export default {
+  data () {
+    return {
+      jsPlumb: null,
+      isDarg: false,
+      list: [
+        { id: 'a', text: '测试A', list: [{ text: '字段a', id: 'a1' }] },
+        { id: 'b', text: '测试B', list: [{ text: '字段b', id: 'b1' }] },
+        { id: 'c', text: '测试C', list: [{ text: '字段c', id: 'c1' }] }
+      ],
+      lineList: [{ from: 'a', to: 'b' }, { from: 'b', to: 'c' }]
+    }
+  },
+  mounted () {
+    console.log('执行', jsPlumb)
+    const jsPlumb_ = jsPlumb.jsPlumb
+    this.jsPlumb = jsPlumb_.getInstance({
+      Container: 'container', // 选择器id
+      EndpointStyle: { radius: 0.11, fill: '#999' }, // 端点样式
+      PaintStyle: { stroke: '#999', strokeWidth: 2 }, // 绘画样式，默认8px线宽  #456
+      HoverPaintStyle: { stroke: '#994B0A', strokeWidth: 3 }, // 默认悬停样式  默认为null
+      ConnectionOverlays: [ // 此处可以设置所有箭头的样式
+        ['Arrow', { // 设置参数可以参考中文文档
+          location: 1,
+          length: 12,
+          paintStyle: {
+            stroke: 'red',//箭头颜色
+            fill: '#999'
+          },
+
+        }]
+      ],
+      Connector: ['Straight'], // 要使用的默认连接器的类型：直线，折线，曲线等
+      DrapOptions: { cursor: 'crosshair', zIndex: 2000 }
+    }),
+
+      //   this.jsPlumb.ready(function () {
+      //     this.jsPlumb.connect({
+      //       source: 'item_left',
+      //       target: 'item_right',
+      //       paintStyle: { stroke: 'lightgray', strokeWidth: 3 },
+      //       endpointStyle: { fill: 'lightgray', outlineStroke: 'darkgray', outlineWidth: 2 }
+      //     })
+      //   })
+      this.lineOver()
+    // jsPlumb_.draggable('item_left')
+    // jsPlumb_.draggable('item_right')
+  },
+  methods: {
+    lineOver () {
+      const jsplumbConnectOptions = {
+        isSource: true,
+        isTarget: true,
+        connector: ['Straight'],
+        isSource: true,
+        isTarget: true,
+        connector: 'Straight',
+        endpoint: 'Dot',
+        paintStyle: {
+          fill: 'white',
+          outlineStroke: 'blue',
+          strokeWidth: 3
+        },
+        hoverPaintStyle: {
+          outlineStroke: 'lightblue',
+          cursor: 'pointer'
+        },
+        connectorStyle: {
+          outlineStroke: 'green',
+          strokeWidth: 1
+        },
+        connectorHoverStyle: {
+          strokeWidth: 2
+        },
+        // 动态锚点、提供了4个方向 Continuous、AutoDefault
+        anchors: ['Right', 'Left']
+      }
+      this.jsPlumb.deleteEveryConnection()
+      for (var i = 0; i < this.lineList.length; i++) {
+        let line = this.lineList[i]
+        const setting = {
+          source: line.from,
+          target: line.to,
+          paintStyle: { stroke: 'lightgray', strokeWidth: 3, color: 'red' },
+          hoverPaintStyle: {
+            outlineStroke: 'lightblue',
+            cursor: 'none',
+            color: 'red'
+          },
+          endpointStyle: { fill: 'lightgray', outlineStroke: 'darkgray', outlineWidth: 2 },
+          //   overlays: [['Custom', {
+          //     create: function () {
+          //       const d = document.createElement('div')
+          //       d.innerHTML = '<div>添加</div>'
+          //       return d
+          //     },
+          //     LabelStyle: { color: "red" },
+          //     paintStyle: { stroke: 'lightgray', strokeWidth: 3, },
+          //     hoverPaintStyle: {
+          //       outlineStroke: 'lightblue',
+          //       cursor: 'none',
+          //       color: 'red'
+          //     },
+          //     location: 0.5,
+          //     click: (e) => {
+          //       console.log(e, '点击了')
+          //     }
+          //   }]],
+          overlays: [
+            ["Label", { label: "foo", id: "label", color: 'red', location: 0.5, id: 'myLabel' }]
+          ],
+          connectorOverlays: [
+            ["Arrow", { width: 10, length: 30, location: 1, id: "arrow" }],
+            ["Label", { label: "foo", id: "label" }]
+          ],
+        }
+        this.jsPlumb.connect(setting, jsplumbConnectOptions);
+        this.jsPlumb.draggable(line.from)
+        var overlay = this.jsPlumb.getOverlay("myLabel");
+        // now you can hide this Overlay:
+        overlay.setVisible(false);
+        // there are also hide/show methods:
+        overlay.show();
+        overlay.hide();
+        // const _jsplumn = this.jsPlumb
+        // _jsplumn.bind('connectionMoved', function (params) {
+        //   console.log(params, '>><<<')
+        // })
+        for (let i = 0; i < this.list.length; i++) {
+          this.draggable(this.list[i])
+
+        }
+      }
+
+    },
+    draggable (e) {
+      const _that = this
+      this.jsPlumb.draggable(e.id, {
+        start () {
+          _that.isDarg = true
+        },
+        stop ({ el, pos }) {
+          e.left = pos[0]
+          e.top = pos[1]
+          setTimeout(() => {
+            _that.isDarg = false
+          })
+          console.log(pos)
+        }
+      })
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+#diagramContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  justify-content: space-between;
+  .list {
+    width: 140px;
+    border: 1px solid #00ff66;
+
+    .list_title {
+      height: 32px;
+      line-height: 32px;
+      padding-left: 12px;
+    }
+    .list_item {
+      height: 28px;
+      line-height: 28px;
+      padding-left: 12px;
+    }
+  }
+}
+</style>
