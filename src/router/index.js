@@ -4,7 +4,7 @@ import Router from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('@/layout/Index.vue'),
+    component: () => import('@/layout/index.vue'),
     children: [
       // 首页
       {
@@ -12,7 +12,7 @@ const routes = [
         component: () => import('@/views/Home.vue'),
         name: 'home',
         meta: {
-          // keepAlive: true,
+          keepAlive: true,
           title: '首页'
         }
       },
