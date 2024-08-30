@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-        <h1>待开发</h1>
+        <h1>待开发1</h1>
     </div>
 </template>
 <script>
