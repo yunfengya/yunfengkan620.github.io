@@ -11,10 +11,11 @@ module.exports = {
   assetsDir: 'static',
   productionSourceMap: false,
   devServer: {
+    // host: '127.0.0.1',
+    host: "localhost",
     port: 8080,
     open: true,
     hot: true,
-    host: '127.0.0.1',
     // overlay: {
     //   warnings: false,
     //   errors: true,
