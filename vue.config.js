@@ -6,7 +6,8 @@ function resolve(dir) {
 module.exports = {
   // transpileDependencies: true,
   lintOnSave: false,
-  publicPath: '/',
+  // publicPath: '/',
+  publicPath: '/yunfengkan620.github.io/',
   outputDir: 'dist',
   assetsDir: 'static',
   productionSourceMap: false,
