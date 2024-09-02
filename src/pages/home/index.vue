@@ -103,9 +103,6 @@ export default {
     }
   }
 
-  .DVD_box {
-    
-  }
 
 }
 </style>
