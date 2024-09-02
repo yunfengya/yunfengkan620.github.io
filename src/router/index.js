@@ -1,9 +1,9 @@
 import Layout from "@/layout/index.vue";
 import Vue from "vue";
 import Router from "vue-router";
-import { adaikaifa } from "./modules/adaikaifa.js";
+import { adaikaifaAll } from "./modules/adaikaifaAll.js";
 import { admin } from "./modules/admin";
-import { a_b_daikaifa } from "./modules/a_b_daikaifa";
+import { adaikaifaOnly } from "./modules/adaikaifaOnly";
 Vue.use(Router);
 export const adminRouter = [
   // {
@@ -46,8 +46,8 @@ export const routerPath = [
       },
     ],
   },
-  ...a_b_daikaifa,
-  ...adaikaifa,
+  ...adaikaifaAll,
+  ...adaikaifaOnly,
 
   ...admin,
 ];

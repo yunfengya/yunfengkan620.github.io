@@ -1,6 +1,6 @@
 import Layout from "@/layout/index.vue";
 
-export const adaikaifa = [
+export const adaikaifaAll = [
   {
     path: "/adaikaifaAll",
     component: Layout,
