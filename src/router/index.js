@@ -1,9 +1,10 @@
 import Layout from "@/layout/index.vue";
 import Vue from "vue";
 import Router from "vue-router";
+import { cssGongNeng } from "./modules/cssGongNeng.js";
 import { adaikaifaAll } from "./modules/adaikaifaAll.js";
-import { admin } from "./modules/admin";
 import { adaikaifaOnly } from "./modules/adaikaifaOnly";
+import { admin } from "./modules/admin";
 Vue.use(Router);
 export const adminRouter = [
   // {
@@ -46,6 +47,7 @@ export const routerPath = [
       },
     ],
   },
+  ...cssGongNeng,
   ...adaikaifaAll,
   ...adaikaifaOnly,
 
