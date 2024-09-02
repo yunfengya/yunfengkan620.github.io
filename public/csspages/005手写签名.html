@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写签名</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f0f0f0;
+        }
+        .btn_all {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 10vh;
+            background-color: #f0f0f0;
+        }
+        #cvs {
+            background-color: #dddddd;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #signatureImage {
+            display: none;
+            border: 1px orange solid;
+            margin-top: 20px;
+        }
+        #colorPicker {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="btn_all">
+        <button onclick="onClear()">清除</button>
+        <button onclick="onRotate()">旋转</button>
+        <button onclick="onDownload()">下载</button>
+        <button onclick="onSubmit()">提交</button>
+        <input type="color" id="colorPicker" value="#000000" />
+    </div>
+    <canvas id="cvs" width="400" height="300"></canvas>
+    <img id="signatureImage" alt="Signature Image" />
+
+    <script>
+        const cvs = document.getElementById('cvs');
+        const ctx = cvs.getContext('2d');
+        let isDrawing = false;
+
+        // 设置初始颜色
+        ctx.strokeStyle = document.getElementById('colorPicker').value;
+
+        // 绘制签名的事件
+        const addEvents = (cvs, name, call) => {
+            const isMobile = navigator.userAgent.match(/Mobile/);
+            const mobileNameObj = {
+                'mousedown': 'touchstart',
+                'mousemove': 'touchmove',
+                'mouseup': 'touchend'
+            };
+            if (isMobile) {
+                cvs.addEventListener(mobileNameObj[name], e => {
+                    call(e.touches[0]);
+                });
+            } else {
+                cvs.addEventListener(name, e => {
+                    call(e);
+                });
+            }
+        };
+
+        addEvents(cvs, 'mousedown', e => {
+            isDrawing = true;
+            ctx.beginPath();  // 重置路径，防止之前的路径被重复使用
+            ctx.moveTo(e.pageX - cvs.offsetLeft, e.pageY - cvs.offsetTop);
+        });
+
+        addEvents(cvs, 'mousemove', e => {
+            if (isDrawing) {
+                ctx.lineWidth = 5;
+                ctx.lineTo(e.pageX - cvs.offsetLeft, e.pageY - cvs.offsetTop);
+                ctx.stroke();
+            }
+        });
+
+        addEvents(cvs, 'mouseup', () => {
+            isDrawing = false;
+        });
+
+        // 清除画布
+        const onClear = () => {
+            // 清除画布内容
+            ctx.clearRect(0, 0, cvs.width, cvs.height);
+            // 重新填充背景颜色
+            ctx.fillStyle = '#dddddd';
+            ctx.fillRect(0, 0, cvs.width, cvs.height);
+            // 隐藏签名图像
+            document.getElementById('signatureImage').style.display = 'none';
+        };
+
+        // 旋转画布
+        const onRotate = () => {
+            const img = new Image();
+            img.src = cvs.toDataURL('image/png');
+            img.onload = () => {
+                const { width, height } = cvs;
+                cvs.width = height;
+                cvs.height = width;
+                ctx.translate(cvs.width / 2, cvs.height / 2);
+                ctx.rotate(Math.PI / 2);
+                ctx.drawImage(img, -height / 2, -width / 2);
+                ctx.resetTransform();
+            };
+        };
+
+        // 下载签名
+        const onDownload = async () => {
+            const a = document.createElement('a');
+            a.setAttribute('download', 'signature.png');
+            a.href = cvs.toDataURL('image/png');
+            a.click();
+        };
+
+        // 提交签名
+        const onSubmit = async () => {
+            const signatureData = cvs.toDataURL('image/png');
+
+            // 显示签名图像
+            const signatureImage = document.getElementById('signatureImage');
+            signatureImage.src = signatureData;
+            signatureImage.style.display = 'block';
+
+            // 提交签名数据到服务器
+            try {
+                const response = await fetch('/submit-signature', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ signature: signatureData })
+                });
+                const result = await response.json();
+                alert('签名提交成功！');
+                console.log('Server response:', result);
+            } catch (error) {
+                alert('提交失败。');
+                console.error('Error:', error);
+            }
+        };
+
+        // 颜色选择器事件
+        document.getElementById('colorPicker').addEventListener('input', (e) => {
+            ctx.strokeStyle = e.target.value;
+        });
+
+        // 初始化画布背景色
+        ctx.fillStyle = '#dddddd';
+        ctx.fillRect(0, 0, cvs.width, cvs.height);
+    </script>
+</body>
+</html>
+
+

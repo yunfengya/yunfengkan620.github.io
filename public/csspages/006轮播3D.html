@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic 3D Carousel</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #333;
+        }
+        .carousel {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            perspective: 1500px; /* 增加透视距离，使3D效果更加明显 */
+        }
+        .carousel-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d; /* 保持3D效果 */
+            transition: transform 1s; /* 动画过渡效果 */
+            transform: rotateX(-10deg); /* 初始向下倾斜角度 */
+        }
+        .carousel-item {
+            border: 1px solid #f9e006;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: no-repeat center/cover; /* 背景图像的显示方式 */
+            transform: rotateY(0deg) translateZ(0px); /* 初始位置 */
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%); /* 垂直居中控制按钮 */
+        }
+        .button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 40px; /* 固定按钮宽度 */
+            height: 40px; /* 固定按钮高度 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #prev {
+            position: absolute;
+            left: -60px; /* 将“上一张”按钮放置在页面左侧 */
+        }
+        #next {
+            position: absolute;
+            right: -60px; /* 将“下一张”按钮放置在页面右侧 */
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <div class="carousel-inner">
+            <!-- 添加多个轮播项 -->
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            <div class="carousel-item" style="background-image: url('https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/24be1d43ab2540dda57f8d58950d372c~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?rk3s=f64ab15b&x-expires=1724639863&x-signature=31099zSfyq4NN8fMh2vbFG5q6DY%3D');"></div>
+            
+        </div>
+        <div class="controls">
+            <!-- 控制按钮 -->
+            <button class="button" id="prev">&lt;</button>
+            <button class="button" id="next">&gt;</button>
+        </div>
+    </div>
+
+    <script>
+        // 获取所有轮播项
+        const items = document.querySelectorAll('.carousel-item');
+        // 获取轮播内层
+        const inner = document.querySelector('.carousel-inner');
+        // 获取整个轮播容器
+        const carousel = document.querySelector('.carousel');
+        // 总轮播项数量
+        const totalItems = items.length;
+        // 每个轮播项之间的角度步进
+        const angleStep = 360 / totalItems;
+        // 基础半径
+        const baseRadius = 400; // 增加基础半径以保持更远的视角
+
+        // 当前旋转角度
+        let currentAngle = 0;
+        // 自动旋转定时器
+        let autoRotateInterval;
+        // 自动旋转方向，1 为顺时针，-1 为逆时针
+        let autoRotateDirection = 1;
+
+        // 更新轮播项的位置
+        function updateCarousel() {
+            // 计算最小半径，以确保图片不会太接近
+            const minRadius = 250;
+            const radius = Math.max(baseRadius / (2 * Math.tan(Math.PI / totalItems)), minRadius);
+            items.forEach((item, index) => {
+                // 设置每个轮播项的变换属性
+                item.style.transform = `rotateY(${index * angleStep}deg) translateZ(${radius}px)`;
+            });
+            // 设置轮播内层的变换属性
+            inner.style.transform = `rotateX(-10deg) rotateY(${currentAngle}deg)`;
+        }
+
+        // 旋转轮播
+        function rotateCarousel(step) {
+            currentAngle += step * angleStep;
+            inner.style.transform = `rotateX(-10deg) rotateY(${currentAngle}deg)`;
+        }
+
+        // 启动自动旋转
+        function startAutoRotate() {
+            autoRotateInterval = setInterval(() => rotateCarousel(autoRotateDirection), 2000); // 每1秒旋转一步
+        }
+
+        // 停止自动旋转
+        function stopAutoRotate() {
+            clearInterval(autoRotateInterval);
+        }
+
+        // 处理页面可见性变化
+        function handleVisibilityChange() {
+            if (document.visibilityState === 'visible') {
+                startAutoRotate();
+            } else {
+                stopAutoRotate();
+            }
+        }
+
+        // 上一张按钮事件处理
+        document.getElementById('prev').addEventListener('click', () => {
+            autoRotateDirection = -1; // 手动旋转时设置方向为逆时针
+            rotateCarousel(-1);
+        });
+
+        // 下一张按钮事件处理
+        document.getElementById('next').addEventListener('click', () => {
+            autoRotateDirection = 1; // 手动旋转时设置方向为顺时针
+            rotateCarousel(1);
+        });
+
+        // 鼠标进入和离开轮播区域的事件处理
+        carousel.addEventListener('mouseenter', stopAutoRotate);
+        carousel.addEventListener('mouseleave', startAutoRotate);
+
+        // 页面可见性变化事件处理
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        // 初始化时设置间距
+        updateCarousel();
+        // 启动自动旋转
+        startAutoRotate();
+        // 窗口大小改变时更新轮播
+        window.addEventListener('resize', updateCarousel);
+    </script>
+</body>
+</html>
+
