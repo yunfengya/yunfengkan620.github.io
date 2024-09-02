@@ -1,19 +1,19 @@
 import Layout from "@/layout/index.vue";
 
-export const a_b_daikaifa = [
+export const adaikaifaOnly = [
   {
-    path: "/a_b_daikaifa",
+    path: "/adaikaifaOnly",
     component: Layout,
-    name: "a_b_daikaifa",
-    redirect: '/a_b_daikaifa/index',
+    name: "adaikaifaOnly",
+    redirect: '/adaikaifaOnly/index',
     meta: {
       title: "待开发",
       icon: "el-icon-star-on",
     },
     children: [
       {
-        path: "/a_b_daikaifa/index",
-        component: () => import("@/pages/a_b_daikaifa/index.vue"),
+        path: "/adaikaifaOnly/index",
+        component: () => import("@/pages/adaikaifaOnly/index.vue"),
         meta: {
           title: "待开发单页菜单",
           icon: "el-icon-star-on",
