@@ -3,7 +3,6 @@ import Vue from "vue";
 import Router from "vue-router";
 import { adaikaifa } from "./modules/adaikaifa.js";
 import { admin } from "./modules/admin";
-import { chart } from "./modules/chart";
 import { a_b_daikaifa } from "./modules/a_b_daikaifa";
 Vue.use(Router);
 export const adminRouter = [
@@ -51,7 +50,6 @@ export const routerPath = [
   ...adaikaifa,
 
   ...admin,
-  ...chart,
 ];
 // 防止连续点击多次路由报错
 let routerPush = Router.prototype.push;
