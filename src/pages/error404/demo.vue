@@ -3,6 +3,7 @@
         <div class="bar">
             <div class="ball"></div>
         </div>
+        <div style="color:#314ee4;cursor:;font-weight: 600;font-size: 20px;">当前页面不存在</div>
         <div @click="goHome()" style="color:#314ee4;cursor:pointer;font-weight: 600;font-size: 20px;">返回首页</div>
     </div>
 </template>
