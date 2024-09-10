@@ -52,6 +52,25 @@ export const routerPath = [
   ...adaikaifaOnly,
 
   ...admin,
+  
+  //404 layout页面
+  {
+    path: "/404",
+    component: Layout,
+    redirect: "/404",
+    children: [
+      {
+        path: "/404",
+        component: () => import("@/pages/error404/index"),
+        // hidden: true,//设置不显示菜单
+        name: "404",
+        meta: {
+          title: "404",
+          icon: "el-icon-s-home",
+        },
+      },
+    ],
+  },
   // //404 整个页面
   // {
   //   path: "/404",
