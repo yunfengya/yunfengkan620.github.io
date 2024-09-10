@@ -52,31 +52,18 @@ export const routerPath = [
   ...adaikaifaOnly,
 
   ...admin,
-
-  // //404 layout页面
+  // //404 整个页面
   // {
   //   path: "/404",
-  //   component: Layout,
-  //   redirect: "/404",
-  //   children: [
-  //     {
-  //       path: "/404",
-  //       component: () => import("@/pages/error404/index"),
-  //       // hidden: true,//设置不显示菜单
-  //       name: "404",
-  //       meta: {
-  //         title: "404",
-  //         icon: "el-icon-s-home",
-  //       },
-  //     },
-  //   ],
+  //   component: () => import("@/pages/error404/index"),
+  //   hidden: true,
   // },
-  //404 整个页面
-  {
-    path: "/404",
+  // 捕获所有未匹配的路由 404
+  { 
+    path: '/:pathMatch(.*)*', 
     component: () => import("@/pages/error404/index"),
-    hidden: true,
-  },
+    hidden: true, 
+  } 
 ];
 // 防止连续点击多次路由报错
 let routerPush = Router.prototype.push;
@@ -89,7 +76,7 @@ const createRouter = () =>
     scrollBehavior: () => ({ y: 0 }),
     routes: adminRouter.concat(routerPath),
   });
-console.log(routerPath);
-console.log(adminRouter);
+// console.log(routerPath);
+// console.log(adminRouter);
 const router = createRouter();
 export default router;
