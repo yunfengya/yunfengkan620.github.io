@@ -52,7 +52,7 @@ export const routerPath = [
   ...adaikaifaOnly,
 
   ...admin,
-  
+
   //404 layout页面
   {
     path: "/404",
@@ -66,7 +66,7 @@ export const routerPath = [
         name: "404",
         meta: {
           title: "404",
-          icon: "el-icon-s-home",
+          icon: "el-icon-error",
         },
       },
     ],
