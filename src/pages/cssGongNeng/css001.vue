@@ -8,7 +8,11 @@
                 </div>
             </el-scrollbar>
         </el-row>
-        <keep-alive>
+        <!-- 
+            include="cssItem001,cssItem002" 缓存哪些
+            不写默认缓存所有
+         -->
+        <keep-alive include="cssItem001,cssItem002">
             <component :is="activeName" :ref="activeName"></component>
         </keep-alive>
     </div>
@@ -38,7 +42,7 @@ export default {
                 { label: "跑马灯", name: "cssItem001" },
                 { label: "小球运动", name: "cssItem002" },
                 { label: "文字分割", name: "cssItem003" },
-                { label: "待开发", name: "cssItem004" },
+                { label: "刮刮乐", name: "cssItem004" },
                 { label: "数字签名", name: "cssItem005" },
             ],
         };
