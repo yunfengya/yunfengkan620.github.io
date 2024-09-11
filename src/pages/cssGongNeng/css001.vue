@@ -1,92 +1,114 @@
 <template>
-    <div class="contain_box">
-        <div class="card">
-            <div class="card_inner">CARD HOVER ME</div>
-        </div>
+    <div class="statusBox" v-show="true">
+        <el-row class="elRow">
+            <el-scrollbar class="scrollbar_top">
+                <div v-for="(item, index) in nameList" :key="index" :class="activeIndex == index ? 'activeItem' : ''"
+                    class="itemDiv" @click="chooseItem(index, item.name)">
+                    {{ item.label }}
+                </div>
+            </el-scrollbar>
+        </el-row>
+        <keep-alive>
+            <component :is="activeName" :ref="activeName"></component>
+        </keep-alive>
     </div>
 </template>
 <script>
+import cssItem001 from "./css001components/cssItem001";
+import cssItem002 from "./css001components/cssItem002";
+import cssItem003 from "./css001components/cssItem003";
+import cssItem004 from "./css001components/cssItem004";
+import cssItem005 from "./css001components/cssItem005";
+
 export default {
-    name: "index",
-    components: {},
+    name: "echart001",
+    props: [""],
+    components: {
+        cssItem001,
+        cssItem002,
+        cssItem003,
+        cssItem004,
+        cssItem005,
+    },
     data() {
         return {
-            // 遮罩层
-            loading: true,
+            activeIndex: 0,
+            activeName: "cssItem001",
+            nameList: [
+                { label: "跑马灯", name: "cssItem001" },
+                { label: "小球运动", name: "cssItem002" },
+                { label: "文字分割", name: "cssItem003" },
+                { label: "待开发", name: "cssItem004" },
+                { label: "数字签名", name: "cssItem005" },
+            ],
         };
     },
-    watch: {},
     created() { },
-    methods: {},
+    mounted() { },
+    methods: {
+        chooseItem(idnex, name) {
+            this.activeIndex = idnex;
+            this.activeName = name;
+        },
+    },
 };
 </script>
-  
-<style scoped lang="scss">
-.contain_box {
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+.statusBox {
+    // padding: 1rem 1rem;
+    // height: calc(100vh - 2rem);
+    padding: 0rem;
+    height: calc(100vh - 0rem);
+    // background-color: #e1e1e1;
+    // background-color: rgba(57, 77, 102,.5);
+}
+
+.elRow {
+    height: 4.2rem;
     width: 100%;
-    height: 100%;
-    overflow: auto;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .card {
-        width: 190px;
-        height: 254px;
-        background: #07182E;
-        position: relative;
-        display: flex;
-        place-content: center;
-        place-items: center;
-        overflow: hidden;
-        border-radius: 20px;
-    }
-
-    .card::before {
-        content: '';
-        position: absolute;
-        width: 50%;
-        background-image: linear-gradient(180deg, #00b7ff, #ff30ff);
-        height: 130%;
-        animation: rotBGimg 3s linear infinite;
-        transition: all 0.2s linear;
-    }
-
-    .card:hover:before {
-        background-image: linear-gradient(180deg, #51ff00, #f4b822);
-        animation: rotBGimg 3s linear infinite;
-    }
-
-    @keyframes rotBGimg {
-        from {
-            transform: rotate(0deg);
+    // display: flex;
+    ::v-deep .scrollbar_top {
+        width: 100%;
+        height: 100% !important;
+        .el-scrollbar__wrap{
+            overflow: hidden;
+            width: 100%;
+            height: 100% !important;
+            .el-scrollbar__view {
+                width: 100%;
+                height: 100% !important;
+                display: flex;
+            }
         }
-
-        to {
-            transform: rotate(360deg);
+        .el-scrollbar__thumb{
+            background-color: #bdf7bb;
         }
     }
+}
 
-    /* .card::after {
-        content: '';
-        position: absolute;
-        background: #07182E;
-        inset: 5px;
-        border-radius: 15px;
-    } */
+.itemDiv {
+    flex-shrink: 0;
+    width: 13rem;
+    height: 4.2rem;
+    text-align: center;
+    line-height: 4.2rem;
+    color: #36909e;
+    font-size: 1.6rem;
+    // float: left;
+    margin-right: 0.6rem;
+    background-color: #23477d;
+    // background: url("~@/assets/images/equipment/wxz.png") no-repeat;
+    // background-size: 100% 100%;
+    cursor: pointer;
+}
 
-    .card .card_inner {
-        z-index: 1;
-        color: white;
-        position: absolute;
-        background: #07182E;
-        /* 相对定位，让他占满距离父盒子5px 的中间部分，类似加了一个外边距 */
-        inset: 5px;
-        border-radius: 15px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}</style>
+.activeItem {
+    font-weight: bold;
+    color: #17e1ff;
+    background-color: #2b599e;
+    // background: url("~@/assets/images/equipment/xz.png") no-repeat;
+    // background-size: 100% 100%;
+}
+</style>

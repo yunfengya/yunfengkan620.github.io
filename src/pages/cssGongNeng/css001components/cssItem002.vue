@@ -24,8 +24,10 @@ export default {
 <style scoped lang="scss">
 .contain_box {
     width: 100%;
-    height: 100%;
+    // height: 100%;
+    height: calc(100% - 4.2rem);
     overflow: auto;
+    border: 1px solid gray;
 
     .box {
         width: 300px;

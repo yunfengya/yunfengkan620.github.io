@@ -88,7 +88,7 @@ export default {
     color: #36909e;
     font-size: 1.6rem;
     // float: left;
-    margin-right: 1.2rem;
+    margin-right: 0.6rem;
     background-color: #23477d;
     // background: url("~@/assets/images/equipment/wxz.png") no-repeat;
     // background-size: 100% 100%;

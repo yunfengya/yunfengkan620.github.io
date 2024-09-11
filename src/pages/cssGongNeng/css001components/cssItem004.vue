@@ -1,6 +1,6 @@
 <template>
     <div class="contain_box">
-        <h1>模版zdaikaifa</h1>
+        <h1>待开发</h1>
     </div>
 </template>
 <script>
@@ -22,8 +22,10 @@ export default {
 <style scoped lang="scss">
 .contain_box {
     width: 100%;
-    height: 100%;
+    // height: 100%;
+    height: calc(100% - 4.2rem);
     overflow: auto;
+    border: 1px solid gray;
 
     h1 {
         font-size: 3rem;
