@@ -41,7 +41,7 @@ export default {
 
                 // 当鼠标按下的时候
                 canvas.onmousedown = (e) => {
-                    console.log('按下');
+                    // console.log('按下');
                     const x = e.offsetX;
                     const y = e.offsetY;
                     ctx.moveTo(x, y);
@@ -49,14 +49,14 @@ export default {
                 };
                 // 当鼠标移动的时候
                 canvas.onmouseup = () => {
-                    console.log('抬起');
+                    // console.log('抬起');
                     canvas.onmousemove = null;
                 };
             };
         },
         moves(ctx) {
             canvas.onmousemove = (e) => {
-                console.log('移动');
+                // console.log('移动');
                 const x = e.offsetX;
                 const y = e.offsetY;
                 // 开始画
