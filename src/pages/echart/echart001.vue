@@ -15,12 +15,14 @@
 </template>
 <script>
 import echartItem001 from "./echart001components/echartItem001";
+import echartItem002 from "./echart001components/echartItem002";
 
 export default {
-    name: "error404",
+    name: "echart001",
     props: [""],
     components: {
         echartItem001,
+        echartItem002,
     },
     data() {
         return {
@@ -28,6 +30,7 @@ export default {
             activeName: "echartItem001",
             nameList: [
                 { label: "echartItem001", name: "echartItem001" },
+                { label: "echartItem002", name: "echartItem002" },
             ],
         };
     },
