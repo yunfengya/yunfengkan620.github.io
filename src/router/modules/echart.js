@@ -15,7 +15,7 @@ export const echart = [
         path: "/echart/echart001",
         component: () => import("@/pages/echart/echart001.vue"),
         meta: {
-          title: "echart001",
+          title: "echart001图集",
           icon: "el-icon-star-on",
         },
       },
@@ -23,7 +23,7 @@ export const echart = [
         path: "/echart/echart002",
         component: () => import("@/pages/echart/echart002.vue"),
         meta: {
-          title: "echart002",
+          title: "echart002待",
           icon: "el-icon-star-on",
         },
       },

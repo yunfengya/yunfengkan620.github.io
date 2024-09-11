@@ -1,6 +1,6 @@
 <template>
     <div class="contain_box">
-        <h1>echart002</h1>
+        <h1>echart002待开发</h1>
     </div>
 </template>
 <script>
