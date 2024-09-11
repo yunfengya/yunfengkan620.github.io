@@ -2,6 +2,7 @@ import Layout from "@/layout/index.vue";
 import Vue from "vue";
 import Router from "vue-router";
 import { cssGongNeng } from "./modules/cssGongNeng.js";
+import { echart } from "./modules/echart.js";
 import { adaikaifaAll } from "./modules/adaikaifaAll.js";
 import { adaikaifaOnly } from "./modules/adaikaifaOnly";
 import { admin } from "./modules/admin";
@@ -48,6 +49,7 @@ export const routerPath = [
     ],
   },
   ...cssGongNeng,
+  ...echart,
   ...adaikaifaAll,
   ...adaikaifaOnly,
 
