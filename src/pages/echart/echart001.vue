@@ -29,7 +29,7 @@ export default {
             activeIndex: 0,
             activeName: "echartItem001",
             nameList: [
-                { label: "echartItem001", name: "echartItem001" },
+                { label: "pie模版", name: "echartItem001" },
                 { label: "echartItem002", name: "echartItem002" },
             ],
         };
