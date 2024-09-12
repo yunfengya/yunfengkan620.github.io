@@ -27,9 +27,10 @@ import cssItem003 from "./css001components/cssItem003";
 import cssItem004 from "./css001components/cssItem004";
 import cssItem005 from "./css001components/cssItem005";
 import cssItem006 from "./css001components/cssItem006";
+import cssItem007 from "./css001components/cssItem007";
 
 export default {
-    name: "echart001",
+    name: "index",
     props: [""],
     components: {
         aaafirst,
@@ -39,6 +40,7 @@ export default {
         cssItem004,
         cssItem005,
         cssItem006,
+        cssItem007,
     },
     data() {
         return {
@@ -52,6 +54,7 @@ export default {
                 { label: "刮刮乐", name: "cssItem004" },
                 { label: "数字签名", name: "cssItem005" },
                 { label: "钢琴", name: "cssItem006" },
+                { label: "DVD公告", name: "cssItem007" },
             ],
         };
     },
