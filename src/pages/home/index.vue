@@ -5,7 +5,9 @@
       <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
           class="el-icon-upload el-icon--right"></i>
       </el-button>
-      <div style=""><a href="https://juejin.cn/" target="_blank">掘金</a></div>
+      <div style="">
+        <a href="https://juejin.cn/" target="_blank">掘金</a>
+      </div>
     </el-scrollbar>
 
     <!-- 悬浮不影响正文 -->
