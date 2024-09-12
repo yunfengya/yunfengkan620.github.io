@@ -1,14 +1,16 @@
 <template>
   <div class="contain_box">
-    <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
-        class="el-icon-upload el-icon--right"></i></el-button>
-    <!-- <h1>首页</h1> -->
-    <!-- 可根据 v-if 判断 用户是否有工告消息，进行显示 -->
-    <div class="DVD_box" v-show="gonggaoFlag">
-      <div class="bg_img"></div>
-      <div class="title">暂无新功能！</div>
-      <div @click="closeGongGao()" style="color:blueviolet;font-size:20px; font-weight:900;cursor:pointer;"> X </div>
-    </div>
+      <!-- 正文 -->
+      <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
+              class="el-icon-upload el-icon--right"></i></el-button>
+
+      <!-- 悬浮不影响正文 -->
+      <!-- 可根据 v-if 判断 用户是否有公告消息，进行显示 -->
+      <div class="DVD_box" v-show="gonggaoFlag">
+          <div class="bg_img"></div>
+          <div class="title">暂无新功能！</div>
+          <div @click="closeGongGao()" style="color:blueviolet;font-size:20px; font-weight:900;cursor:pointer;"> X </div>
+      </div>
   </div>
 </template>
 <script>
