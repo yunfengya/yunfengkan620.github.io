@@ -31,7 +31,7 @@ export default {
             activeIndex: 0,
             activeName: "echartItem001",
             nameList: [
-                { label: "pie模版", name: "echartItem001" },
+                { label: "常规环图", name: "echartItem001" },
                 { label: "echartItem002", name: "echartItem002" },
             ],
         };
