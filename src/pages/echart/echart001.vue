@@ -18,6 +18,7 @@
 <script>
 import echartItem001 from "./echart001components/echartItem001";
 import echartItem002 from "./echart001components/echartItem002";
+import demoEcharts from "./echart001components/demoEcharts";
 
 export default {
     name: "echart001",
@@ -25,6 +26,7 @@ export default {
     components: {
         echartItem001,
         echartItem002,
+        demoEcharts,
     },
     data() {
         return {
@@ -33,6 +35,7 @@ export default {
             nameList: [
                 { label: "常规环图", name: "echartItem001" },
                 { label: "echartItem002", name: "echartItem002" },
+                { label: "demoEcharts", name: "demoEcharts" },
             ],
         };
     },
@@ -65,7 +68,6 @@ export default {
     height: calc(100vh - 0rem);
     // background-color: #e1e1e1;
     // background-color: rgba(57, 77, 102,.5);
-    background-color:#024d91;
 }
 
 .elRow {

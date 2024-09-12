@@ -1,6 +1,10 @@
 <template>
     <div class="contain_box">
-        <div class="echartsOne" style="width:50%;height:50%;border:1px solid gray;" ref="echartsPie1"></div>
+        <div 
+            class="echartsOne" 
+            ref="echartsPie1"
+            style="width:70%;height:70%;border:1px solid gray;backgroundColor:#024d91;"
+        ></div>
     </div>
 </template>
 <script>
@@ -131,5 +135,8 @@ export default {
     overflow: auto;
     // background: url("@/assets/bgc.jpg") no-repeat;
     // background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
