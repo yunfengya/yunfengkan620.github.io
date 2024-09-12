@@ -142,7 +142,7 @@ export default {
         position: relative;
         margin-top: 50px;
         white-space: nowrap;
-        // background: #000;
+        background: #000;
         border-radius: 10px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
         transform-style: preserve-3d;
