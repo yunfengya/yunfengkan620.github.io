@@ -1,12 +1,14 @@
 <template>
     <div class="statusBox" v-show="true">
         <el-row class="elRow">
-            <el-scrollbar class="scrollbar_top">
-                <div v-for="(item, index) in nameList" :key="index" :class="activeIndex == index ? 'activeItem' : ''"
-                    class="itemDiv" @click="chooseItem(index, item.name)">
-                    {{ item.label }}
-                </div>
-            </el-scrollbar>
+            <div style="width:100%;height:100%;" @wheel="handleScroll">
+                <el-scrollbar class="scrollbar_top" ref="scrollbar">
+                    <div v-for="(item, index) in nameList" :key="index" :class="activeIndex == index ? 'activeItem' : ''"
+                        class="itemDiv" @click="chooseItem(index, item.name)">
+                        {{ item.label }}
+                    </div>
+                </el-scrollbar>
+            </div>
         </el-row>
         <!-- 
             include="cssItem001,cssItem002" 缓存哪些
@@ -59,6 +61,15 @@ export default {
         chooseItem(idnex, name) {
             this.activeIndex = idnex;
             this.activeName = name;
+        },
+        // 滚轮横向滚动
+        handleScroll(event) {
+            // 获取 <el-scrollbar> 的原生滚动容器
+            const scrollbar = this.$refs.scrollbar.$refs.wrap;
+            // 阻止纵向默认滚动
+            event.preventDefault();
+            // 根据滚轮的 deltaY 实现横向滚动
+            scrollbar.scrollLeft += event.deltaY;
         },
     },
 };
