@@ -64,7 +64,8 @@ export default {
     padding: 0rem;
     height: calc(100vh - 0rem);
     // background-color: #e1e1e1;
-    background-color: rgba(57, 77, 102,.5);
+    // background-color: rgba(57, 77, 102,.5);
+    background-color:#024d91;
 }
 
 .elRow {
