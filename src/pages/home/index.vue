@@ -1,16 +1,20 @@
 <template>
   <div class="contain_box">
-      <!-- 正文 -->
+    <!-- 正文 -->
+    <el-scrollbar class="scrollbar_box" ref="">
       <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
-              class="el-icon-upload el-icon--right"></i></el-button>
+          class="el-icon-upload el-icon--right"></i>
+      </el-button>
+      <div style=""><a href="https://juejin.cn/" target="_blank">掘金</a></div>
+    </el-scrollbar>
 
-      <!-- 悬浮不影响正文 -->
-      <!-- 可根据 v-if 判断 用户是否有公告消息，进行显示 -->
-      <div class="DVD_box" v-show="gonggaoFlag">
-          <div class="bg_img"></div>
-          <div class="title">暂无新功能！</div>
-          <div @click="closeGongGao()" style="color:blueviolet;font-size:20px; font-weight:900;cursor:pointer;"> X </div>
-      </div>
+    <!-- 悬浮不影响正文 -->
+    <!-- 可根据 v-if 判断 用户是否有公告消息，进行显示 -->
+    <div class="DVD_box" v-show="gonggaoFlag">
+      <div class="bg_img"></div>
+      <div class="title">暂无新功能！</div>
+      <div @click="closeGongGao()" style="color:blueviolet;font-size:20px; font-weight:900;cursor:pointer;"> X </div>
+    </div>
   </div>
 </template>
 <script>
@@ -41,7 +45,29 @@ export default {
 .contain_box {
   width: 100%;
   height: 100%;
-  overflow: auto;
+  // overflow: auto;
+
+  ::v-deep .scrollbar_box {
+    width: 100%;
+    height: 100%;
+    .el-scrollbar__wrap {
+      // overflow: hidden;
+      width: 100%;
+      height: 100% !important;
+      .el-scrollbar__view {
+        width: 100%;
+        height: 100% !important;
+      }
+    }
+    .el-scrollbar__thumb {
+      background-color: #53c2d3;
+    }
+    // 清除原生滚动条
+    ::-webkit-scrollbar {
+      width: 0px; 
+      background: transparent; 
+    }
+  }
 }
 
 .DVD_box {
