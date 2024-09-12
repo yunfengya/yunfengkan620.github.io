@@ -91,7 +91,7 @@ export default {
 
   to {
     // 200px是公告盒子的尺寸
-    transform: translateX(calc(100vw - 200px - 20px));
+    transform: translateX(calc(100vw - 200px - 6px));
     /* Adjust for width and margin */
   }
 }
@@ -103,7 +103,7 @@ export default {
 
   to {
     // 100px是公告盒子的尺寸
-    transform: translateY(calc(100vh - 100px - 20px));
+    transform: translateY(calc(100vh - 100px - 6px));
     /* Adjust for height and margin */
   }
 }
