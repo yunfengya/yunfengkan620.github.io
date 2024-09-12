@@ -18,32 +18,38 @@
     </div>
 </template>
 <script>
+import aaafirst from "./css001components/aaafirst";
 import cssItem001 from "./css001components/cssItem001";
 import cssItem002 from "./css001components/cssItem002";
 import cssItem003 from "./css001components/cssItem003";
 import cssItem004 from "./css001components/cssItem004";
 import cssItem005 from "./css001components/cssItem005";
+import cssItem006 from "./css001components/cssItem006";
 
 export default {
     name: "echart001",
     props: [""],
     components: {
+        aaafirst,
         cssItem001,
         cssItem002,
         cssItem003,
         cssItem004,
         cssItem005,
+        cssItem006,
     },
     data() {
         return {
             activeIndex: 0,
-            activeName: "cssItem001",
+            activeName: "aaafirst",
             nameList: [
+                { label: "测试", name: "aaafirst" },
                 { label: "跑马灯", name: "cssItem001" },
                 { label: "小球运动", name: "cssItem002" },
                 { label: "文字分割", name: "cssItem003" },
                 { label: "刮刮乐", name: "cssItem004" },
                 { label: "数字签名", name: "cssItem005" },
+                { label: "钢琴", name: "cssItem006" },
             ],
         };
     },
@@ -87,7 +93,7 @@ export default {
             }
         }
         .el-scrollbar__thumb{
-            background-color: #bdf7bb;
+            background-color: #53c2d3;
         }
     }
 }
