@@ -26,11 +26,24 @@
           </el-breadcrumb>
         </div>
       </div>
-      <div class="header_right"></div>
+      <div class="header_right">
+        <el-dropdown trigger="click">
+          <div style="display:flex;justify-content:center;align-items:center;cursor: pointer;">
+            <el-avatar :src="require('../../assets/cartoonFigure.png')"></el-avatar>
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </div>
+
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item icon="el-icon-plus" @click.native="myCenter()">个人中心</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-check" @click.native="exitLogin()">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import { remoteCookies } from '@/utils/cookies'
 import { mapGetters, mapActions } from 'vuex'
 import pathToRegexp from 'path-to-regexp'
 export default {
@@ -92,10 +105,22 @@ export default {
       // }
       this.$router.push(path)
     },
+
+    exitLogin(){
+      remoteCookies()//清除
+      this.$router.push('/login')
+    },
+    myCenter(){
+      this.$message({
+          showClose: true,
+          message: '暂无功能',
+          type: 'success'
+        });
+    }
   },
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .app-header {
   height: 50px;
   flex: 1;
@@ -113,24 +138,35 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   flex: 1;
-}
-.header_left {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding-left: 15px;
-}
-.right {
-  margin-left: 10px;
-}
-.right span {
-  cursor: pointer;
-}
-.right span:hover {
-  color: rgb(64, 158, 255);
-}
-.active {
-  color: #ccc;
+  .header_left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 15px;
+    flex: 1;
+    .right {
+      margin-left: 10px;
+    }
+    .right span {
+      cursor: pointer;
+    }
+    .right span:hover {
+      color: rgb(64, 158, 255);
+    }
+    .active {
+      color: #ccc;
+    }
+  }
+  .header_right{
+    position: fixed;
+    right: 0;
+    top: 0;
+    // width: 200px;
+    min-width: 50px;
+    height: 50px;
+    padding:2px;
+    // background-color: gray;
+  }
 }
 </style>

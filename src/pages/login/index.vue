@@ -88,13 +88,14 @@ export default {
 .login {
   height: 100vh;
   width: 100vw;
-  background-image: url('@/assets/bgc.jpg');
-  background-size: 100% 100%;
+  background-color: #c4c2c2;
+  // background-image: url('@/assets/bgc.jpg');
+  // background-size: 100% 100%;
 }
 .login_in {
   width: 400px;
   height: 300px;
-  background: #c4c2c2;
+  background: #d3d2d2;
   transition: ease-in-out 0.5s;
 }
 .login_form {
