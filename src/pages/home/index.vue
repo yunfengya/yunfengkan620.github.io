@@ -42,7 +42,7 @@ export default {
       gonggaoFlag: false,
       linkList:[
         { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'echarts案例',linkstring:'https://madeapie.com/#/',},
       ],
       itemLink: '' // 存储当前卡片的链接
     };
