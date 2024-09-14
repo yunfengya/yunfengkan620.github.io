@@ -8,7 +8,7 @@ export const adaikaifaAll = [
     redirect: '/adaikaifaAll/daikaifaOne',
     meta: {
       title: "待开发多页菜单",
-      icon: "el-icon-star-on",
+      icon: "el-icon-loading",
     },
     children: [
       {

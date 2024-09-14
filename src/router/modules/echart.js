@@ -8,7 +8,7 @@ export const echart = [
     redirect: '/echart/echart001',
     meta: {
       title: "echart",
-      icon: "el-icon-star-on",
+      icon: "el-icon-s-data",
     },
     children: [
       {

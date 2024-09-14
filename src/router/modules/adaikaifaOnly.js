@@ -8,7 +8,7 @@ export const adaikaifaOnly = [
     redirect: '/adaikaifaOnly/index',
     meta: {
       title: "待开发",
-      icon: "el-icon-star-on",
+      icon: "el-icon-loading",
     },
     children: [
       {
@@ -16,7 +16,8 @@ export const adaikaifaOnly = [
         component: () => import("@/pages/adaikaifaOnly/index.vue"),
         meta: {
           title: "待开发单页菜单",
-          icon: "el-icon-star-on",
+          // icon: "el-icon-star-on",
+          icon: "el-icon-loading",
         },
       },
     ],
