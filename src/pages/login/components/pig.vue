@@ -23,7 +23,7 @@ export default {
                 transition: `transform ${this.duration}ms linear`,
                 width: this.beeWidth + 'px',
                 height: this.beeHeight + 'px',
-                backgroundImage: `url(${require('@/assets/小蜜蜂.gif')})`, // 使用 require 来解析图片路径
+                backgroundImage: `url(${require('@/assets/小飞猪.gif')})`, // 使用 require 来解析图片路径
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat'
             };

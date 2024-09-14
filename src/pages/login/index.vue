@@ -33,14 +33,21 @@
     </div>
     <!-- 小蜜蜂 -->
     <Bee />
+    <!-- 老鼠 -->
+    <Pig />
+    <Dog />
   </div>
 </template>
 <script>
 import { setCookies } from '@/utils/cookies'
 import Bee from './components/bee'; // 导入小蜜蜂组件
+import Pig from './components/pig'; 
+import Dog from './components/dog'; 
 export default {
   components: {
-    Bee
+    Bee,
+    Pig,
+    Dog,
   },
   data() {
     return {
