@@ -41,8 +41,8 @@ export default {
       labelPosition: 'left',
       isLoading: false,
       formLogin: {
-        userName: '',
-        passWord: '',
+        userName: 'admin',
+        passWord: 'admin',
       },
       rules: {
         userName: [
