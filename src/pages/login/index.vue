@@ -31,11 +31,17 @@
         >
       </div>
     </div>
+    <!-- 小蜜蜂 -->
+    <Bee />
   </div>
 </template>
 <script>
 import { setCookies } from '@/utils/cookies'
+import Bee from './components/bee'; // 导入小蜜蜂组件
 export default {
+  components: {
+    Bee
+  },
   data() {
     return {
       labelPosition: 'left',
