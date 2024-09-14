@@ -45,7 +45,7 @@ export default {
     background: #333;
     padding-left: 20px;
     position: relative;
-    transform: rotate(-2deg) skew(2deg) translate(0, 0);
+    transform: rotate(0.1deg) skew(2deg) translate(0, 0);
     transition-duration: 0.5s;
     box-shadow: -20px 20px 10px rgba(0, 0, 0, 0.5);
 }
@@ -92,7 +92,7 @@ export default {
 }
 
 .box a:hover {
-    transform: rotate(-2deg) skew(2deg) translate(20px, -15px);
+    transform: rotate(0.1deg) skew(2deg) translate(20px, -15px);
     box-shadow: -50px 50px 50px rgba(0, 0, 0, 0.5);
 }
 

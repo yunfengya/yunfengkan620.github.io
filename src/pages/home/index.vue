@@ -7,8 +7,8 @@
           class="el-icon-upload el-icon--right"></i>
         </el-button>
       </div>
+      <!--  -->
       <div class="cardList_box">
-
         <div v-for="(item,index) in linkList" :key="index" @click="toLinkFn(item.linkstring)">
           <Card
             :content="`${item.name}`"
