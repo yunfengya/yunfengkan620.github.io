@@ -2,9 +2,11 @@
   <div class="contain_box">
     <!-- 正文 -->
     <el-scrollbar class="scrollbar_box" ref="">
-      <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
+      <div style="text-align:right;">
+        <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
           class="el-icon-upload el-icon--right"></i>
-      </el-button>
+        </el-button>
+      </div>
       <div class="cardList_box">
 
         <div v-for="(item,index) in linkList" :key="index" @click="toLinkFn(item.linkstring)">
@@ -39,6 +41,14 @@ export default {
       loading: true,
       gonggaoFlag: false,
       linkList:[
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
         { name:'掘金',linkstring:'https://juejin.cn/',},
         { name:'掘金',linkstring:'https://juejin.cn/',},
         { name:'掘金',linkstring:'https://juejin.cn/',},
