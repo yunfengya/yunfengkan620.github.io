@@ -57,7 +57,7 @@ export default {
     left: -20px;
     height: 100%;
     width: 20px;
-    background: #979797;
+    background: #676767;
     transition-duration: 0.5s;
     transform: rotate(0deg) skewY(-45deg);
 }
