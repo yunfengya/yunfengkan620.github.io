@@ -5,7 +5,7 @@
             <div class="carousel-inner">
                 <!-- 使用 v-for 渲染轮播项 -->
                 <div v-for="(item, index) in items" :key="index" class="carousel-item"
-                    :style="{ backgroundImage: `url(${item})` }"></div>
+                    :style="{ backgroundImage: `url(${item})` }">{{ index }}</div>
             </div>
             <!-- 左右控制按钮 -->
             <div class="controls">
@@ -22,13 +22,13 @@ export default {
     data() {
         return {
             items: [
+                require('../../../assets/lunbo.png'),
                 require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
+                require('../../../assets/lunbo3.png'),
+                require('../../../assets/lunbo4.png'),
+                require('../../../assets/lunbo5.png'),
+                require('../../../assets/lunbo.png'),
+                require('../../../assets/lunbo5.png'),
             ],
             currentAngle: 0, // 当前旋转角度
             angleStep: 360 / 7, // 每张图片的旋转角度
@@ -162,15 +162,21 @@ export default {
 
 /* 每个轮播项的样式 */
 .carousel-item {
-    border: 1px solid #f9e006;
+    color: aqua;
+    border: 1px dashed aqua;
+    border-radius: 20%;
     /* 每个轮播项的边框 */
     position: absolute;
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
-    background-size: auto 100%;
+    background-size: 100% auto;
     background-position: center;
     transform: rotateY(0deg) translateZ(0px);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 控制按钮样式 */
