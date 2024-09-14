@@ -43,19 +43,6 @@ export default {
       linkList:[
         { name:'掘金',linkstring:'https://juejin.cn/',},
         { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'掘金',linkstring:'https://juejin.cn/',},
       ],
       itemLink: '' // 存储当前卡片的链接
     };

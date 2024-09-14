@@ -27,8 +27,8 @@ export default {
   
 <style scoped>
 .box {
-    width: 250px;
-    height: 300px;
+    width: 200px;
+    height: 260px;
     list-style: none;
     margin: 0 5px;
     display: flex;
@@ -40,9 +40,9 @@ export default {
 .box a {
     text-decoration: none;
     display: block;
-    width: 150px;
-    height: 200px;
-    background: #333;
+    width: 100px;
+    height: 160px;
+    background: #878787;
     padding-left: 20px;
     position: relative;
     transform: rotate(0.1deg) skew(2deg) translate(0, 0);
@@ -57,7 +57,7 @@ export default {
     left: -20px;
     height: 100%;
     width: 20px;
-    background: #444;
+    background: #979797;
     transition-duration: 0.5s;
     transform: rotate(0deg) skewY(-45deg);
 }
@@ -69,7 +69,7 @@ export default {
     left: -10px;
     height: 20px;
     width: 100%;
-    background: #444;
+    background: #979797;
     transition-duration: 0.5s;
     transform: rotate(0deg) skewX(-45deg);
 }
