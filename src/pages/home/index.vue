@@ -5,8 +5,15 @@
       <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
           class="el-icon-upload el-icon--right"></i>
       </el-button>
-      <div style="">
-        <a href="https://juejin.cn/" target="_blank">掘金</a>
+      <div class="cardList_box">
+
+        <div v-for="(item,index) in linkList" :key="index" @click="toLinkFn(item.linkstring)">
+          <Card
+            :content="`${item.name}`"
+            :link="itemLink"
+            ref="Card"
+          />
+        </div>
       </div>
     </el-scrollbar>
 
@@ -20,14 +27,27 @@
   </div>
 </template>
 <script>
+import Card from './components/card.vue'; // 记得调整路径
 export default {
   name: "index",
-  components: {},
+  components: {
+    Card,
+  },
   data() {
     return {
       // 遮罩层
       loading: true,
       gonggaoFlag: false,
+      linkList:[
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',},
+      ],
+      itemLink: '' // 存储当前卡片的链接
     };
   },
   watch: {},
@@ -38,6 +58,9 @@ export default {
     },
     openGongGao() {
       this.gonggaoFlag = true;
+    },
+    toLinkFn(item){
+      this.itemLink = `${item}`; // 设置当前的链接
     }
   },
 };
@@ -59,6 +82,10 @@ export default {
       .el-scrollbar__view {
         width: 100%;
         height: 100% !important;
+        .cardList_box{
+          display: flex;
+          flex-wrap: wrap;
+        }
       }
     }
     .el-scrollbar__thumb {
