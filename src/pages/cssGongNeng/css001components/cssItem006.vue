@@ -1,6 +1,7 @@
 <template>
     <div class="contain_box">
         <div>
+            <div class="title">请带上耳机开始演奏</div>
             <div class="types">
                 音调类型:
                 <button class="btn" v-for="(type, index) in audioTypeList" :key="index" @click="setType(index)">
@@ -129,6 +130,14 @@ export default {
     align-items: center;
     flex-direction: column;
 
+    .title{
+        font-size: 20px;
+        font-weight: 600;
+        color: #24d9ff;
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+    }
     .types{
         .btn{
             margin: 0 1rem 0 0;
