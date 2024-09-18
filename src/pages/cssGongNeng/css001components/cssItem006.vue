@@ -129,6 +129,7 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #4e6ca3;
 
     .title{
         font-size: 20px;

@@ -5,7 +5,7 @@
             <div class="carousel-inner">
                 <!-- 使用 v-for 渲染轮播项 -->
                 <div v-for="(item, index) in items" :key="index" class="carousel-item"
-                    :style="{ backgroundImage: `url(${item})` }"></div>
+                    :style="{ backgroundImage: `url(${item})` }">{{ index }}</div>
             </div>
             <!-- 左右控制按钮 -->
             <div class="controls">
@@ -22,15 +22,16 @@ export default {
     data() {
         return {
             items: [
+                require('../../../assets/lunbo.png'),
                 require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo2.png'),
+                require('../../../assets/lunbo3.png'),
+                require('../../../assets/lunbo4.png'),
+                require('../../../assets/lunbo5.png'),
+                require('../../../assets/lunbo.png'),
+                require('../../../assets/lunbo5.png'),
             ],
             currentAngle: 0, // 当前旋转角度
-            angleStep: 360 / 6, // 每张图片的旋转角度
+            angleStep: 360 / 7, // 每张图片的旋转角度
             baseRadius: 500, // 圆环的基础半径，控制视觉距离
             autoRotateDirection: 1, // 自动旋转方向
             autoRotateInterval: null // 自动旋转的定时器
@@ -68,6 +69,7 @@ export default {
         updateCarousel() {
             const items = this.$el.querySelectorAll('.carousel-item');
             const minRadius = 300; // 最小半径，以确保图片不重叠
+            // 图片之间间隔 120
             const radius = Math.max(this.baseRadius / (2 * Math.tan(Math.PI / items.length)) + 100, minRadius); // 计算间隔
 
             // 更新每个轮播项的变换样式
@@ -76,12 +78,13 @@ export default {
             });
 
             // 更新内层轮播图的旋转
-            this.$el.querySelector('.carousel-inner').style.transform = `rotateX(-10deg) rotateY(${this.currentAngle}deg)`;
+            this.$el.querySelector('.carousel-inner').style.transform = `rotateX(-4deg) rotateY(${this.currentAngle}deg)`;
         },
         // 旋转轮播图，更新位置
         rotateCarousel(step) {
             this.currentAngle += step * this.angleStep; // 增加或减少旋转角度
-            this.$el.querySelector('.carousel-inner').style.transform = `rotateX(-10deg) rotateY(${this.currentAngle}deg)`;
+            // 抬起角度 rotateX(-4deg)
+            this.$el.querySelector('.carousel-inner').style.transform = `rotateX(-4deg) rotateY(${this.currentAngle}deg)`;
         },
         // 旋转到前一张图片
         rotatePrev() {
@@ -126,6 +129,8 @@ export default {
     align-items: center;
     border: 1px solid gray;
     /* 外框样式 */
+    /* background-image: url('@/assets/bgc.jpg');
+    background-size: 100% 100%; */
     background-color: #4e6ca3;
 }
 
@@ -136,9 +141,9 @@ export default {
     /* 适应视口宽度 */
     height: 80vw;
     /* 保持长宽比 */
-    max-width: 300px;
+    max-width: 260px;
     /* 设置最大宽度 */
-    max-height: 300px;
+    max-height: 260px;
     /* 设置最大高度 */
     perspective: 4000px;
     /* 增加透视效果 */
@@ -152,21 +157,27 @@ export default {
     transform-style: preserve-3d;
     transition: transform 1s;
     /* 旋转平滑过渡 */
-    transform: rotateX(-10deg);
+    transform: rotateX(-4deg);
     /* 旋转角度 */
 }
 
 /* 每个轮播项的样式 */
 .carousel-item {
-    border: 1px solid #f9e006;
+    color: aqua;
+    border: 1px dashed aqua;
+    border-radius: 20%;
     /* 每个轮播项的边框 */
     position: absolute;
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
-    background-size: auto 100%;
+    background-size: 100% auto;
     background-position: center;
     transform: rotateY(0deg) translateZ(0px);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 控制按钮样式 */
