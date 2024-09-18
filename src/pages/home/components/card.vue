@@ -3,7 +3,7 @@
     <div class="box">
         <a :href="link" target="_blank">
             <span>{{ content }}</span>
-            <img :src="imgUrl" alt="" style="width:50px;height:50px;">
+            <img :src="imgUrl" alt="图片" style="width:50px;height:50px;">
         </a>
     </div>
 </template>
