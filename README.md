@@ -1,3 +1,5 @@
+# 文档地址
+地址:https://yunfengya.github.io/yunfengkan620.github.io/
 # yunfengkan620.github.io
 yunfengkan的个人网站，日常记录,githubpages
 ## 不同文件的访问地址，默认是index文件 
