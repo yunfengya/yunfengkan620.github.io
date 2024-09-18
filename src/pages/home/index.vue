@@ -43,7 +43,7 @@ export default {
       gonggaoFlag: false,
       linkList:[
         { name:'掘金',linkstring:'https://juejin.cn/',imgUrl:'https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg'},
-        { name:'echarts案例',linkstring:'https://echarts.apache.org/zh/cheat-sheet.html',imgUrl:'https://echarts.apache.org/zh/images/logo.png'},
+        { name:'echarts文档',linkstring:'https://echarts.apache.org/zh/cheat-sheet.html',imgUrl:'https://echarts.apache.org/zh/images/logo.png'},
         { name:'echarts案例',linkstring:'https://madeapie.com/#/',imgUrl:'https://madeapie.com/static/logo.c9fc7376.png'},
       ],
       itemLink: '' // 存储当前卡片的链接
