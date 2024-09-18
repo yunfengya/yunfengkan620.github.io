@@ -52,10 +52,6 @@ export const routerPath = [
   ...cssGongNeng,
   ...echart,
   ...threejs,
-  ...adaikaifaAll,
-  ...adaikaifaOnly,
-
-  ...admin,
 
   //404 layout页面
   {
@@ -75,6 +71,10 @@ export const routerPath = [
       },
     ],
   },
+
+  ...adaikaifaAll,
+  ...adaikaifaOnly,
+  ...admin,
   // //404 整个页面
   // {
   //   path: "/404",
