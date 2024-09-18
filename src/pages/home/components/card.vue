@@ -3,6 +3,7 @@
     <div class="box">
         <a :href="link" target="_blank">
             <span>{{ content }}</span>
+            <img :src="imgUrl" alt="" style="width:50px;height:50px;">
         </a>
     </div>
 </template>
@@ -13,6 +14,10 @@ export default {
         content: {
             type: String,
             default: 'Hover Me'
+        },
+        imgUrl: {
+            type: String,
+            default: '#'
         },
         link: {
             type: String,

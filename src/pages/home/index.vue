@@ -12,6 +12,7 @@
         <div v-for="(item,index) in linkList" :key="index" @click="toLinkFn(item.linkstring)">
           <Card
             :content="`${item.name}`"
+            :imgUrl="`${item.imgUrl}`"
             :link="itemLink"
             ref="Card"
           />
@@ -39,10 +40,10 @@ export default {
     return {
       // 遮罩层
       loading: true,
-      gonggaoFlag: true,
+      gonggaoFlag: false,
       linkList:[
-        { name:'掘金',linkstring:'https://juejin.cn/',},
-        { name:'echarts案例',linkstring:'https://madeapie.com/#/',},
+        { name:'掘金',linkstring:'https://juejin.cn/',imgUrl:'https://p3-passport.byteacctimg.com/img/user-avatar/cf1ff385ef84b2ef6001a7caa39476f7~50x50.awebp'},
+        { name:'echarts案例',linkstring:'https://madeapie.com/#/',imgUrl:'https://madeapie.com/static/logo.c9fc7376.png'},
       ],
       itemLink: '' // 存储当前卡片的链接
     };
