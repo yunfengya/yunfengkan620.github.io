@@ -3,7 +3,7 @@
         <div 
             class="echartsOne" 
             ref="echartsPie1"
-            style="width:70%;height:70%;border:1px solid gray;backgroundColor:#024d91;"
+            style="width:90%;height:80%;border:1px solid gray;backgroundColor:#4e6ca3;"
         ></div>
     </div>
 </template>
