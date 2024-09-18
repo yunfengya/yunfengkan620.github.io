@@ -17,30 +17,55 @@
 </template>
 <script>
 import page001 from "./page001";
-import demo from "./demo";
+import page002 from "./page002";
+import loading001 from "./loading001";
+import loading002 from "./loading002";
+import loading003 from "./loading003";
+import loading004 from "./loading004";
+import loading005 from "./loading005";
+import loading006 from "./loading006";
+import loading007 from "./loading007";
+import loading008 from "./loading008";
+import loading009 from "./loading009";
+import loading010 from "./loading010";
+import loading011 from "./loading011";
 
 export default {
     name: "error404",
     props: [""],
     components: {
         page001,
-        demo,
+        page002,
+        loading001,
+        loading002,
+        loading003,
+        loading004,
+        loading005,
+        loading006,
+        loading007,
+        loading008,
+        loading009,
+        loading010,
+        loading011,
     },
     data() {
         return {
             activeIndex: 0,
             activeName: "page001",
             nameList: [
-                { label: "page001", name: "page001" },
-                { label: "demo", name: "demo" },
-                { label: "demo", name: "demo" },
-                { label: "demo", name: "demo" },
-                { label: "demo", name: "demo" },
-                { label: "demo", name: "demo" },
-                { label: "demo", name: "demo" },
-                { label: "demo", name: "demo" },
-                { label: "demo", name: "demo" },
-                { label: "demo", name: "demo" },
+                { label: "404page001", name: "page001" },
+                { label: "404page002", name: "page002" },
+                { label: "loading001", name: "loading001" },
+                { label: "loading002", name: "loading002" },
+                { label: "loading003", name: "loading003" },
+                { label: "loading004", name: "loading004" },
+                { label: "loading005", name: "loading005" },
+                { label: "loading006", name: "loading006" },
+                { label: "loading007", name: "loading007" },
+                { label: "loading008", name: "loading008" },
+                { label: "loading009", name: "loading009" },
+                { label: "loading010", name: "loading010" },
+                { label: "loading011", name: "loading011" },
             ],
         };
     },

@@ -39,7 +39,7 @@ export default {
     return {
       // 遮罩层
       loading: true,
-      gonggaoFlag: false,
+      gonggaoFlag: true,
       linkList:[
         { name:'掘金',linkstring:'https://juejin.cn/',},
         { name:'echarts案例',linkstring:'https://madeapie.com/#/',},
