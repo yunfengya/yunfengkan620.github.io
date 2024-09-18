@@ -10,7 +10,7 @@
                 </el-scrollbar>
             </div>
         </el-row>
-        <keep-alive>
+        <keep-alive include="echartItem001">
             <component :is="activeName" :ref="activeName"></component>
         </keep-alive>
     </div>
