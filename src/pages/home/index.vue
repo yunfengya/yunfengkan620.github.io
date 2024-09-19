@@ -43,6 +43,7 @@ export default {
       gonggaoFlag: false,
       linkList:[
         { name:'不求人导航',linkstring:'https://www.bqrdh.com',imgUrl:'https://css.bqrdh.com/images/logo.png'},
+        { name:'动画集合',linkstring:'https://uiverse.io/elements',imgUrl:'	https://uiverse.io/assets/logo-png-BXFOQKfc.png'},
         { name:'掘金',linkstring:'https://juejin.cn/',imgUrl:'https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg'},
         { name:'echarts文档',linkstring:'https://echarts.apache.org/zh/cheat-sheet.html',imgUrl:'https://echarts.apache.org/zh/images/logo.png'},
         { name:'echarts案例',linkstring:'https://madeapie.com/#/',imgUrl:'https://madeapie.com/static/logo.c9fc7376.png'},
