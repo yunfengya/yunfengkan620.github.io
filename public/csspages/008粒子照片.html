@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Screen Recording</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #111;
+        }
+
+        .box {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .box span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            /* background-image: url('../../src/assets/小蜜蜂.gif'); */
+            background-image: url('../../src/assets/cartoonFigure.png');
+            background-repeat: no-repeat;
+            background-size: 300px 300px;
+            animation: animate 10s linear infinite;
+        }
+
+        @keyframes animate {
+
+            0%,
+            10% {
+                transform: scale(1) rotate(0deg) translate(0, 0);
+                transform-origin: center;
+            }
+
+            20%,
+            30% {
+                transform: scale(0.5) rotate(0deg) translate(0, 0);
+                transform-origin: center;
+            }
+
+            40% {
+                transform: scale(0.5) rotate(360deg) translate(150px, 0);
+                transform-origin: 100px;
+            }
+
+            70% {
+                transform: scale(0.5) rotate(720deg) translate(-150px, 0);
+                transform-origin: -100px;
+            }
+
+            90% {
+                transform: scale(2.5) rotate(0deg) translate(0, 0);
+                transform-origin: center;
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg) translate(0, 0);
+                transform-origin: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div id="pixel"></div>
+    </div>
+    <script>
+        const IMG_W = 300;
+        const IMG_H = 300;
+        const PIXEL_W_H = 10;
+
+        const h = Math.ceil(IMG_H / PIXEL_W_H); // 30
+        const w = Math.ceil(IMG_W / PIXEL_W_H); // 30
+        const pixel = document.getElementById("pixel");
+
+        function pixelImg() {
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < h * w; i++) {
+                const decimal = Math.random().toFixed(1);
+                const span = document.createElement("span");
+
+                // 计算列数
+                const col = i % w;
+                // 计算行数
+                const row = Math.floor(i / w);
+
+                // 直接使用固定值设置样式
+                span.style.left = `${col * 10}px`;
+                span.style.top = `${row * 10}px`;
+                span.style.backgroundPositionX = `${-col * 10}px`;
+                span.style.backgroundPositionY = `${-row * 10}px`;
+                span.style.animationDelay = `${decimal}s`;
+
+                fragment.appendChild(span);
+            }
+
+            pixel.appendChild(fragment);
+        }
+
+        pixelImg();
+    </script>
+</body>
+
+</html>
