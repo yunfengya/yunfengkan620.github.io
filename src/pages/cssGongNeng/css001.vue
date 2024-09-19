@@ -30,6 +30,7 @@ import cssItem006 from "./css001components/cssItem006";
 import cssItem007 from "./css001components/cssItem007";
 import cssItem008 from "./css001components/cssItem008";
 import cssItem008second from "./css001components/cssItem008second";
+import cssItem009 from "./css001components/cssItem009";
 
 export default {
     name: "index",
@@ -45,6 +46,7 @@ export default {
         cssItem007,
         cssItem008,
         cssItem008second,
+        cssItem009,
     },
     data() {
         return {
@@ -61,6 +63,7 @@ export default {
                 { label: "DVD公告", name: "cssItem007" },
                 { label: "3D轮播", name: "cssItem008" },
                 { label: "3D轮播2", name: "cssItem008second" },
+                { label: "屏幕录制", name: "cssItem009" },
             ],
         };
     },
