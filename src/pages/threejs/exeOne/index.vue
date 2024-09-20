@@ -48,7 +48,8 @@ export default {
                 0.1, // 近裁剪面
                 1000 // 远裁剪面
             );
-            this.camera.position.set(0, 0, 10); // 设置相机位置
+            // this.camera.position.set(0, 0, 10); // 设置相机位置
+            this.camera.position.set(6, 6, 6); // 设置相机位置
             this.scene.add(this.camera); // 将相机添加到场景中
 
             // 3. 创建一个立方体几何体
