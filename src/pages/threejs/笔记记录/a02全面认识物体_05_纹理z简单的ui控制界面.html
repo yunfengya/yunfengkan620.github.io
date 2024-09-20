@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>three.js css2d - label</title>
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+            /* html,body,#c{
+                height: 100%;
+            } */
+		</style>
+	</head>
+	<body>
+        <canvas id="c"></canvas>
+		<!-- 
+            // threejs 界面控制器
+        -->
+	</body>
+    <!-- Import maps polyfill -->
+    <!-- Remove this when import maps will be widely supported -->
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/",
+                "gsap": "../../node_modules/gsap/index.js",
+                "OrbitControls": "../examples/jsm/controls/OrbitControls.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from "three"; 
+        //界面显示 纹理类型  使用 lil-gui 来提供一个简单的界面
+        import {GUI} from 'three/addons/libs/lil-gui.module.min.js';
+        // 导入动画库
+        import gsap from "gsap";
+        
+        function main() {
+            const canvas = document.querySelector('#c');
+
+            // 初始化渲染器 渲染一个canvas 标签
+            const renderer = new THREE.WebGLRenderer({canvas});
+
+            const fov = 75;
+            const aspect = 2;  // the canvas default
+            const near = 0.1;
+            const far = 5;
+            // 创建相机
+            const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+            camera.position.z = 2;
+            // 创建场景
+            const scene = new THREE.Scene();
+
+            const boxWidth = 1;
+            const boxHeight = 1;
+            const boxDepth = 1;
+            // 创建几何体 物体
+            const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+            const cubes = [];  // just an array we can use to rotate the cubes
+            // 初始化一个加载器 纹理加载器
+            const loader = new THREE.TextureLoader();
+            // 引入纹理图片
+            const texture = loader.load('https://threejs.org/manual/examples/resources/images/wall.jpg');
+            // 创建材质
+            const material = new THREE.MeshBasicMaterial({
+                map: texture,
+            });
+            // 网格 物体
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+            cubes.push(cube);  // add to our list of cubes to rotate
+
+
+            // 1 正如我们在之前的lil-gui例子中所做的那样，
+            // 我们将使用一个简单的类来给lil-gui提供一个可以以度数为单位进行操作的对象，但它将以弧度为单位设置该属性。
+            class DegRadHelper {
+                constructor(obj, prop) {
+                    this.obj = obj;
+                    this.prop = prop;
+                }
+                get value() {
+                    return THREE.MathUtils.radToDeg(this.obj[this.prop]);
+                }
+                set value(v) {
+                    this.obj[this.prop] = THREE.MathUtils.degToRad(v);
+                }
+            }
+            // 2 我们还需要一个类，将 "123" 这样的字符串转换为 123 这样的数字，
+            // 因为three.js的枚举设置需要数字，比如 wrapS 和 wrapT，但lil-gui只使用字符串来设置枚举。
+            class StringToNumberHelper {
+                constructor(obj, prop) {
+                    this.obj = obj;
+                    this.prop = prop;
+                }
+                get value() {
+                    return this.obj[this.prop];
+                }
+                set value(v) {
+                    this.obj[this.prop] = parseFloat(v);
+                }
+            }
+
+
+            // 3 利用这些类，我们可以为上面的设置设置一个简单的GUI。
+            const wrapModes = {
+                'ClampToEdgeWrapping': THREE.ClampToEdgeWrapping,
+                'RepeatWrapping': THREE.RepeatWrapping,
+                'MirroredRepeatWrapping': THREE.MirroredRepeatWrapping,
+            };
+
+            function updateTexture() {
+                texture.needsUpdate = true;
+            }
+
+            const gui = new GUI();
+            gui.add(new StringToNumberHelper(texture, 'wrapS'), 'value', wrapModes)
+                .name('texture.wrapS')
+                .onChange(updateTexture);
+            gui.add(new StringToNumberHelper(texture, 'wrapT'), 'value', wrapModes)
+                .name('texture.wrapT')
+                .onChange(updateTexture);
+            gui.add(texture.repeat, 'x', 0, 5, .01).name('texture.repeat.x');
+            gui.add(texture.repeat, 'y', 0, 5, .01).name('texture.repeat.y');
+            gui.add(texture.offset, 'x', -2, 2, .01).name('texture.offset.x');
+            gui.add(texture.offset, 'y', -2, 2, .01).name('texture.offset.y');
+            gui.add(texture.center, 'x', -.5, 1.5, .01).name('texture.center.x');
+            gui.add(texture.center, 'y', -.5, 1.5, .01).name('texture.center.y');
+            gui.add(new DegRadHelper(texture, 'rotation'), 'value', -360, 360)
+                .name('texture.rotation');
+
+            function resizeRendererToDisplaySize(renderer) {
+                const canvas = renderer.domElement;
+                const width = canvas.clientWidth;
+                const height = canvas.clientHeight;
+                const needResize = canvas.width !== width || canvas.height !== height;
+                if (needResize) {
+                    renderer.setSize(width, height, false);
+                }
+                return needResize;
+            }
+
+            // 渲染器函数
+            function render(time) {
+                time *= 0.001;
+
+                if (resizeRendererToDisplaySize(renderer)) {
+                    const canvas = renderer.domElement;
+                    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                    camera.updateProjectionMatrix();
+                }
+
+                cubes.forEach((cube, ndx) => {
+                    const speed = .2 + ndx * .1;
+                    const rot = time * speed;
+                    cube.rotation.x = rot;
+                    cube.rotation.y = rot;
+                });
+
+                renderer.render(scene, camera);
+
+                requestAnimationFrame(render);
+            }
+
+            requestAnimationFrame(render);
+        }
+
+        main();
+    
+    </script>
+</html>

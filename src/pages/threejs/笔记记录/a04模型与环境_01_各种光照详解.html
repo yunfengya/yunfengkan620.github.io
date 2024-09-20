@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>three.js css2d - label</title>
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			.label {
+				color: #FFF;
+				font-family: sans-serif;
+				padding: 2px;
+				background: rgba( 0, 0, 0, .6 );
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 
+            建模的使用 .obj是静态模型
+            1.例如：将建模软件中的.blend文件，并将其加载到(建模软件)Blender中，并将其导出为.OBJ文件，供前端使用。一个常见的格式是.OBJ 3D格式
+
+            2.第一件要做的事就是将OBJLoader添加到代码中。 OBJ加载器（OBJLoader）用于加载 .obj 资源的加载器
+                import {OBJLoader} from '/examples/jsm/loaders/OBJLoader.js';
+
+                然后创建OBJLoader的实例并通过URL加载我们的.OBJ文件，并在回调函数中将已加载完的模型添加到场景（scene）里。
+                {
+                    const objLoader = new OBJLoader();
+                    objLoader.load('resources/models/windmill/windmill.obj', (root) => {
+                        scene.add(root);
+                    });
+                }
+                这已经相当接近，但是材质（material）显示异常。场景里材质显示异常是因为.OBJ文件格式是不包含材质数据的。
+                OBJ加载器可以传入 名称/材质对 的对象。当它加载.OBJ文件时，会加载对应名称的材质，若该材质不存在就会使用默认材质。
+                有时.OBJ文件会带有一个.MTL文件来定义材质。在我们的示例里也会创建一个.MTL文件。.MTL文件是一个ASCII码文件(例如../manual/examples/resources/models/windmill/windmill.mtl文件)，所以可以直接阅读。
+                我们能看到2个材质，引用了五张纹理图片，但是这些纹理文件在哪里呢？
+
+            3. 纹理文件等图片 需要我们从建模软件中导出来，提供前端使用；导出后 复制这些纹理放到我导出的.OBJ目录里。现在.MTL文件就能加载到这些纹理。
+                首先要引用 MTLLoader
+                import {MTLLoader} from '/examples/jsm/loaders/MTLLoader.js';
+                然后我们先加载.MTL文件，在它加载完材质后利用 MtlObjBridge 将材质传给OBJLoader，再加载.OBJ文件。
+                // 然后创建OBJLoader的实例并通过URL加载我们的.OBJ文件，并在回调函数中将已加载完的模型添加到场景（scene）里。
+                {
+                    const objLoader = new OBJLoader();
+
+                    const mtlLoader = new MTLLoader();
+                    //先加载 .mtl 材质文件加载
+                    mtlLoader.load('../manual/examples/resources/models/windmill/windmill.mtl', (mtl) => {
+                        mtl.preload();
+                        objLoader.setMaterials(mtl);
+                        objLoader.load('../manual/examples/resources/models/windmill/windmill.obj', (root) => {
+                        scene.add(root);
+                        });
+                    });
+                    //后加载 .obj模型文件加载
+                    objLoader.load('../manual/examples/resources/models/windmill/windmill.obj', (root) => {
+                        scene.add(root);
+                    });
+                }
+                // 旋转物体会发现 物体的纹理是单面的，有问题需要双面纹理绘制
+
+            4.设置这个材质为双面，三个解决办法:
+                1 加载模型后，遍历所有材质，设置成双面。  在加载材质中遍历
+                    mtlLoader.load('../manual/examples/resources/models/windmill/windmill.mtl', (mtl) => {
+                        mtl.preload();
+
+                        // 方式1 加载模型后，遍历所有材质，设置成双面。 性能不好占用资源
+                        for (const material of Object.values(mtl.materials)) {
+                            material.side = THREE.DoubleSide;
+                        }
+                        //
+
+                        objLoader.setMaterials(mtl);
+                        objLoader.load('../manual/examples/resources/models/windmill/windmill.obj', (root) => {
+                        scene.add(root);
+                        });
+                    });
+                2 手动设置一个特定材质。看到.MTL里有两个材质，一个是"windmill"另一个是"Material"。经过反复尝试，发现可以单独设置一个材质。
+                    mtlLoader.load('../manual/examples/resources/models/windmill/windmill.mtl', (mtl) => {
+                        mtl.preload();
+                        // 方式 1 加载模型后，遍历所有材质，设置成双面。 性能不好占用资源
+                        // for (const material of Object.values(mtl.materials)) {
+                        //     material.side = THREE.DoubleSide;
+                        // }
+                        
+                        // 我采用方式2 直接从建模中的材质 进行指定的部位进行双面绘制
+                        // 方式 2 设置特定的材质为双面，其它无需设置成双面，毕竟渲染双面的效率低于单面。 看到.MTL里有两个材质，一个是"windmill"另一个是"Material"。经过反复尝试，发现可以单独设置一个材质。
+                        mtl.materials.Material.side = THREE.DoubleSide;
+                        // mtl.materials.windmill.side = THREE.DoubleSide;
+
+                        objLoader.setMaterials(mtl);
+                        objLoader.load('../manual/examples/resources/models/windmill/windmill.obj', (root) => {
+                        scene.add(root);
+                        });
+                    });
+                3 在.MTL文件上无法解决，可以不使用它而使用自行创建的材质。
+                    objLoader.load('../manual/examples/resources/models/windmill/windmill.obj', (root) => {
+                
+                        // 方式 3 在.MTL文件上无法解决，可以不使用它而使用自行创建的材质。
+                        // const texture1 = loader.load('../manual/examples/resources/models/windmill/windmill_001_base_COL.jpg');
+                        const texture2 = loader.load('../manual/examples/resources/models/windmill/windmill_001_lopatky_COL.jpg');
+                        const materials = {
+                            Material: new THREE.MeshPhongMaterial({
+                                // color:0xb97a20,  //颜色 可用颜色代替纹理map: texture,
+                                // opacity: 0.8,//材质透明度
+                                // transparent: true,//设置可透明
+                                side: THREE.DoubleSide,//将side材质属性，设置为THREE.DoubleSide来让每个立方体的所有面都被绘制
+                                map: texture2,    //添加纹理
+                            }),
+                            // windmill: new THREE.MeshPhongMaterial({
+                            //     // color:0xb97a20,  //颜色 可用颜色代替纹理map: texture,
+                            //     // opacity: 0.8,//材质透明度
+                            //     // transparent: true,//设置可透明
+                            //     side: THREE.DoubleSide,//将side材质属性，设置为THREE.DoubleSide来让每个立方体的所有面都被绘制
+                            //     map: texture1,    //添加纹理
+                            // }),
+                        };
+                        root.traverse(node => {
+                            const material = materials[node.material?.name];
+                            if (material) {
+                                node.material = material;
+                            }
+                        })
+
+                        // 
+                        scene.add(root);
+                    });
+
+            5.此时还存在一个问题，如果我们放大近看，我们看到的物体上面的纹理正在变成块状，不清晰 没有立体感。
+                    我们查看 建模导出的纹理图中：
+                        含一个正常物体颜色，
+                        含一个紫色的 法线贴图 表示表面的方向，
+                        含一个凹凸贴图 则是黑白的 表示表面的高度
+                解决方法：看MTLLoader源码，norm是标记为法线贴图，我们手动修改一下.MTL文件（建模导出的.mtl文件）
+                    map_Bump windmill_001_lopatky_NOR.jpg 把这个紫色图片 改为 norm windmill_001_lopatky_NOR.jpg
+                    map_Bump windmill_001_base_NOR.jpg  把这个紫色图片  norm windmill_001_base_NOR.jpg
+                解决完成
+            
+            6.通用代码，调整建模在场景中完全显示，
+                objLoader.load('../manual/examples/resources/models/windmill/windmill.obj', (root) => {
+                    // 把 .obj建模文件添加到场景中
+                    scene.add(root);
+
+                    // 通用代码
+
+                    // 辅助我们 把模型添加进来  查看模型的 尺寸，大小，等信息
+                    // 我想知道这个模型的尺寸是多少?我们可以问THREE.js模型的大小，并尝试自动设置相机的参数。首先，我们可以让THREE.js计算一个包含我们刚刚加载的场景的盒子，并计算出它的大小和中心。
+                    const box = new THREE.Box3().setFromObject(root);
+                    // boxSize 建模尺寸大小
+                    const boxSize = box.getSize(new THREE.Vector3()).length();
+                    // boxCenter 建模中心点
+                    const boxCenter = box.getCenter(new THREE.Vector3());
+                    console.log('size',boxSize);
+                    console.log(boxCenter);
+
+                    // 调用封装的函数
+                    // 传递了boxSize * 1.2，当试图把它放入截锥体时，给了20%额外空间在盒子的上下面。
+                    // 我们还更新了 OrbitControls ，使相机转动时是围绕它进行转动。
+                    frameArea(boxSize * 1.2, boxSize, boxCenter, camera);
+
+                    // 你能够将相机向外移动多少（仅适用于 PerspectiveCamera ），其默认值为Infinity。
+                    controls.maxDistance = boxSize * 10;
+                    // 使用 OrbitControls 的控制器时，它们提供了一个 target 属性来指定视角的目标点。
+                    // 通过将 target 设置为特定点，可以实现围绕该点旋转和缩放的相机控制。
+                    // 使用 copy() 方法，你可以将目标点 boxCenter 的值复制到控制器的 target。
+                    controls.target.copy(boxCenter);
+                    //  在渲染循环中调用controls.update()以实时更新相机
+                    controls.update();
+                });
+
+                // 封装一个函数，计算出距离distance。然后移动相机，离盒子中心distance远。然后把摄像机对准盒子中心。
+                // sizeToFitOnScreen 传递一个比建模大一点的尺寸，便于场景中可以看全
+                // boxSize 建模大小
+                // boxCenter 建模中心点
+                // camera 透视相机实例 PerspectiveCamera
+                function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
+                    const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
+                    const halfFovY = THREE.MathUtils.degToRad(camera.fov * .5);
+                    const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
+                    // 
+                    const direction = (new THREE.Vector3()).subVectors(camera.position, boxCenter).normalize();
+                    // 
+                    camera.position.copy(direction.multiplyScalar(distance).add(boxCenter));
+                    // near 摄像机视锥体近端面 , far 摄像机视锥体近端面
+                    camera.near = boxSize / 100;
+                    camera.far = boxSize * 100;
+                    // updateProjectionMatrix() 更新摄像机投影矩阵。在任何参数被改变以后必须被调用。
+                    camera.updateProjectionMatrix();
+                    // 用于使相机朝向指定的目标点。调用相机的lookAt方法会将相机的方向指向目标点。
+                    camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
+                }
+        -->
+	</body>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/",
+                "OrbitControls": "../examples/jsm/controls/OrbitControls.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from "three";
+        // 导入轨道控制器
+        // import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js";
+        // html中先通过 上面的引入 才能正确引入
+        import { OrbitControls } from "OrbitControls";
+        // ==================================================
+        //建模 第一件要做的事就是将OBJLoader添加到代码中。用于加载 .obj 资源的加载器
+        import {OBJLoader} from '/examples/jsm/loaders/OBJLoader.js';
+        // 建模
+        import {MTLLoader} from '/examples/jsm/loaders/MTLLoader.js';
+        // ==================================================
+
+ 
+        // 1、创建场景
+        const scene = new THREE.Scene();
+        // 2、创建相机
+        const camera = new THREE.PerspectiveCamera(
+            75,//摄像机视锥体垂直视野角度
+            window.innerWidth / window.innerHeight,//摄像机视锥体长宽比
+            0.1,//摄像机视锥体近端面
+            1000//摄像机视锥体远端面
+        );
+        // 设置相机位置
+        camera.position.set(0, 18, 12);
+        scene.add(camera);
+
+        
+        // 初始化渲染器
+        const renderer = new THREE.WebGLRenderer();
+        // 设置渲染的尺寸大小
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // console.log(renderer);
+        // 将webgl渲染的canvas内容添加到body
+        document.body.appendChild(renderer.domElement);
+
+        // 创建轨道控制器
+        const controls = new OrbitControls(camera, renderer.domElement);
+
+        // 添加坐标轴辅助器 坐标系  红色代表 X 轴. 绿色代表 Y 轴. 蓝色代表 Z 轴.
+        const axesHelper = new THREE.AxesHelper(12);
+        scene.add(axesHelper);
+
+        //一个箭头辅助器 三维向量Vector3 
+        const dir = new THREE.Vector3( 4,8, 0 );
+        //箭头辅助器
+        dir.normalize();
+        const origin = new THREE.Vector3( 0, 0, 0 );
+        const length = 4;
+        const hex = 0xffff00;
+        // 箭头辅助器 帮助你快速判断物体或相机的朝向是否正确。
+        const arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+        scene.add( arrowHelper )
+
+        // 添加灯光
+        // 我们设置两个光源，一个是HemisphereLight，将其光照强度设置为 2，让场景比较明亮。
+        {
+            const skyColor = 0xaeaf9d; // light blue 0xaeab9d 0xb1e1ff
+            const groundColor = 0xb97a20; // brownish orange 
+            const intensity = 2;  //光照 强度 0.5
+            const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+            scene.add(light);
+        }
+        // 另一个是 DirectionalLight ，这将让球体看起来有些视觉的区别
+        {
+            const color = 0xffffff;
+            const intensity = 1; //光照 强度
+            const light = new THREE.DirectionalLight(color, intensity);
+            light.castShadow = true;
+            light.position.set(0, 10, 5);
+            light.target.position.set(-5, 0, 0);
+            scene.add(light);
+            scene.add(light.target);
+        }
+
+        // 地面纹理
+        // 纹理加载器
+        const loader = new THREE.TextureLoader(); 
+        {
+            const planeSize = 40;
+            const texture = loader.load('../manual/examples/resources/images/checker.png');
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.magFilter = THREE.NearestFilter;
+            const repeats = planeSize / 2;
+            texture.repeat.set(repeats, repeats);
+
+            const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+            const planeMat = new THREE.MeshBasicMaterial({
+                map: texture,
+                side: THREE.DoubleSide,
+            });
+            planeMat.color.setRGB(1.5, 1.5, 1.5);
+            const mesh = new THREE.Mesh(planeGeo, planeMat);
+            mesh.rotation.x = Math.PI * -.5;
+            scene.add(mesh);
+        }
+
+
+        // 建模使用 =============================================================================
+        // 先加载.MTL文件，在它加载完材质后利用 MtlObjBridge 将材质传给OBJLoader，再加载.OBJ文件。
+        // 然后创建OBJLoader的实例并通过URL加载我们的.OBJ文件，并在回调函数中将已加载完的模型添加到场景（scene）里。
+        {
+            const objLoader = new OBJLoader();
+
+            const mtlLoader = new MTLLoader();
+            //先加载 .mtl 材质文件加载
+            mtlLoader.load('../manual/examples/resources/models/windmill/windmill.mtl', (mtl) => {
+                mtl.preload();
+                // 方式 1 加载模型后，遍历所有材质，设置成双面。 性能不好占用资源
+                // for (const material of Object.values(mtl.materials)) {
+                //     material.side = THREE.DoubleSide;
+                // }
+                
+                // 我采用方式2 直接从建模中的材质 进行指定的部位进行双面绘制
+                // 方式 2 设置特定的材质为双面，其它无需设置成双面，毕竟渲染双面的效率低于单面。看到.MTL里有两个材质，一个是"windmill"另一个是"Material"。经过反复尝试，发现可以单独设置一个材质。
+                mtl.materials.Material.side = THREE.DoubleSide;
+                mtl.materials.windmill.side = THREE.DoubleSide;
+
+                objLoader.setMaterials(mtl);
+                objLoader.load('../manual/examples/resources/models/windmill/windmill.obj', (root) => {
+                scene.add(root);
+                });
+            });
+            //后加载 .obj模型文件加载
+            objLoader.load('../manual/examples/resources/models/windmill/windmill.obj', (root) => {
+
+                // 方式 3 在.MTL文件上无法解决，可以不使用它而使用自行创建的材质。
+                // const texture1 = loader.load('../manual/examples/resources/models/windmill/windmill_001_base_COL.jpg');
+                // const texture2 = loader.load('../manual/examples/resources/models/windmill/windmill_001_lopatky_COL.jpg');
+                // const materials = {
+                //     Material: new THREE.MeshPhongMaterial({
+                //         // color:0xb97a20,  //颜色 可用颜色代替纹理map: texture,
+                //         // opacity: 0.8,//材质透明度
+                //         // transparent: true,//设置可透明
+                //         side: THREE.DoubleSide,//将side材质属性，设置为THREE.DoubleSide来让每个立方体的所有面都被绘制
+                //         map: texture2,    //添加纹理
+                //     }),
+                //     // windmill: new THREE.MeshPhongMaterial({
+                //     //     // color:0xb97a20,  //颜色 可用颜色代替纹理map: texture,
+                //     //     // opacity: 0.8,//材质透明度
+                //     //     // transparent: true,//设置可透明
+                //     //     side: THREE.DoubleSide,//将side材质属性，设置为THREE.DoubleSide来让每个立方体的所有面都被绘制
+                //     //     map: texture1,    //添加纹理
+                //     // }),
+                // };
+                // root.traverse(node => {
+                //     const material = materials[node.material?.name];
+                //     if (material) {
+                //         node.material = material;
+                //     }
+                // })
+
+                // 把 .obj建模文件添加到场景中
+                scene.add(root);
+
+
+                // 通用代码
+
+                // 辅助我们 把模型添加进来  查看模型的 尺寸，大小，等信息
+                // 我想知道这个模型的尺寸是多少?我们可以问THREE.js模型的大小，并尝试自动设置相机的参数。首先，我们可以让THREE.js计算一个包含我们刚刚加载的场景的盒子，并计算出它的大小和中心。
+                const box = new THREE.Box3().setFromObject(root);
+                // boxSize 建模尺寸大小
+                const boxSize = box.getSize(new THREE.Vector3()).length();
+                // boxCenter 建模中心点
+                const boxCenter = box.getCenter(new THREE.Vector3());
+                console.log('size',boxSize);
+                console.log(boxCenter);
+
+                // 调用封装的函数
+                // 传递了boxSize * 1.2，当试图把它放入截锥体时，给了20%额外空间在盒子的上下面。
+                // 我们还更新了 OrbitControls ，使相机转动时是围绕它进行转动。
+                frameArea(boxSize * 1.2, boxSize, boxCenter, camera);
+
+                // 你能够将相机向外移动多少（仅适用于 PerspectiveCamera ），其默认值为Infinity。
+                controls.maxDistance = boxSize * 10;
+                // 使用 OrbitControls 的控制器时，它们提供了一个 target 属性来指定视角的目标点。
+                // 通过将 target 设置为特定点，可以实现围绕该点旋转和缩放的相机控制。
+                // 使用 copy() 方法，你可以将目标点 boxCenter 的值复制到控制器的 target。
+                controls.target.copy(boxCenter);
+                //  在渲染循环中调用controls.update()以实时更新相机
+                controls.update();
+            });
+
+        }
+        // 封装一个函数，计算出距离distance。然后移动相机，离盒子中心distance远。然后把摄像机对准盒子中心。
+        // sizeToFitOnScreen 传递一个比建模大一点的尺寸，便于场景中可以看全
+        // boxSize 建模大小
+        // boxCenter 建模中心点
+        // camera 透视相机实例 PerspectiveCamera
+        function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
+            const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
+            const halfFovY = THREE.MathUtils.degToRad(camera.fov * .5);
+            const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
+            // 
+            const direction = (new THREE.Vector3()).subVectors(camera.position, boxCenter).normalize();
+            // 
+            camera.position.copy(direction.multiplyScalar(distance).add(boxCenter));
+            // near 摄像机视锥体近端面 , far 摄像机视锥体近端面
+            camera.near = boxSize / 100;
+            camera.far = boxSize * 100;
+            // updateProjectionMatrix() 更新摄像机投影矩阵。在任何参数被改变以后必须被调用。
+            camera.updateProjectionMatrix();
+            // 用于使相机朝向指定的目标点。调用相机的lookAt方法会将相机的方向指向目标点。
+            camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
+        }
+        // =============================================================================
+
+        
+        // requestAnimationFrame的回调函数
+        function renderFn(time) {
+            
+            //第一次调用render函数，没有上一帧的时间
+            // 使用渲染器，通过相机将场景渲染进来
+            renderer.render(scene, camera);
+            //   渲染下一帧的时候就会调用renderFn函数
+            requestAnimationFrame(renderFn);
+        }
+        renderFn();
+
+        // 监听画面变化，更新渲染画面
+        window.addEventListener("resize", () => {
+            //   console.log("画面变化了");
+            // 更新摄像头
+            camera.aspect = window.innerWidth / window.innerHeight;
+            //   更新摄像机的投影矩阵
+            camera.updateProjectionMatrix();
+
+            //   更新渲染器
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            //   设置渲染器的像素比
+            renderer.setPixelRatio(window.devicePixelRatio);
+        });
+    </script>
+</html>

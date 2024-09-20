@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>three.js css2d - label</title>
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<!-- 
+            基础语法的使用 
+        -->
+	</body>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/",
+                "OrbitControls": "../examples/jsm/controls/OrbitControls.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from "three";
+        // 导入轨道控制器
+        // import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js";
+        // html中先通过 上面的引入 才能正确引入
+        import { OrbitControls } from "OrbitControls";
+
+        // 创建 场景
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color('gray');
+        
+        const fov = 75;
+        const aspect = window.innerWidth / window.innerHeight;  // the canvas default
+        const near = 0.1;
+        const far = 1000;
+        // 创建 透视相机
+        const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        // 设置相机位置
+        camera.position.set(0, 0, 10);
+        scene.add(camera);
+
+        const planeWidth = 1;
+        const planeHeight = 1;
+        const planeDeep = 1
+        // 创建 平面缓冲几何体
+        // const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
+        // 创建 几何体
+        const geometry = new THREE.BoxGeometry(planeWidth, planeHeight,planeDeep);
+
+        // // 初始化一个加载器 纹理加载器
+        const loader = new THREE.TextureLoader();
+
+        
+        function addLight(...pos) {
+            const color = 0xFFFFFF;
+            const intensity = 1;
+            // 平行光 灯光
+            const light = new THREE.DirectionalLight(color, intensity);
+            light.position.set(...pos);
+            scene.add(light);
+        }
+        // 添加两个灯光，让物体360可见
+        addLight(-1, 2, 4);
+        addLight(1, -1, -2);
+
+        // 设置物体颜色
+        function hsl(h, s, l) {
+            return (new THREE.Color()).setHSL(h, s, l);
+        }
+
+        function makeInstance(geometry, color, x, y, z,url) {
+            // const texture = loader.load('textures/colors.png');
+            const texture = loader.load('textures/sprite0.png');
+            // 创建 网格材质
+            const material = new THREE.MeshPhongMaterial({
+                color,  //颜色
+                opacity: 0.5,//材质透明度
+                transparent: true,//设置可透明
+                side: THREE.DoubleSide,//将side材质属性，设置为THREE.DoubleSide来让每个立方体的所有面都被绘制
+                // map: texture,    //添加纹理
+                
+            });
+            //  创建 网格
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            cube.position.set(x, y, z);
+
+            return cube;
+        }
+        // 创建 8 个网格
+        const d = 0.8;
+        makeInstance(geometry, hsl(0 / 8, 1, .5), -d, -d, -d);
+        makeInstance(geometry, hsl(1 / 8, 1, .5), d, -d, -d);
+        makeInstance(geometry, hsl(2 / 8, 1, .5), -d, d, -d);
+        makeInstance(geometry, hsl(3 / 8, 1, .5), d, d, -d);
+        makeInstance(geometry, hsl(4 / 8, 1, .5), -d, -d, d);
+        makeInstance(geometry, hsl(5 / 8, 1, .5), d, -d, d);
+        makeInstance(geometry, hsl(6 / 8, 1, .5), -d, d, d);
+        makeInstance(geometry, hsl(7 / 8, 1, .5), d, d, d);
+
+        
+        // 初始化渲染器
+        const renderer = new THREE.WebGLRenderer();
+        // 设置渲染的尺寸大小
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // console.log(renderer);
+        // 将webgl渲染的canvas内容添加到body
+        document.body.appendChild(renderer.domElement);
+        // 创建轨道控制器
+        const controls = new OrbitControls(camera, renderer.domElement);
+        // 
+        function renderFn(time) {
+            renderer.render(scene, camera);
+            // requestAnimationFrame 集合 轨道控制器 让物体能够滑动
+            //   渲染下一帧的时候就会调用renderFn函数
+            requestAnimationFrame(renderFn);
+        }
+        renderFn()
+    </script>
+</html>

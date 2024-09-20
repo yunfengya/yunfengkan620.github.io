@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>three.js css2d - label</title>
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			.label {
+				color: #FFF;
+				font-family: sans-serif;
+				padding: 2px;
+				background: rgba( 0, 0, 0, .6 );
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 
+            基础语法的使用 
+        -->
+	</body>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/",
+                "OrbitControls": "../examples/jsm/controls/OrbitControls.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from "three";
+        // 导入轨道控制器
+        // import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js";
+        // html中先通过 上面的引入 才能正确引入
+        import { OrbitControls } from "OrbitControls";
+
+        // console.log(THREE);
+
+        // 目标：使用控制器查看3d物体
+
+        // 1、创建场景
+        const scene = new THREE.Scene();
+
+        // 2、创建相机
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+
+        // 设置相机位置
+        camera.position.set(0, 0, 10);
+        scene.add(camera);
+
+        // 添加物体
+        // 创建几何体
+        const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+        const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+        // 根据几何体和材质创建物体
+        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        // 修改物体的位置
+        // cube.position.set(5, 0, 0);
+        cube.position.x = 3;
+        // 将几何体添加到场景中
+        scene.add(cube);
+
+        // 初始化渲染器
+        const renderer = new THREE.WebGLRenderer();
+        // 设置渲染的尺寸大小
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // console.log(renderer);
+        // 将webgl渲染的canvas内容添加到body
+        document.body.appendChild(renderer.domElement);
+
+        // // 使用渲染器，通过相机将场景渲染进来
+        // renderer.render(scene, camera);
+
+        // 创建轨道控制器
+        const controls = new OrbitControls(camera, renderer.domElement);
+
+        // 添加坐标轴辅助器
+        const axesHelper = new THREE.AxesHelper(5);
+        scene.add(axesHelper);
+
+        const dir = new THREE.Vector3( 1, 2, 0 );
+
+        //箭头辅助器
+        dir.normalize();
+
+        const origin = new THREE.Vector3( 0, 0, 0 );
+        const length = 1;
+        const hex = 0xffff00;
+
+        // 箭头辅助器
+        const arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+        scene.add( arrowHelper )
+        
+        // requestAnimationFrame的回调函数
+        function renderFn(time) {
+            // if(time>1000){
+            //     console.log(time);
+            //     return
+            // }
+            
+            // 修改物体的位置
+            // cube.position.set(5, 0, 0);
+
+            //例如设置x轴放大3倍、y轴方向放大2倍、z轴方向不变
+            // cube.scale.set(3, 2, 1);
+            //单独设置某个轴的缩放
+            // cube.scale.x = 3
+
+            //直接设置旋转属性，例如围绕x轴旋转90度
+            // cube.rotation.x = -Math.PI/2
+            //围绕x轴旋转45度
+            // cube.rotation.set(-Math.PI / 4, 0, 0, "XZY");
+
+            // 调整物体的位置
+            // 旋转物体角度
+            // cube.position.x += 0.01;
+            // if (cube.position.x > 5) {
+            //     cube.position.x = 0;
+            // }
+
+            // cube.rotation.x += 0.01;
+
+            // cube.scale.x += 0.001
+            // cube.scale.y += 0.001
+            // cube.scale.z += 0.001
+            // if (cube.position.x > 5) {
+            //     cube.scale.x = 1
+            //     cube.scale.y = 1
+            //     cube.scale.z = 1
+            // }
+
+            //第一次调用render函数，没有上一帧的时间
+
+            // 实现每10秒，即从原点出发匀速在x轴进行1m/s的匀速运动
+            let t = (time / 1000) % 10;
+            cube.position.x = t * 1;
+
+            cube.scale.x = t / 10 * 1;
+            cube.scale.y = t / 10 * 1;
+            cube.scale.z = t / 10 * 1;
+
+            cube.rotation.x += 0.01;
+            
+            
+            renderer.render(scene, camera);
+            //   渲染下一帧的时候就会调用renderFn函数
+            requestAnimationFrame(renderFn);
+        }
+
+        renderFn();
+    </script>
+</html>

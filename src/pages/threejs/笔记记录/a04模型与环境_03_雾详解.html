@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>three.js css2d - label</title>
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			body {
+                margin: 0;
+            }
+            #c {
+                width: 100%;
+                height: 100%;
+                display: block;
+                background: url(../manual/examples/resources/images/daikanyama.jpg) no-repeat center center;
+                background-size: cover;
+            }
+		</style>
+	</head>
+	<body>
+        <canvas id="c"></canvas>
+		<!-- 
+            1.方式一 使用dom结合threejs 我们需要在Canvas上添加一些CSS，以将其背景设置为图像。
+                <style>
+                    body {
+                        margin: 0;
+                    }
+                    #c {
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        background: url(resources/images/daikanyama.jpg) no-repeat center center;
+                        background-size: cover;
+                    }
+                </style>
+
+                <canvas id="c"></canvas>
+
+                threejs结合dom使用 这里用的canvas标签
+                然后我们需要告诉 WebGLRenderer 去使用 alpha，这样我们不绘制的地方都是透明的。
+
+                function main() {
+                    const canvas = document.querySelector('#c');
+                    const renderer = new THREE.WebGLRenderer({
+                        canvas,
+                        alpha: true,
+                    });
+                }
+
+            2 . 方式二 使用threejs的纹理 如果我们想让背景被 后处理效果影响，我们需要用THREE.js绘制背景。
+                THREE.js 让这变得非常简单。我们可以将场景的背景设置为一种纹理。
+
+                const loader = new THREE.TextureLoader();
+                const bgTexture = loader.load('resources/images/daikanyama.jpg');
+                scene.background = bgTexture;
+
+                这产生了一个背景图，但它被拉伸以适应屏幕。
+                我们可以解决这个问题，通过设置纹理属性 repeat 和 offset 来显示图像的一部分。
+                function render(time) {
+
+                    // 设置背景贴图的repeat和offset属性
+                    // 来保证图片的比例是正确的
+                    // 注意图片有可能还没加载完成
+                    const canvasAspect = canvas.clientWidth / canvas.clientHeight;
+                    const imageAspect = bgTexture.image ? bgTexture.image.width / bgTexture.image.height : 1;
+                    const aspect = imageAspect / canvasAspect;
+
+                    bgTexture.offset.x = aspect > 1 ? (1 - 1 / aspect) / 2 : 0;
+                    bgTexture.repeat.x = aspect > 1 ? 1 / aspect : 1;
+
+                    bgTexture.offset.y = aspect > 1 ? 0 : (1 - aspect) / 2;
+                    bgTexture.repeat.y = aspect > 1 ? 1 : aspect;
+
+                    renderer.render(scene, camera);
+
+                    requestAnimationFrame(render);
+                }
+
+            3 . 方式三 使用6面体纹理加载器，像周围的环境一样
+                {
+                    const cubeLoader = new THREE.CubeTextureLoader();
+                    const texture = cubeLoader.load([
+                        '../manual/examples/resources/images/cubemaps/computer-history-museum/pos-x.jpg',
+                        '../manual/examples/resources/images/cubemaps/computer-history-museum/neg-x.jpg',
+                        '../manual/examples/resources/images/cubemaps/computer-history-museum/pos-y.jpg',
+                        '../manual/examples/resources/images/cubemaps/computer-history-museum/neg-y.jpg',
+                        '../manual/examples/resources/images/cubemaps/computer-history-museum/pos-z.jpg',
+                        '../manual/examples/resources/images/cubemaps/computer-history-museum/neg-z.jpg',
+                    ]);
+                    scene.background = texture;
+                }
+
+            4 . 方式四 使用360拍摄的图片 另一种选择是使用等距矩形贴图(Equirectangular map)， 这是被 360 全景相机 拍摄的一种特殊类型的图片。
+                const loader = new THREE.TextureLoader();
+                const texture = loader.load(
+                    'resources/images/equirectangularmaps/tears_of_steel_bridge_2k.jpg',
+                    () => {
+                    const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+                    rt.fromEquirectangularTexture(renderer, texture);
+                    scene.background = rt.texture;
+                });
+        -->
+	</body>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/",
+                "OrbitControls": "../examples/jsm/controls/OrbitControls.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from "three";
+        // 导入轨道控制器
+        // import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js";
+        // html中先通过 上面的引入 才能正确引入
+        import { OrbitControls } from "OrbitControls";
+        // ==================================================
+        //建模 第一件要做的事就是将 GLTFLoader 添加到代码中。用于加载 .gLTF 资源的加载器
+        import {GLTFLoader} from '/examples/jsm/loaders/GLTFLoader.js';
+        // ==================================================
+
+ 
+        // 1、创建场景
+        const scene = new THREE.Scene();
+        // 2、创建相机
+        const camera = new THREE.PerspectiveCamera(
+            75,//摄像机视锥体垂直视野角度
+            window.innerWidth / window.innerHeight,//摄像机视锥体长宽比
+            0.1,//摄像机视锥体近端面
+            1000//摄像机视锥体远端面
+        );
+        // 设置相机位置
+        camera.position.set(0, 18, 12);
+        scene.add(camera);
+
+        
+        // 获取dom
+        const canvas = document.querySelector('#c');
+        // 初始化渲染器
+        const renderer = new THREE.WebGLRenderer(
+            {
+                canvas,
+                // alpha: 这个配置参数用于指示渲染器是否需要将画布的背景设置为透明。当设置为true时，画布背景将变为透明，这样我们可以将Three.js场景与其他HTML元素叠加在一起。
+                alpha: true,//是否将threejs的背景设置为透明
+            }
+        );
+        // 设置渲染的尺寸大小
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // console.log(renderer);
+        // 将webgl渲染的canvas内容添加到body
+        document.body.appendChild(renderer.domElement);
+
+        // 创建轨道控制器
+        const controls = new OrbitControls(camera, renderer.domElement);
+
+        // 添加坐标轴辅助器 坐标系  红色代表 X 轴. 绿色代表 Y 轴. 蓝色代表 Z 轴.
+        const axesHelper = new THREE.AxesHelper(12);
+        scene.add(axesHelper);
+
+        //一个箭头辅助器 三维向量Vector3 
+        const dir = new THREE.Vector3( 4,8, 0 );
+        //箭头辅助器
+        dir.normalize();
+        const origin = new THREE.Vector3( 0, 0, 0 );
+        const length = 4;
+        const hex = 0xffff00;
+        // 箭头辅助器 帮助你快速判断物体或相机的朝向是否正确。
+        const arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+        scene.add( arrowHelper )
+
+        // 添加灯光
+        // 我们设置两个光源，一个是HemisphereLight，将其光照强度设置为 2，让场景比较明亮。
+        {
+            const skyColor = 0xaeaf9d; // light blue 0xaeab9d 0xb1e1ff
+            const groundColor = 0xb97a20; // brownish orange 
+            const intensity = 2;  //光照 强度 0.5
+            const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+            scene.add(light);
+        }
+        // 另一个是 DirectionalLight ，这将让球体看起来有些视觉的区别
+        {
+            const color = 0xffffff;
+            const intensity = 1; //光照 强度
+            const light = new THREE.DirectionalLight(color, intensity);
+            light.castShadow = true;
+            light.position.set(0, 10, 5);
+            light.target.position.set(-5, 0, 0);
+            scene.add(light);
+            scene.add(light.target);
+        }
+
+        
+        // 纹理加载器
+        const loader = new THREE.TextureLoader(); 
+
+        // 背景图纹理 背景
+        // const bgTexture = loader.load('../manual/examples/resources/images/daikanyama.jpg');
+        // scene.background = bgTexture;
+
+        // 6面体纹理加载 像周围的环境一样
+        // {
+        //     const cubeLoader = new THREE.CubeTextureLoader();
+        //     const texture = cubeLoader.load([
+        //         '../manual/examples/resources/images/cubemaps/computer-history-museum/pos-x.jpg',
+        //         '../manual/examples/resources/images/cubemaps/computer-history-museum/neg-x.jpg',
+        //         '../manual/examples/resources/images/cubemaps/computer-history-museum/pos-y.jpg',
+        //         '../manual/examples/resources/images/cubemaps/computer-history-museum/neg-y.jpg',
+        //         '../manual/examples/resources/images/cubemaps/computer-history-museum/pos-z.jpg',
+        //         '../manual/examples/resources/images/cubemaps/computer-history-museum/neg-z.jpg',
+        //     ]);
+        //     scene.background = texture;
+        // }
+
+        // 另一种选择是使用等距矩形贴图(Equirectangular map)， 这是被 360 全景相机 拍摄的一种特殊类型的图片。
+        const texture = loader.load(
+            '../manual/examples/resources/images/equirectangularmaps/tears_of_steel_bridge_2k.jpg',
+            () => {
+            const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+            rt.fromEquirectangularTexture(renderer, texture);
+            scene.background = rt.texture;
+        });
+        
+        // 地面纹理
+        {
+            const planeSize = 40;
+            const texture = loader.load('../manual/examples/resources/images/checker.png');
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.magFilter = THREE.NearestFilter;
+            const repeats = planeSize / 2;
+            texture.repeat.set(repeats, repeats);
+
+            const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+            const planeMat = new THREE.MeshBasicMaterial({
+                map: texture,
+                side: THREE.DoubleSide,
+            });
+            planeMat.color.setRGB(1.5, 1.5, 1.5);
+            const mesh = new THREE.Mesh(planeGeo, planeMat);
+            mesh.rotation.x = Math.PI * -.5;
+            scene.add(mesh);
+        }
+
+
+        // 建模使用 =============================================================================
+        const cars = [];
+        // 
+        function resizeRendererToDisplaySize(renderer) {
+            const canvas = renderer.domElement;
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
+            const needResize = canvas.width !== width || canvas.height !== height;
+            if (needResize) {
+                renderer.setSize(width, height, false);
+            }
+            return needResize;
+        }
+
+        // 封装 查看gltf建模中的方法树 查看具有 哪些 动画方法 打印 获得清单
+        // 我想看看我能否给汽车添加绕圈动画（animate），我得检查场景有没有这些汽车的分离的实体，还得检查场景有没有一条路可以用。
+        // 我写了一些代码将场景图（scenegraph）打印到 JavaScript console.打印场景图（scenegraph）
+        function dumpObject(obj, lines = [], isLast = true, prefix = '') {
+            const localPrefix = isLast ? '└─' : '├─';
+            lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
+            const newPrefix = prefix + (isLast ? '  ' : '│ ');
+            const lastNdx = obj.children.length - 1;
+            obj.children.forEach((child, ndx) => {
+                const isLast = ndx === lastNdx;
+                dumpObject(child, lines, isLast, newPrefix);
+            });
+            return lines;
+        }
+
+        // 直接 创建 GLTFLoader 的实例并通过URL加载我们的.gltf文件，并在回调函数中将已加载完的模型添加到场景（scene）里。
+        {
+            const gltfLoader = new GLTFLoader();
+            // 加载 .gltf 模型文件加载 
+            const url = '../manual/examples/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf';
+            gltfLoader.load(url, (gltf) => {
+                const root = gltf.scene;
+                // 把 .gltf 建模文件添加到场景中
+                scene.add(root);
+                // 封装 查看 是否有 动画方法
+                console.log(dumpObject(root).join('\n'));
+                // 我尝试将这些"Cars"节点的子节点绕它们的Y轴旋转。在加载场景后，我查找了“Cars”节点并保存了结果。
+                // 每一个节点都有自己的小场景
+                const loadedCars = root.getObjectByName('Cars');
+                const fixes = [
+                    // { prefix: 'Car_08', rot: [Math.PI * .5, 0, Math.PI +* .5], },
+                    { prefix: 'Car_08', rot: [Math.PI * .5, 0, Math.PI * .5], },
+                    { prefix: 'CAR_03', rot: [0, Math.PI, 0], },
+                    { prefix: 'Car_04', rot: [0, Math.PI, 0], },
+                ];
+                root.updateMatrixWorld();
+                for (const car of loadedCars.children.slice()) {
+                    const fix = fixes.find(fix => car.name.startsWith(fix.prefix));
+                    const obj = new THREE.Object3D();
+                    car.getWorldPosition(obj.position);
+                    car.position.set(0, 0, 0);
+                    car.rotation.set(...fix.rot);
+                    obj.add(car);
+                    scene.add(obj);
+                    cars.push(obj);
+                }
+
+
+                // 通用代码
+                // 辅助我们 把模型添加进来  查看模型的 尺寸，大小，等信息
+                // 我想知道这个模型的尺寸是多少?我们可以问THREE.js模型的大小，并尝试自动设置相机的参数。首先，我们可以让THREE.js计算一个包含我们刚刚加载的场景的盒子，并计算出它的大小和中心。
+                const box = new THREE.Box3().setFromObject(root);
+                // boxSize 建模尺寸大小
+                const boxSize = box.getSize(new THREE.Vector3()).length();
+                // boxCenter 建模中心点
+                const boxCenter = box.getCenter(new THREE.Vector3());
+                console.log('size',boxSize);
+                console.log(boxCenter);
+
+                // 调用封装的函数
+                // 传递了boxSize * 1.2，当试图把它放入截锥体时，给了20%额外空间在盒子的上下面。
+                // 我们还更新了 OrbitControls ，使相机转动时是围绕它进行转动。
+                frameArea(boxSize * 1.2, boxSize, boxCenter, camera);
+
+                // 你能够将相机向外移动多少（仅适用于 PerspectiveCamera ），其默认值为Infinity。
+                controls.maxDistance = boxSize * 10;
+                // 使用 OrbitControls 的控制器时，它们提供了一个 target 属性来指定视角的目标点。
+                // 通过将 target 设置为特定点，可以实现围绕该点旋转和缩放的相机控制。
+                // 使用 copy() 方法，你可以将目标点 boxCenter 的值复制到控制器的 target。
+                controls.target.copy(boxCenter);
+                //  在渲染循环中调用controls.update()以实时更新相机
+                controls.update();
+            });
+
+        }
+
+        // 封装一个函数，计算出距离distance。然后移动相机，离盒子中心distance远。然后把摄像机对准盒子中心。
+        // sizeToFitOnScreen 传递一个比建模大一点的尺寸，便于场景中可以看全
+        // boxSize 建模大小
+        // boxCenter 建模中心点
+        // camera 透视相机实例 PerspectiveCamera
+        function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
+            const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
+            const halfFovY = THREE.MathUtils.degToRad(camera.fov * .5);
+            const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
+            // 
+            const direction = (new THREE.Vector3()).subVectors(camera.position, boxCenter).normalize();
+            // 
+            camera.position.copy(direction.multiplyScalar(distance).add(boxCenter));
+            // near 摄像机视锥体近端面 , far 摄像机视锥体近端面
+            camera.near = boxSize / 100;
+            camera.far = boxSize * 100;
+            // updateProjectionMatrix() 更新摄像机投影矩阵。在任何参数被改变以后必须被调用。
+            camera.updateProjectionMatrix();
+            // 用于使相机朝向指定的目标点。调用相机的lookAt方法会将相机的方向指向目标点。
+            camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
+        }
+        // =============================================================================
+
+        
+        // requestAnimationFrame的回调函数
+        function renderFn(time) {
+
+            // 
+            // 设置背景贴图的repeat和offset属性
+            // 来保证图片的比例是正确的
+            // 注意图片有可能还没加载完成
+            // const canvasAspect = canvas.clientWidth / canvas.clientHeight;
+            // const imageAspect = bgTexture.image ? bgTexture.image.width / bgTexture.image.height : 1;
+            // const aspect = imageAspect / canvasAspect;
+            // bgTexture.offset.x = aspect > 1 ? (1 - 1 / aspect) / 2 : 0;
+            // bgTexture.repeat.x = aspect > 1 ? 1 / aspect : 1;
+            // bgTexture.offset.y = aspect > 1 ? 0 : (1 - aspect) / 2;
+            // bgTexture.repeat.y = aspect > 1 ? 1 : aspect;
+
+            
+            //第一次调用render函数，没有上一帧的时间
+            // 使用渲染器，通过相机将场景渲染进来
+            renderer.render(scene, camera);
+            //   渲染下一帧的时候就会调用renderFn函数
+            requestAnimationFrame(renderFn);
+        }
+        renderFn();
+
+        // 监听画面变化，更新渲染画面
+        window.addEventListener("resize", () => {
+            //   console.log("画面变化了");
+            // 更新摄像头
+            camera.aspect = window.innerWidth / window.innerHeight;
+            //   更新摄像机的投影矩阵
+            camera.updateProjectionMatrix();
+
+            //   更新渲染器
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            //   设置渲染器的像素比
+            renderer.setPixelRatio(window.devicePixelRatio);
+        });
+    </script>
+</html>

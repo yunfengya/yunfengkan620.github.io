@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>three.js css2d - label</title>
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<!-- 
+            三维物体（Object3D）的使用
+
+            这里我们 创建了一个 Object3D 。像 Mesh 一样，它也是场景图中的一个节点，
+            但与 Mesh 不同的是，它没有材质（material）和几何体（geometry）。它只是代表一个局部空间。
+            //创建的局部空间solarSystem
+            const solarSystem = new THREE.Object3D();
+            scene.add(solarSystem);     //场景中scene.add(可添加Object3D创建的局部空间节点 或者 添加mesh网格节点)
+
+            //创建的局部空间 earthOrbit
+            const earthOrbit = new THREE.Object3D();
+            //局部空间可 添加 网格 和 另外的局部空间，让这个空间成为独立的
+            solarSystem.add(sunMesh);
+            solarSystem.add(earthOrbit);
+
+        -->
+	</body>
+    <!-- Import maps polyfill -->
+    <!-- Remove this when import maps will be widely supported -->
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/",
+                "gsap": "../../node_modules/gsap/index.js",
+                "OrbitControls": "../examples/jsm/controls/OrbitControls.js"
+            }
+        }
+    </script>
+   
+    <script type="module">
+        import * as THREE from "three";
+        // // 导入轨道控制器
+        import { OrbitControls } from "OrbitControls";
+        // import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js";
+        // 导入动画库
+        import gsap from "gsap";
+        // 
+
+        // 1、创建场景
+        const scene = new THREE.Scene();
+
+        // 2、创建相机
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        //相机位置
+        camera.position.set(0, 50, 0);
+        camera.up.set(0, 0, 1);
+        camera.lookAt(0, 0, 0);
+
+        // 3、 创建几何体 太阳-地球 公用
+        // 要更新旋转角度的对象数组
+        const objects = [];
+        // 一球多用
+        const radius = 1;
+        const widthSegments = 6;
+        const heightSegments = 6;
+        // 球缓冲几何体
+        const sphereGeometry = new THREE.SphereGeometry(
+            radius,
+            widthSegments,
+            heightSegments
+        );
+
+        // 太阳
+        //材质
+        const sunMaterial = new THREE.MeshPhongMaterial({ emissive: 0xffff00 });
+        //网格
+        const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial);
+        // sunMesh.position.x = 20;
+        sunMesh.scale.set(5, 5, 5); // 扩大太阳的大小
+        scene.add(sunMesh); // 将几何体添加到场景中
+        objects.push(sunMesh);
+
+        // 6、灯光
+        const color = 0xffffff;
+        const intensity = 3;
+        // 点光源
+        const light = new THREE.PointLight(color, intensity);
+        scene.add(light);
+
+        // 地球
+        // 材质 
+        const earthMaterial = new THREE.MeshPhongMaterial({ color: 0x2233ff, emissive: 0x112244,});
+        // 网格 
+        const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
+        earthMesh.scale.set(2, 2, 2);
+        // earthMesh.position.x = 10;
+        scene.add(earthMesh);
+        objects.push(earthMesh);
+        // 把地球变成太阳的子节点
+        // sunMesh.add(earthMesh);
+
+        // 定义一个 太阳系节点  这里我们创建了一个 Object3D 。像 Mesh 一样，它也是场景图中的一个节点，但与 Mesh 不同的是，它没有材质（material）和几何体（geometry）。它只是代表一个局部空间。
+        const solarSystem = new THREE.Object3D();
+        scene.add(solarSystem);
+        objects.push(solarSystem);
+        // 把地球 和 太阳 都添加为 太阳系的子节点
+        solarSystem.add(sunMesh);
+        // solarSystem.add(earthMesh);
+
+        // 定义一个地球系 
+        const earthOrbit = new THREE.Object3D();
+        earthOrbit.position.x = 10;
+        // 太阳系 添加 地球系
+        solarSystem.add(earthOrbit);
+        // 地球系 添加 地球网格
+        earthOrbit.add(earthMesh);
+        objects.push(earthOrbit);
+        
+        // 月亮系
+        const moonOrbit = new THREE.Object3D();
+        moonOrbit.position.x = 3;
+        earthOrbit.add(moonOrbit);
+
+        // 月亮
+        // 材质
+        const moonMaterial = new THREE.MeshPhongMaterial({color: 0xFF0033, emissive: 0x222222});
+        // 网格
+        const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
+        moonMesh.scale.set(.9, .9, .9);
+        moonOrbit.add(moonMesh);
+        objects.push(moonMesh);
+
+        // 
+        // 为每个节点添加一个 AxesHelper 添加坐标轴辅助器
+        objects.forEach((node) => {
+        const axes = new THREE.AxesHelper();
+        axes.material.depthTest = false;
+        axes.renderOrder = 1;
+        node.add(axes);
+        });
+
+        // 
+
+
+        
+
+        // 8、 初始化渲染器
+        const renderer = new THREE.WebGLRenderer();
+        // 设置渲染的尺寸大小
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // console.log(renderer);
+        // 将webgl渲染的canvas内容添加到body
+        document.body.appendChild(renderer.domElement);
+
+        // // 使用渲染器，通过相机将场景渲染进来
+        // renderer.render(scene, camera);
+
+        // 创建轨道控制器
+        const controls = new OrbitControls(camera, renderer.domElement);
+        // 设置控制器阻尼，让控制器更有真实效果,必须在动画循环里调用.update()。
+        controls.enableDamping = true;
+
+        // 添加坐标轴辅助器
+        const axesHelper = new THREE.AxesHelper(25);
+        scene.add(axesHelper);
+        // 设置时钟
+        const clock = new THREE.Clock();
+
+        
+
+        function render() {
+            objects.forEach((obj) => {
+                obj.rotation.y += 0.01;
+            });
+
+            // 轨道控制器，丝滑惯性
+            controls.update();
+
+            renderer.render(scene, camera);
+            //   渲染下一帧的时候就会调用render函数
+            requestAnimationFrame(render);
+        }
+
+        render();
+
+        // 监听画面变化，更新渲染画面
+        window.addEventListener("resize", () => {
+            //   console.log("画面变化了");
+            // 更新摄像头
+            camera.aspect = window.innerWidth / window.innerHeight;
+            //   更新摄像机的投影矩阵
+            camera.updateProjectionMatrix();
+
+            //   更新渲染器
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            //   设置渲染器的像素比
+            renderer.setPixelRatio(window.devicePixelRatio);
+        });
+    </script>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>three.js css2d - label</title>
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			#c{
+                width: 1000px;
+                height:800px;
+            }
+		</style>
+	</head>
+	<body>
+		<!-- 
+            基础语法的使用 
+        -->
+        <canvas id="c"></canvas>
+	</body>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/",
+                "OrbitControls": "../examples/jsm/controls/OrbitControls.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from "three";
+        // 导入轨道控制器
+        // import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js";
+        // html中先通过 上面的引入 才能正确引入
+        import { OrbitControls } from "OrbitControls";
+        //界面显示 纹理类型  使用 lil-gui 来提供一个简单的界面
+        import {GUI} from 'three/addons/libs/lil-gui.module.min.js';
+        // 为了使用 RectAreaLight，我们需要引入 three.js 的RectAreaLightUniformsLib 模块，同时使用 RectAreaLightHelper 来辅助查看灯光对象。
+        import {RectAreaLightUniformsLib} from '/examples/jsm/lights/RectAreaLightUniformsLib.js';
+        import {RectAreaLightHelper} from '/examples/jsm/helpers/RectAreaLightHelper.js';
+        
+        function main() {
+            // 1 获取dom
+            const canvas = document.querySelector('#c');
+            // 2 创建渲染器
+            const renderer = new THREE.WebGLRenderer({canvas});
+            renderer.physicallyCorrectLights = true;//是否使用物理上正确的光照模式。 默认是false
+
+            // 矩形区域光
+            RectAreaLightUniformsLib.init();
+
+            const fov = 45;
+            const aspect = 2;  // the canvas default
+            const near = 0.1;
+            const far = 100;
+            // 3 创建 透视相机
+            const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+            camera.position.set(0, 10, 20);
+            // 4 创建轨道控制器
+            const controls = new OrbitControls(camera, canvas);
+            // 控制器的焦点，.object的轨道围绕它运行。
+            controls.target.set(0, 5, 0);
+            // 更新控制器。必须在摄像机的变换发生任何手动改变后调用
+            controls.update();
+            // 5 创建场景
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color('black');
+
+            // 
+            {
+                const planeSize = 40;
+                // 6 纹理加载器
+                const loader = new THREE.TextureLoader();
+                // const texture = loader.load('https://threejs.org/manual/examples/resources/images/checker.png');
+                const texture = loader.load('../manual/examples/resources/images/checker.png');
+                // 首先加载这个纹理，设置重复模式（wrapS, wrapT），
+                // 采样模式（magFilter）以及重复的次数。因为贴图是 2x2 大小，
+                // 通过设置成平铺模式，并且重复次数是边长的一半，就可以让每个格子正好是1个单位的大小。
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.magFilter = THREE.NearestFilter;
+                const repeats = planeSize / 2;
+                texture.repeat.set(repeats, repeats);
+
+                // 7 平面缓冲几何体
+                const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+                // 8 Phong网格材质
+                const planeMat = new THREE.MeshPhongMaterial({
+                    map: texture,//纹理
+                    side: THREE.DoubleSide,//THREE.DoubleSide 同时渲染正面和背面  THREE.FrontSide 来指定只渲染正面， 还可以使用 THREE.BackSide 来指定只渲染背面。
+                });
+                // 9 创建网格
+                const mesh = new THREE.Mesh(planeGeo, planeMat);
+                mesh.rotation.x = Math.PI * -.5;
+                // 
+                scene.add(mesh);
+            }
+
+            // 
+            {
+                const cubeSize = 4;
+                // 7 立方缓冲几何体
+                const cubeGeo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+                // 8 Phong网格材质
+                const cubeMat = new THREE.MeshPhongMaterial({color: '#8AC'});
+                // 9 创建网格
+                const mesh = new THREE.Mesh(cubeGeo, cubeMat);
+                mesh.position.set(cubeSize + 1, cubeSize / 2, 0);
+                // 
+                scene.add(mesh);
+            }
+
+            // 
+            {
+                const sphereRadius = 3;
+                const sphereWidthDivisions = 32;
+                const sphereHeightDivisions = 16;
+                // 7 球缓冲几何体       参数1球体半径，参数2水平分段数，参数3垂直分段数，
+                const sphereGeo = new THREE.SphereGeometry(sphereRadius, sphereWidthDivisions, sphereHeightDivisions);
+                // 8 Phong网格材质
+                const sphereMat = new THREE.MeshPhongMaterial({color: '#CA8'});
+                // 9 创建网格
+                const mesh = new THREE.Mesh(sphereGeo, sphereMat);
+                mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
+                scene.add(mesh);
+            }
+
+            // 1 正如我们在之前的lil-gui例子中所做的那样，
+            // 我们将使用一个简单的类来给lil-gui提供一个可以以度数为单位进行操作的对象，但它将以弧度为单位设置该属性。
+            class DegRadHelper {
+                constructor(obj, prop) {
+                    this.obj = obj;
+                    this.prop = prop;
+                }
+                get value() {
+                    return THREE.MathUtils.radToDeg(this.obj[this.prop]);
+                }
+                set value(v) {
+                    this.obj[this.prop] = THREE.MathUtils.degToRad(v);
+                }
+            }
+
+            // 10 利用这些类，我们可以为上面的设置设置一个简单的GUI。
+            // 通过界面，可以动态地改变光照的参数
+            class ColorGUIHelper {
+                constructor(object, prop) {
+                this.object = object;
+                this.prop = prop;
+                }
+                get value() {
+                    return `#${this.object[this.prop].getHexString()}`;
+                }
+                set value(hexString) {
+                    this.object[this.prop].set(hexString);
+                }
+            }
+
+            // 10 我们顺便实现一下对光源位置和目标点位置的控制逻辑。
+            // 我们创建一个辅助函数，使得可以通过 lil-gui 改变传入的 Vector3 类型对象的 x，y，和 z 的值。
+            // 封装的 添加控制器的方法 position target 方法
+            function makeXYZGUI(gui, vector3, name, onChangeFn) {
+                const folder = gui.addFolder(name);
+                folder.add(vector3, 'x', -10, 10).onChange(onChangeFn);
+                folder.add(vector3, 'y', 0, 10).onChange(onChangeFn);
+                folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
+                folder.open();
+            }
+            
+            
+            // 10
+            {
+                const color = 0xFFFFFF;
+                const skyColor = 0xB1E1FF;  // light blue
+                const groundColor = 0xB97A20;  // brownish orange
+                const intensity = 1;
+                // 光源类型
+                //( 1 ) 点光源（PointLight）表示的是从一个点朝各个方向发射出光线的一种光照效果。
+                // const light = new THREE.PointLight(color, intensity);
+                // light.power = 800;
+                // light.decay = 2;
+                // light.distance = Infinity;
+                // light.position.set(0, 10, 0);
+                // scene.add(light);
+                //( 2 )  环境光（AmbientLight）  环境光 （AmbientLight）只是简单地将材质的颜色与光照颜色进行叠加（PhotoShop 里的正片叠底模式），再乘以光照强度。 环境光，它没有方向，无法产生阴影，场景内任何一点受到的光照强度都是相同的，除了改变场景内所有物体的颜色以外，不会使物体产生明暗的变化，看起来并不像真正意义上的光照。通常的作用是提亮场景，让暗部不要太暗
+                // const light = new THREE.AmbientLight(color, intensity);
+                // light.power = 800;
+                // light.decay = 2;
+                // light.distance = Infinity;
+                // light.position.set(0, 10, 0);
+                // scene.add(light);
+                //( 3 ) 半球光（HemisphereLight） 接下来介绍半球光（HemisphereLight）。半球光（HemisphereLight）的颜色是从天空到地面两个颜色之间的渐变，与物体材质的颜色作叠加后得到最终的颜色效果。一个点受到的光照颜色是由所在平面的朝向（法向量）决定的 —— 面向正上方就受到天空的光照颜色，面向正下方就受到地面的光照颜色，其他角度则是两个颜色渐变区间的颜色。
+                // const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+                // light.power = 800;
+                // light.decay = 2;
+                // light.distance = Infinity;
+                // light.position.set(0, 10, 0);
+                // scene.add(light);
+                //( 4 )  方向光（DirectionalLight）   方向光（DirectionalLight）常常用来表现太阳光照的效果。
+                // const light = new THREE.DirectionalLight(color, intensity);
+                // light.power = 800;
+                // light.decay = 2;
+                // light.distance = Infinity;
+                // light.position.set(0, 10, 0);
+                // light.target.position.set(-5, 0, 0);
+                // scene.add(light);
+                // 注意，不仅 light ，我们还把 light.target 也添加到了场景中。方向光（DirectionalLight）的方向是从它的位置照向目标点的位置。
+                // scene.add(light.target);
+                
+                //( 5 )  聚光灯（SpotLight）
+                const light = new THREE.SpotLight(color, intensity);
+                light.power = 800;
+                light.decay = 2;
+                light.distance = Infinity;
+                light.position.set(0, 10, 0);
+                light.target.position.set(-5, 0, 0);
+                scene.add(light);
+                scene.add(light.target);
+
+                // ( 6 )  矩形区域光（ RectAreaLight ）
+                const width = 12;
+                const height = 4;
+                const lightfff = new THREE.RectAreaLight(color, 5, width, height);
+                lightfff.power = 800;
+                lightfff.decay = 2;
+                lightfff.distance = Infinity;
+                lightfff.position.set(0, 10, 0);
+                lightfff.rotation.x = THREE.MathUtils.degToRad(-90);
+                scene.add(lightfff);
+                // scene.add(light.target);
+
+                
+                
+                
+                // PointLightHelper 不是一个点，而是在光源的位置绘制了一个小小的线框宝石体来代表点光源。
+                // 也可以使用其他形状来表示点光源，只要给点光源添加一个自定义的 Mesh 子节点即可。
+                // 点光源（PointLight）有额外的一个范围（distance）属性。 如果 distance 设为 0，则光线可以照射到无限远处。
+                // 如果大于 0，则只可以照射到指定的范围，光照强度在这个过程中逐渐衰减，在光源位置时，intensity 是设定的大小，在距离光源 distance 位置的时候，intensity 为 0。
+                
+                // 辅助器
+                // 点光源 辅助器 宝石形状
+                const helper1 = new THREE.PointLightHelper(light);
+                scene.add(helper1);
+                // 方向光源 辅助器 方向线
+                const helper2 = new THREE.DirectionalLightHelper(light);
+                scene.add(helper2);
+                // 聚光灯光源 
+                const helper3 = new THREE.SpotLightHelper(light);
+                scene.add(helper3);
+
+                // 矩形区域光 辅助器
+                const helper4 = new RectAreaLightHelper(lightfff);
+                lightfff.add(helper4);
+
+                // 页面中的ui控制器
+                const gui = new GUI();
+                // 添加颜色，在页面中滑动可以控制
+                gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color颜色');
+                gui.add(light, 'decay', 0, 4, 0.01);
+                gui.add(light, 'power', 0, 1220);
+                // 把 light.target 也添加到了场景中，使得我们在页面中滑动可以控制目标位置。方向光（DirectionalLight）的方向是从它的位置照向目标点的位置
+                gui.add(light, 'intensity', 0, 2, 0.01);
+                // 直接添加target 同 下面的调用方法一样
+                const folder1 = gui.addFolder('target');
+                folder1.add(light.target.position, 'x', -10, 10);
+                folder1.add(light.target.position, 'z', -10, 10);
+                folder1.add(light.target.position, 'y', 0, 10);
+                //调用方法 添加 position
+                makeXYZGUI(gui, light.position, 'position');
+                //调用方法 添加 target
+                makeXYZGUI(gui, light.target.position, 'target');
+
+                // 
+                // gui.add(light, 'distance', 0, 40);
+                // makeXYZGUI(gui, light.position, 'position');
+
+                // 聚光灯源 
+                gui.add(new DegRadHelper(light, 'angle'), 'value', 0, 90)
+                .name('angle')
+                .onChange();
+                gui.add(light, 'penumbra', 0, 1, 0.01);
+
+                // 矩形灯 
+                gui.add(lightfff, 'intensity', 0, 10, 0.01);
+                gui.add(lightfff, 'width', 0, 20);
+                gui.add(lightfff, 'height', 0, 20);
+                gui.add(new DegRadHelper(lightfff.rotation, 'x'), 'value', -180, 180).name('x rotation');
+                gui.add(new DegRadHelper(lightfff.rotation, 'y'), 'value', -180, 180).name('y rotation');
+                gui.add(new DegRadHelper(lightfff.rotation, 'z'), 'value', -180, 180).name('z rotation');
+                makeXYZGUI(gui, lightfff.position, 'position');
+                
+            }
+
+            // 渲染
+            function resizeRendererToDisplaySize(renderer) {
+                const canvas = renderer.domElement;
+                const width = canvas.clientWidth;
+                const height = canvas.clientHeight;
+                const needResize = canvas.width !== width || canvas.height !== height;
+                if (needResize) {
+                renderer.setSize(width, height, false);
+                }
+                return needResize;
+            }
+
+            function render() {
+
+                if (resizeRendererToDisplaySize(renderer)) {
+                const canvas = renderer.domElement;
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
+                }
+
+                renderer.render(scene, camera);
+
+                requestAnimationFrame(render);
+            }
+
+            requestAnimationFrame(render);
+        }
+
+        main();
+    </script>
+</html>
