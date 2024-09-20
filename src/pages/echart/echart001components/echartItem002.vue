@@ -78,25 +78,14 @@ export default {
                         show: false
                     },
                     label: {
-                        normal: {
-                            show: true,
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 16,
-                            },
-                        }
+                        show: true,
+                        color: '#fff',
+                        fontSize: 16,
                     },
                     itemStyle: {
-                        normal: {
-                            show: true,
-                            borderWidth: 1,
-                            borderColor: '#fff',
-                        },
-                        emphasis: {
-                            label: {
-                                show: true
-                            }
-                        }
+                        show: true,
+                        borderWidth: 1,
+                        borderColor: '#fff',
                     },
                     data: dataList
                 }]
