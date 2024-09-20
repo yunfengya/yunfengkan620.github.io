@@ -15,6 +15,7 @@
     "jsplumb": "^2.15.6",
     "path-to-regexp": "^2.4.0",
     "relation-graph": "^2.0.0",
+    "three": "^0.168.0",
     "vue": "^2.6.14",
     "vue-router": "^3.0.2",
     "vuex": "^3.1.0"

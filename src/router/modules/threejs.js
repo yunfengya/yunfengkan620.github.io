@@ -15,7 +15,7 @@ export const threejs = [
         path: "/threejs/exeOne",
         component: () => import("@/pages/threejs/exeOne/index.vue"),
         meta: {
-          title: "案例1",
+          title: "案例demo1",
           icon: "el-icon-star-on",
         },
       },

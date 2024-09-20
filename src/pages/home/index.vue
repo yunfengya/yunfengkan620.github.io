@@ -42,11 +42,12 @@ export default {
       loading: true,
       gonggaoFlag: false,
       linkList:[
-        { name:'不求人导航',linkstring:'https://www.bqrdh.com',imgUrl:'https://css.bqrdh.com/images/logo.png'},
-        { name:'动画集合',linkstring:'https://uiverse.io/elements',imgUrl:'	https://uiverse.io/assets/logo-png-BXFOQKfc.png'},
-        { name:'掘金',linkstring:'https://juejin.cn/',imgUrl:'https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg'},
-        { name:'echarts文档',linkstring:'https://echarts.apache.org/zh/cheat-sheet.html',imgUrl:'https://echarts.apache.org/zh/images/logo.png'},
-        { name:'echarts案例',linkstring:'https://madeapie.com/#/',imgUrl:'https://madeapie.com/static/logo.c9fc7376.png'},
+        { name:'不求人导航',linkstring:'https://www.bqrdh.com',imgUrl:'	https://tools.bqrdh.com/static/images/favicon_fox.png'},
+        { name:'动画集合',linkstring:'https://uiverse.io/elements',imgUrl:'https://uiverse.io//favicon-32x32.png'},
+        { name:'掘金',linkstring:'https://juejin.cn/',imgUrl:'https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/static/favicons/apple-touch-icon.png'},
+        { name:'echarts文档',linkstring:'https://echarts.apache.org/zh/cheat-sheet.html',imgUrl:'https://echarts.apache.org/zh/images/favicon.png'},
+        { name:'echarts案例',linkstring:'https://madeapie.com/#/',imgUrl:'https://madeapie.com/favicon.ico'},
+        { name:'three.js',linkstring:'https://www.three3d.cn/docs/index.html',imgUrl:'https://www.three3d.cn/files/favicon.ico'},
       ],
       itemLink: '' // 存储当前卡片的链接
     };
