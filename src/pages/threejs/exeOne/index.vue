@@ -1,7 +1,7 @@
 <template>
     <div class="contain_box">
         <!-- 用于 three.js 渲染的容器，宽高设置为父容器的 90% -->
-        <div ref="container" style="width: 90%; height: 90%;"></div>
+        <div ref="container" style="width: 98%; height: 98%;"></div>
     </div>
 </template>
 
@@ -119,5 +119,8 @@ export default {
     width: 100%;
     height: 100%;
     overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
