@@ -27,6 +27,14 @@ export const threejs = [
           icon: "el-icon-star-on",
         },
       },
+      {
+        path: "/threejs/exeThree",
+        component: () => import("@/pages/threejs/exeThree/index.vue"),
+        meta: {
+          title: "案例1机房修改",
+          icon: "el-icon-star-on",
+        },
+      },
     ],
   },
 ];

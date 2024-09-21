@@ -1,7 +1,7 @@
 <template>
     <div class="contain_box">
         <!-- 在容器上添加双击事件，用于切换全屏 -->
-        <div>直接引入外部建模，不做修改</div>
+        <div>在外部建模上修改</div>
         <div id="container" @dblclick="toggleFullScreen" style="width: 98%; height: 98%;border:1px solid gray;"></div>
     </div>
 </template>
@@ -47,9 +47,46 @@ export default {
         loadGLTF() {
             const loader = new GLTFLoader(); // 创建 GLTFLoader 实例
             loader.load(`/threejsFile/models/machineRoom.gltf`, ({ scene: { children } }) => {
+                // console.log(...children);
+
+                // < ==== 修改建模逻辑 1 2 ==================
+                this.maps = new Map()
+                children.forEach((obj) => {
+                    const { map, color} = obj.material 
+                    this.changeMat(obj, map, color)
+                })
+                // ======================================>
+
                 this.scene.add(...children); // 将加载的模型添加到场景中
             });
         },
+        // 修改建模逻辑 1  添加一个修改材质的方法changeMat()
+        changeMat(obj, map, color) {
+            if (map) {
+                obj.material = new THREE.MeshBasicMaterial({
+                map: this.crtTexture(map.name)
+                })
+            } else {
+                obj.material = new THREE.MeshBasicMaterial({color})
+            }
+        },
+        // 修改建模逻辑 2 添加建立纹理对象的方法crtTexture()
+        crtTexture(imgName) {
+            let curTexture = this.maps.get(imgName)
+            if (!curTexture) {
+                curTexture = new THREE.TextureLoader().load('/threejsFile/models/' + imgName)
+                curTexture.flipY = false
+                curTexture.wrapS = 1000
+                curTexture.wrapT = 1000
+                this.maps.set(
+                    imgName,
+                    curTexture
+                )
+            }
+            return curTexture
+        },
+
+
         // 创建并添加光源
         createLight() {
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.1); // 创建环境光
