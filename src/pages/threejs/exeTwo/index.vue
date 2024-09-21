@@ -1,6 +1,7 @@
 <template>
-    <div class="contain_box">
-        <div id="container"></div>
+    <div class="contain_box"> 
+        <!-- 添加双击事件 -->
+        <div id="container" @dblclick="toggleFullScreen"></div>
     </div>
 </template>
 
@@ -41,9 +42,7 @@ export default {
         },
         loadGLTF() {
             const loader = new GLTFLoader();
-            // 在public中的静态文件 不要直接写public，要按照下面的方式引入，否则会找不到文件
             loader.load(`/models/machineRoom.gltf`, ({ scene: { children } }) => {
-                // console.log(...children);
                 this.scene.add(...children);
             });
         },
@@ -84,6 +83,16 @@ export default {
             this.camera.aspect = element.clientWidth / element.clientHeight; // 更新相机宽高比
             this.camera.updateProjectionMatrix(); // 更新投影矩阵
             this.renderer.setSize(element.clientWidth, element.clientHeight); // 更新渲染器尺寸
+        },
+        toggleFullScreen() {
+            const element = document.getElementById('container');
+            if (!document.fullscreenElement) {
+                element.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
         }
     }
 }
