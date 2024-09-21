@@ -41,8 +41,9 @@ export default {
         },
         loadGLTF() {
             const loader = new GLTFLoader();
-            loader.load(`./models/machineRoom.gltf`, ({ scene: { children } }) => {
-                console.log(...children);
+            // 在public中的静态文件 不要直接写public，要按照下面的方式引入，否则会找不到文件
+            loader.load(`/models/machineRoom.gltf`, ({ scene: { children } }) => {
+                // console.log(...children);
                 this.scene.add(...children);
             });
         },

@@ -15,7 +15,7 @@ export const threejs = [
         path: "/threejs/exeOne",
         component: () => import("@/pages/threejs/exeOne/index.vue"),
         meta: {
-          title: "案例demo1",
+          title: "demo",
           icon: "el-icon-star-on",
         },
       },
@@ -23,7 +23,7 @@ export const threejs = [
         path: "/threejs/exeTwo",
         component: () => import("@/pages/threejs/exeTwo/index.vue"),
         meta: {
-          title: "案例2",
+          title: "案例1机房",
           icon: "el-icon-star-on",
         },
       },

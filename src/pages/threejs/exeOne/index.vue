@@ -62,7 +62,7 @@ export default {
             // 4. 初始化渲染器并将其尺寸设置为容器的宽高
             this.renderer = new THREE.WebGLRenderer();
             this.renderer.setSize(this.$refs.container.clientWidth, this.$refs.container.clientHeight); // 设置渲染器大小为容器的 90%
-            this.renderer.setClearColor(0xffffff); // 设置背景颜色为浅灰色 0xe2e3e4 不设置默认黑色
+            // this.renderer.setClearColor(0xffffff); // 设置背景颜色为浅灰色 0xe2e3e4 不设置默认黑色
             this.$refs.container.appendChild(this.renderer.domElement); // 将渲染器的 canvas 添加到 DOM 中
 
             // 5. 创建轨道控制器（OrbitControls）用于控制相机视角
