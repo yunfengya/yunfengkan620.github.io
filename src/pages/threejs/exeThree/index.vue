@@ -144,12 +144,12 @@ export default {
         ,
         //鼠标划入机柜事件，参数为机柜对象
         onMouseOverCabinet(cabinet) { 
-            console.log(cabinet); 
+            // console.log(cabinet); 
             this.state.planeDisplay = 'block'
         },
         //鼠标在机柜上移动的事件，参数为鼠标在canvas画布上的坐标位
         onMouseMoveCabinet(x, y) { 
-            console.log(x, y); 
+            // console.log(x, y); 
             // this.state.planePos.left = x + 'px'
             // this.state.planePos.top = y + 'px'
             this.state.planePos.left = (x+0) + 'px'
