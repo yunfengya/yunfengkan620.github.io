@@ -42,7 +42,7 @@ export default {
         },
         loadGLTF() {
             const loader = new GLTFLoader();
-            loader.load(`/models/machineRoom.gltf`, ({ scene: { children } }) => {
+            loader.load(`/threejsFile/models/machineRoom.gltf`, ({ scene: { children } }) => {
                 this.scene.add(...children);
             });
         },
