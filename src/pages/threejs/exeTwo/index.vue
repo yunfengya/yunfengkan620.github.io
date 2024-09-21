@@ -1,7 +1,7 @@
 <template>
     <div class="contain_box"> 
         <!-- 添加双击事件 -->
-        <div id="container" @dblclick="toggleFullScreen"></div>
+        <div id="container" @dblclick="toggleFullScreen" style="width: 98%; height: 98%;border:1px solid gray;"></div>
     </div>
 </template>
 
@@ -107,9 +107,5 @@ export default {
     justify-content: center;
     align-items: center;
 
-    #container {
-        width: 90%;
-        height: 90%;
-    }
 }
 </style>
