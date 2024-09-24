@@ -32,6 +32,7 @@ import cssItem008 from "./css001components/cssItem008";
 import cssItem008second from "./css001components/cssItem008second";
 import cssItem009 from "./css001components/cssItem009";
 import cssItem010 from "./css001components/cssItem010";
+import cssItem011 from "./css001components/cssItem011";
 
 export default {
     name: "index",
@@ -49,6 +50,7 @@ export default {
         cssItem008second,
         cssItem009,
         cssItem010,
+        cssItem011,
     },
     data() {
         return {
@@ -67,6 +69,7 @@ export default {
                 { label: "3D轮播2", name: "cssItem008second" },
                 { label: "屏幕录制", name: "cssItem009" },
                 { label: "轮播倒影", name: "cssItem010" },
+                { label: "电量", name: "cssItem011" },
             ],
         };
     },
