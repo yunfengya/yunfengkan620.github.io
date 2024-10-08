@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 /* 容器样式 */
 .contain_box {
     width: 100%;
