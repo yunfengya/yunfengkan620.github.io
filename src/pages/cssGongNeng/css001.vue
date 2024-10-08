@@ -34,6 +34,7 @@ import cssItem009 from "./css001components/cssItem009";
 import cssItem010 from "./css001components/cssItem010";
 import cssItem011 from "./css001components/cssItem011";
 import cssItem012 from "./css001components/cssItem012";
+import cssItem013 from "./css001components/cssItem013";
 
 export default {
     name: "index",
@@ -53,6 +54,7 @@ export default {
         cssItem010,
         cssItem011,
         cssItem012,
+        cssItem013,
     },
     data() {
         return {
@@ -73,6 +75,7 @@ export default {
                 { label: "轮播倒影", name: "cssItem010" },
                 { label: "电量", name: "cssItem011" },
                 { label: "s型流程线", name: "cssItem012" },
+                { label: "柱子动画", name: "cssItem013" },
             ],
         };
     },
