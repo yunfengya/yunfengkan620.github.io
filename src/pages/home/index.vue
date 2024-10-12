@@ -42,7 +42,8 @@ export default {
       loading: true,
       gonggaoFlag: false,
       linkList:[
-        { name:'gpt3.5',linkstring:'https://chat.dogai.vip/list#/car',imgUrl:'	https://chat.dogai.vip/list/logo.png'},
+        { name:'gpt3.5',linkstring:'https://chat.dogai.vip/list#/car',imgUrl:'https://chat.dogai.vip/list/logo.png'},
+        { name:'作品赚米',linkstring:'https://www.hereitis.cn/',imgUrl:'https://www.hereitis.cn/_nuxt/img/logo_01.515df92.png'},
 
         { name:'不求人导航',linkstring:'https://www.bqrdh.com',imgUrl:'https://tools.bqrdh.com/static/images/favicon_fox.png'},
         { name:'星云导航',linkstring:'https://www.xygalaxy.com/',imgUrl:'https://www.xygalaxy.com/favicon.ico'},
