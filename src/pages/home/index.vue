@@ -55,7 +55,8 @@ export default {
         { name:'css动效',linkstring:'https://qishaoxuan.github.io/css_tricks/',imgUrl:'https://www.webhek.com/post/css3-animation-sniplet-collection/public/assets/ico/favicon.png'},
         { name:'Emoji大全',linkstring:'https://www.emojiall.com/zh-hans',imgUrl:'https://www.emojiall.com/logo-white.png'},
         
-        { name:'博客园',linkstring:'https://www.cnblogs.com/',imgUrl:'	https://www.cnblogs.com/images/logo.svg?v=2SMrXdIvlZwVoB1akyXm38WIKuTHVqvGD0CweV-B6cY'},
+        { name:'office文件转化工具',linkstring:'https://www.ilovepdf.com/zh-cn',imgUrl:'https://www.ilovepdf.com/img/ilovepdf.svg'},
+        { name:'博客园',linkstring:'https://www.cnblogs.com/',imgUrl:'https://www.cnblogs.com/images/logo.svg?v=2SMrXdIvlZwVoB1akyXm38WIKuTHVqvGD0CweV-B6cY'},
         { name:'菜鸟工具',linkstring:'https://www.jyshare.com/',imgUrl:'https://www.runoob.com/wp-content/uploads/2014/04/cxy.jpg'},
         { name:'掘金',linkstring:'https://juejin.cn/',imgUrl:'https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/static/favicons/apple-touch-icon.png'},
         { name:'echarts文档',linkstring:'https://echarts.apache.org/zh/cheat-sheet.html',imgUrl:'https://echarts.apache.org/zh/images/favicon.png'},
