@@ -4,6 +4,7 @@ import Router from "vue-router";
 import { cssGongNeng } from "./modules/cssGongNeng.js";
 import { echart } from "./modules/echart.js";
 import { threejs } from "./modules/threejs.js";
+import { gaode } from "./modules/gaode.js";
 import { adaikaifaAll } from "./modules/adaikaifaAll.js";
 import { adaikaifaOnly } from "./modules/adaikaifaOnly";
 import { admin } from "./modules/admin";
@@ -52,6 +53,7 @@ export const routerPath = [
   ...cssGongNeng,
   ...echart,
   ...threejs,
+  ...gaode,
 
   //404 layout页面
   {
