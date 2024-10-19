@@ -23,7 +23,7 @@ export const gaode = [
         path: "/gaode/exe002",
         component: () => import("@/pages/gaode/exe002/index.vue"),
         meta: {
-          title: "案例2",
+          title: "案例2点标记",
           icon: "el-icon-star-on",
         },
       },
@@ -31,7 +31,15 @@ export const gaode = [
         path: "/gaode/exe003",
         component: () => import("@/pages/gaode/exe003/index.vue"),
         meta: {
-          title: "案例3",
+          title: "案例3多边形",
+          icon: "el-icon-star-on",
+        },
+      },
+      {
+        path: "/gaode/exe004",
+        component: () => import("@/pages/gaode/exe004/index.vue"),
+        meta: {
+          title: "案例4搜索",
           icon: "el-icon-star-on",
         },
       },
