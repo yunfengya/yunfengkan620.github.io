@@ -6,6 +6,8 @@
 
 <script>
 import AMapLoader from '@amap/amap-jsapi-loader';
+import zuobiao from './zuobiao.js'
+// console.log(zuobiao);
 export default {
     name: "index",
     data() {
@@ -35,11 +37,40 @@ export default {
             })
                 .then((AMap) => {
                     this.map = new AMap.Map("container", {
-                        // 设置地图容器id
-                        viewMode: "3D", // 是否为3D地图模式
-                        zoom: 11, // 初始化地图级别
-                        center: [116.397428, 39.90923], // 初始化地图中心点位置
+                        center: [121.045332, 31.19884],
+                        zoom: 8.8,
                     });
+                    zuobiao.forEach(item=>{
+                        let polygon = new AMap.Polygon({
+                            // 这个是多边形边界值，可以添加 某个区域的json格式的坐标
+                            // path: [
+                            //     [
+                            //         [121.7789, 31.3102],
+                            //         [121.7279, 31.3548],
+                            //         [121.5723, 31.4361],
+                            //         [121.7789, 31.3102],
+                            //     ],
+                            // ],
+                            path:item,
+                            
+                            fillColor: '#ccebc5',
+                            strokeOpacity: 1,
+                            fillOpacity: 0.5,
+                            strokeColor: '#2b8cbe',
+                            strokeWeight: 1,
+                            strokeStyle: 'dashed',
+                            strokeDasharray: [5, 5],
+                        });
+                        this.map.add(polygon);
+                        polygon.on('mouseover', () => {
+                            polygon.setOptions({ fillColor: '#ff0000' });
+                        });
+    
+                        polygon.on('mouseout', () => {
+                            polygon.setOptions({ fillColor: '#ccebc5' });
+                        });
+                    })
+
                 })
                 .catch((e) => {
                     console.log(e);
