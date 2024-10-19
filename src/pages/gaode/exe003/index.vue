@@ -42,7 +42,7 @@ export default {
                     });
                     zuobiao.forEach(item=>{
                         let polygon = new AMap.Polygon({
-                            // 这个是多边形边界值，可以添加 某个区域的json格式的坐标
+                            // 这个是多边形边界值，可以添加 某个区域的json格式的坐标 
                             // path: [
                             //     [
                             //         [121.7789, 31.3102],
@@ -52,7 +52,6 @@ export default {
                             //     ],
                             // ],
                             path:item,
-                            
                             fillColor: '#ccebc5',
                             strokeOpacity: 1,
                             fillOpacity: 0.5,
