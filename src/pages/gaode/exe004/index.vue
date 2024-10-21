@@ -1,7 +1,15 @@
 <template>
+    <!-- 容器元素 -->
     <div class="contain_box">
+        <!-- 地图容器 -->
         <div id="container"></div>
+        <!-- 搜索结果面板 -->
         <div id="panel"></div>
+        <!-- 搜索框和搜索按钮 -->
+        <div class="search_box">
+            <input v-model="keyword" type="text" placeholder="输入地点">
+            <button @click="searchPlace">搜索</button>
+        </div>
     </div>
 </template>
 
@@ -11,61 +19,80 @@ export default {
     name: "index",
     data() {
         return {
-            // 遮罩层，用于加载时显示的状态
             loading: true,
-            map: null,
+            map: null,  // 地图对象
+            keyword: '',  // 搜索关键词
         };
     },
     mounted() {
+        // 初始化地图
         this.initAMap();
     },
     beforeDestroy() {
+        // 销毁地图对象
         this.map?.destroy();
     },
     methods: {
+        // 初始化地图方法
         initAMap() {
             window._AMapSecurityConfig = {
                 securityJsCode: "16650193f5dbeb0d9c804c1cbcd081f4",
             };
             AMapLoader.load({
-                key: "d49126ab4c25960612aa4c0e60976654", // 申请好的Web端开发者Key，首次调用 load 时必填
-                version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-                plugins: ["AMap.Scale", "AMap.PlaceSearch"], //需要使用的的插件列表，如比例尺'AMap.Scale'，支持添加多个如：['...','...']
+                key: "d49126ab4c25960612aa4c0e60976654",
+                version: "2.0",
+                plugins: ["AMap.Scale", "AMap.PlaceSearch", "AMap.Geolocation"],
             })
                 .then((AMap) => {
+                    // 创建地图实例
                     this.map = new AMap.Map("container", {
-                        viewMode: "2D", //默认使用 2D 模式
-                        zoom: 11, //地图级别
-                        center: [116.397428, 39.90923], //地图中心点
+                        viewMode: "2D",
+                        zoom: 11,
                         resizeEnable: true,
                     });
 
-                    // 使用箭头函数来保证 this 的指向正确
-                    AMap.plugin(["AMap.PlaceSearch"], () => {
-                        //构造地点查询类
-                        var placeSearch = new AMap.PlaceSearch({
-                            pageSize: 5, // 单页显示结果条数
-                            pageIndex: 1, // 页码
-                            city: "010", // 兴趣点城市
-                            citylimit: true,  //是否强制限制在设置的城市内搜索
-                            map: this.map, // 展现结果的地图实例
-                            panel: "panel", // 结果列表将在此容器中进行展示。
-                            autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+                    // 加载定位插件
+                    AMap.plugin('AMap.Geolocation', () => {
+                        const geolocation = new AMap.Geolocation();
+                        // 添加定位控件到地图
+                        this.map.addControl(geolocation);
+                        // 获取当前位置
+                        geolocation.getCurrentPosition((status, result) => {
+                            if (status === 'complete') {
+                                // 设置地图中心点为用户的当前位置
+                                this.map.setCenter(result.position);
+                            } else {
+                                console.log(result.message);
+                            }
                         });
-                        //关键字查询
-                        placeSearch.search('北京大学');
                     });
                 })
                 .catch((e) => {
                     console.log(e);
                 });
         },
+        // 搜索方法
+        searchPlace() {
+            AMap.plugin(["AMap.PlaceSearch"], () => {
+                // 创建地点搜索实例
+                var placeSearch = new AMap.PlaceSearch({
+                    pageSize: 5,
+                    pageIndex: 1,
+                    city: this.keyword, // 使用输入框中的值作为搜索的城市
+                    map: this.map, // 搜索结果显示在这个地图上
+                    panel: "panel", // 搜索结果显示在这个面板上
+                    autoFitView: true // 是否自动调整地图视野以适合搜索结果
+                });
+                // 执行搜索
+                placeSearch.search(this.keyword,(status, result)=>{
+                });
+            });
+        }
     },
 };
 </script>
 
 <style scoped lang="scss">
-/* 外部容器的样式，100% 占满父容器 */
 .contain_box {
     width: 100%;
     height: 100%;
@@ -87,6 +114,29 @@ export default {
         top: 10px;
         right: 10px;
         min-width: 280px;
+    }
+    .search_box {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        display: flex;
+        input {
+            width: 200px;
+            height: 30px;
+            padding: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            height: 30px;
+            margin-left: 10px;
+            padding: 0 10px;
+            border: none;
+            background-color: #409eff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     }
 }
 </style>
