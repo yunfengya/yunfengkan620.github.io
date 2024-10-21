@@ -1,6 +1,7 @@
 <template>
     <div class="contain_box">
         <div id="container"></div>
+        <div id="panel"></div>
     </div>
 </template>
 
@@ -35,37 +36,26 @@ export default {
             })
                 .then((AMap) => {
                     this.map = new AMap.Map("container", {
-                        center: [121.045332, 31.19884],
-                        zoom: 8.8,
-                    });
-                    let polygon = new AMap.Polygon({
-                        // 这个是多边形边界值，可以添加 某个区域的json格式的坐标 
-                        path: [
-                            [
-                                [121.7789, 31.3102],
-                                [121.7279, 31.3548],
-                                [121.5723, 31.3102],
-                                [121.6623, 31.5661],
-                                [121.7789, 31.3102],
-                            ],
-                        ],
-                        fillColor: '#ef7b15',
-                        strokeOpacity: 1,
-                        fillOpacity: 0.5,
-                        strokeColor: '#2b8cbe',
-                        strokeWeight: 1,
-                        strokeStyle: 'dashed',
-                        strokeDasharray: [5, 5],
-                    });
-                    this.map.add(polygon);
-                    polygon.on('mouseover', () => {
-                        polygon.setOptions({ fillColor: '#ff0000' });
+                        viewMode: "2D", //默认使用 2D 模式
+                        zoom: 11, //地图级别
+                        center: [116.397428, 39.90923], //地图中心点
+                        resizeEnable: true,
                     });
 
-                    polygon.on('mouseout', () => {
-                        polygon.setOptions({ fillColor: '#ef7b15' });
+                    AMap.plugin(["AMap.PlaceSearch"], function () {
+                        //构造地点查询类
+                        var placeSearch = new AMap.PlaceSearch({
+                            pageSize: 5, // 单页显示结果条数
+                            pageIndex: 1, // 页码
+                            city: "010", // 兴趣点城市
+                            citylimit: true,  //是否强制限制在设置的城市内搜索
+                            map: this.map, // 展现结果的地图实例
+                            panel: "panel", // 结果列表将在此容器中进行展示。
+                            autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+                        });
+                        //关键字查询
+                        placeSearch.search('北京大学');
                     });
-
                 })
                 .catch((e) => {
                     console.log(e);
@@ -88,6 +78,16 @@ export default {
     #container {
         width: 100%;
         height: 100%;
+    }
+    position: relative;
+    #panel {
+        position: absolute;
+        background-color: white;
+        max-height: 90%;
+        overflow-y: auto;
+        top: 10px;
+        right: 10px;
+        width: 280px;
     }
 }
 </style>
