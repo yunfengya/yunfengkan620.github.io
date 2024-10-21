@@ -86,7 +86,7 @@ export default {
         overflow-y: auto;
         top: 10px;
         right: 10px;
-        width: 280px;
+        min-width: 280px;
     }
 }
 </style>
