@@ -13,16 +13,14 @@ export default {
         return {
             // 遮罩层，用于加载时显示的状态
             loading: true,
+            map: null,
         };
     },
     mounted() {
         this.initAMap();
     },
-    unmounted() {
-        this.map?.destroy();
-    },
     beforeDestroy() {
-
+        this.map?.destroy();
     },
     methods: {
         initAMap() {
@@ -32,7 +30,7 @@ export default {
             AMapLoader.load({
                 key: "d49126ab4c25960612aa4c0e60976654", // 申请好的Web端开发者Key，首次调用 load 时必填
                 version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-                plugins: ["AMap.Scale"], //需要使用的的插件列表，如比例尺'AMap.Scale'，支持添加多个如：['...','...']
+                plugins: ["AMap.Scale", "AMap.PlaceSearch"], //需要使用的的插件列表，如比例尺'AMap.Scale'，支持添加多个如：['...','...']
             })
                 .then((AMap) => {
                     this.map = new AMap.Map("container", {
@@ -42,7 +40,8 @@ export default {
                         resizeEnable: true,
                     });
 
-                    AMap.plugin(["AMap.PlaceSearch"], function () {
+                    // 使用箭头函数来保证 this 的指向正确
+                    AMap.plugin(["AMap.PlaceSearch"], () => {
                         //构造地点查询类
                         var placeSearch = new AMap.PlaceSearch({
                             pageSize: 5, // 单页显示结果条数
