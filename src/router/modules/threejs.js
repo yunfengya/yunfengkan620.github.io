@@ -43,6 +43,14 @@ export const threejs = [
           icon: "el-icon-star-on",
         },
       },
+      {
+        path: "/threejs/WebSocket",
+        component: () => import("@/pages/threejs/WebSocket/index.vue"),
+        meta: {
+          title: "WebSocket",
+          icon: "el-icon-star-on",
+        },
+      },
     ],
   },
 ];
