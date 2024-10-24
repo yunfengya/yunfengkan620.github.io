@@ -43,6 +43,14 @@ export const gaode = [
           icon: "el-icon-star-on",
         },
       },
+      {
+        path: "/gaode/exe005",
+        component: () => import("@/pages/gaode/exe005/index.vue"),
+        meta: {
+          title: "案例5",
+          icon: "el-icon-star-on",
+        },
+      },
       
     ],
   },
