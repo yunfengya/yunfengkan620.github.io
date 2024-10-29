@@ -19,6 +19,14 @@ export const cssGongNeng = [
           icon: "el-icon-star-on",
         },
       },
+      {
+        path: "/cssGongNeng/css002",
+        component: () => import("@/pages/cssGongNeng/css002.vue"),
+        meta: {
+          title: "002css功能vue",
+          icon: "el-icon-star-on",
+        },
+      },
       // 
       {
         path: "/cssGongNeng/zdaikaifa",
