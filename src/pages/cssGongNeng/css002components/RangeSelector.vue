@@ -29,6 +29,10 @@ export default {
                 { label: 'WK6', value: 6 },
             ]
         },
+        value: {
+            type: Array,
+            default: () => [],
+        },
     },
     data() {
         return {
@@ -38,6 +42,11 @@ export default {
             endDay: null,
             currentHoverDay: null,
         };
+    },
+    created() {
+        if (this.value.length) {
+            this.selectedRange = [...this.value];
+        }
     },
     computed: {
         displayedRange() {
@@ -210,5 +219,4 @@ export default {
         }
     }
 }
-
 </style>
