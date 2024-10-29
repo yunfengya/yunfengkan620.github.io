@@ -18,7 +18,7 @@ export default {
     },
     data() {
         return {
-            selectedRange: [2,5],
+            selectedRange: [],
             options: [
                 { label: 'WK1', value: 1 },
                 { label: 'WK2', value: 2 },
