@@ -6,6 +6,7 @@
                     @change="changeFloor()" style="width: 13rem">
                     <el-option label="1F" value="1F"></el-option>
                     <el-option label="2F" value="2F"></el-option>
+                    <el-option label="3F" value="3F"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -22,8 +23,8 @@ export default {
             // 遮罩层
             loading: true,
             formInline: {
-                building: "C3",
-                floor: "1F",
+                building: "W2",
+                floor: "2F",
             },
             messageArr:[],
             rules: {
