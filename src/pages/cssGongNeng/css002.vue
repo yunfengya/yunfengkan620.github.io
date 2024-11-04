@@ -23,6 +23,7 @@
 import aaafirst from "./css002components/aaafirst";
 import cssItem001 from "./css002components/cssItem001";
 import cssItem002 from "./css002components/cssItem002";
+import cssItem003 from "./css002components/cssItem003";
 
 export default {
     name: "index",
@@ -31,6 +32,7 @@ export default {
         aaafirst,
         cssItem001,
         cssItem002,
+        cssItem003,
     },
     data() {
         return {
@@ -40,6 +42,7 @@ export default {
                 { label: "测试", name: "aaafirst" },
                 { label: "周下拉选择", name: "cssItem001" },
                 { label: "qrcode使用", name: "cssItem002" },
+                { label: "qrcode生成", name: "cssItem003" },
             ],
         };
     },
