@@ -73,8 +73,8 @@ export default {
                 errorCorrectionLevel: 'H', // 设置错误纠正级别
                 version: 10, // 设置二维码的版本
                 color: {
-                    dark: '#d7c081', // 二维码的颜色
-                    light: '#2b599e' // 二维码的背景色
+                    dark: '#000000', // 二维码的颜色
+                    light: '#ffffff' // 二维码的背景色
                 },
                 width: 200,  // 设置二维码的宽度为200像素
                 type: 'png', // 设置输出图片的类型为 png
