@@ -22,6 +22,7 @@
 <script>
 import aaafirst from "./css002components/aaafirst";
 import cssItem001 from "./css002components/cssItem001";
+import cssItem002 from "./css002components/cssItem002";
 
 export default {
     name: "index",
@@ -29,6 +30,7 @@ export default {
     components: {
         aaafirst,
         cssItem001,
+        cssItem002,
     },
     data() {
         return {
@@ -37,6 +39,7 @@ export default {
             nameList: [
                 { label: "测试", name: "aaafirst" },
                 { label: "周下拉选择", name: "cssItem001" },
+                { label: "qrcode使用", name: "cssItem002" },
             ],
         };
     },
