@@ -6,11 +6,11 @@
                 </el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">生成二维码</el-button>
             </el-form-item>
         </el-form>
         <!-- 展示生成的二维码图片 -->
-        <div style="min-width:200px;min-height:200px;border:1px solid #5df018;" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
+        <div style="min-width:100px;min-height:100px;border:1px solid #5df018;" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
             <img :src="qrCodeImg" />
         </div>
     </div>
@@ -37,7 +37,7 @@ export default {
         return {
             loading: false,
             formInline: {
-                stringInput: '',
+                stringInput: 'www.baidu.com',
             },
             qrCodeImg: '', // 用于存储生成的二维码图片的数据 URL
             rules: {
@@ -48,38 +48,41 @@ export default {
         };
     },
     mounted() {
-
+        this.getQrcodeFn()
     },
     methods: {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.loading = true
-                    setTimeout(() => {
-                        this.loading = false
-                    }, 1000);
-                    // 点击，生成二维码
-                    // let text = 'https://www.baidu.com' // 要生成二维码的文本
-                    let text = this.formInline.stringInput // 要生成二维码的文本
-                    let qrCodeOptions = {
-                        errorCorrectionLevel: 'H', // 设置错误纠正级别
-                        version: 10, // 设置二维码的版本
-                        color: {
-                            dark: '#d7c081', // 二维码的颜色
-                            light: '#2b599e' // 二维码的背景色
-                        },
-                        width: 200,  // 设置二维码的宽度为200像素
-                        type: 'png', // 设置输出图片的类型为 png
-                        margin: 4, // 设置二维码的边距为 2
-                        scale: 4, // 设置图片的放大倍数为 4
-                        maskPattern: 1 // 设置掩模模式为 1
-                    }
-                    this.generateQRCode(text, qrCodeOptions)
+                    this.getQrcodeFn()
                 } else {
                     console.log('error submit!!');
                     return false;
                 }
             });
+        },
+        getQrcodeFn(){
+            this.loading = true
+            setTimeout(() => {
+                this.loading = false
+            }, 1000);
+            // 点击，生成二维码
+            // let text = 'https://www.baidu.com' // 要生成二维码的文本
+            let text = this.formInline.stringInput // 要生成二维码的文本
+            let qrCodeOptions = {
+                errorCorrectionLevel: 'H', // 设置错误纠正级别
+                version: 10, // 设置二维码的版本
+                color: {
+                    dark: '#d7c081', // 二维码的颜色
+                    light: '#2b599e' // 二维码的背景色
+                },
+                width: 200,  // 设置二维码的宽度为200像素
+                type: 'png', // 设置输出图片的类型为 png
+                margin: 4, // 设置二维码的边距为 2
+                scale: 4, // 设置图片的放大倍数为 4
+                maskPattern: 1 // 设置掩模模式为 1
+            }
+            this.generateQRCode(text, qrCodeOptions)
         },
         // 
         async generateQRCode(text, qrCodeOptions) {
