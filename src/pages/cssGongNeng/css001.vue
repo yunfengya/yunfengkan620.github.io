@@ -36,6 +36,8 @@ import cssItem011 from "./css001components/cssItem011";
 import cssItem012 from "./css001components/cssItem012";
 import cssItem013 from "./css001components/cssItem013";
 import cssItem014 from "./css001components/cssItem014";
+import cssItem015 from "./css001components/cssItem015";
+import cssItem016 from "./css001components/cssItem016";
 
 export default {
     name: "index",
@@ -57,6 +59,8 @@ export default {
         cssItem012,
         cssItem013,
         cssItem014,
+        cssItem015,
+        cssItem016,
     },
     data() {
         return {
@@ -79,6 +83,8 @@ export default {
                 { label: "s型流程线", name: "cssItem012" },
                 { label: "柱子动画", name: "cssItem013" },
                 { label: "卡片悬浮发光", name: "cssItem014" },
+                { label: "9宫格抽奖", name: "cssItem015" },
+                { label: "大转盘抽奖", name: "cssItem016" },
             ],
         };
     },
