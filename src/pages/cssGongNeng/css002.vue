@@ -25,6 +25,7 @@ import cssItem001 from "./css002components/cssItem001";
 import cssItem002 from "./css002components/cssItem002";
 import cssItem003 from "./css002components/cssItem003";
 import cssItem004 from "./css002components/cssItem004";
+import cssItem005 from "./css002components/cssItem005";
 
 export default {
     name: "index",
@@ -35,6 +36,7 @@ export default {
         cssItem002,
         cssItem003,
         cssItem004,
+        cssItem005,
     },
     data() {
         return {
@@ -46,6 +48,7 @@ export default {
                 { label: "qrcode使用", name: "cssItem002" },
                 { label: "qrcode生成", name: "cssItem003" },
                 { label: "大文件切片", name: "cssItem004" },
+                { label: "excel下载", name: "cssItem005" },
             ],
         };
     },
