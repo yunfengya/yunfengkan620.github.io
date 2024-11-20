@@ -1,6 +1,6 @@
 <template>
     <div class="contain_box">
-        <div style="width:100%;height:100%;">
+        <div style="width:90%;height:90%;">
             <el-button type="success" @click="jsExportExcelFn">点击下载jsExportExcelFn,多个sheet</el-button>
             <el-button type="success" @click="exceljsFn">exceljsFn点击下载,多个sheet多个小表格</el-button>
             <el-button type="success" @click="exceljsFnFiles">exceljsFn点击下载,多个sheet多个小表格,多个图片</el-button>
