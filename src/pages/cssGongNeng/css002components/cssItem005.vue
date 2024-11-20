@@ -1,7 +1,9 @@
 <template>
     <div class="contain_box">
-        <el-button @click="exceljsFn">点击下载exceljsFn</el-button>
-        <el-button @click="jsExportExcelFn">点击下载jsExportExcelFn</el-button>
+        <div style="width:100%;height:100%;">
+            <el-button type="success" @click="exceljsFn">点击下载exceljsFn</el-button>
+            <el-button type="success" @click="jsExportExcelFn">点击下载jsExportExcelFn</el-button>
+        </div>
     </div>
 </template>
 
@@ -88,22 +90,19 @@ export default {
             datasets.forEach((dataset) => {
                 // 创建一个新的工作表
                 let worksheet = workbook.addWorksheet(dataset.name);
-
                 let currentRow = 1;
-                dataset.data.forEach((subDataset) => {
+                dataset.data.forEach((subDataset,subDatasetIndex) => {
                     // 添加小表格的标题
                     worksheet.mergeCells(currentRow, 1, currentRow, subDataset.headers.length);
                     let titleCell = worksheet.getCell(currentRow, 1);
                     titleCell.value = subDataset.name;
                     titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
                     currentRow++;
-
                     // 写入自定义表头
                     subDataset.headers.forEach((header, index) => {
                         worksheet.getCell(currentRow, index + 1).value = header;
                     });
                     currentRow++;
-
                     // 写入数据列表
                     subDataset.list.forEach((rowData) => {
                         subDataset.columns.forEach((column, columnIndex) => {
@@ -111,7 +110,6 @@ export default {
                         });
                         currentRow++;
                     });
-
                     // 在每个小表格之间添加一行空白
                     currentRow++;
                 });
