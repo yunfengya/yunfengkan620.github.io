@@ -258,6 +258,8 @@ export default {
                     let titleCell = worksheet.getCell(currentRow, 1);
                     titleCell.value = subDataset.name;
                     titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
+                    // 保存表名的行数
+                    let titleRow = currentRow;
                     currentRow++;
                     // 写入自定义表头
                     subDataset.headers.forEach((header, index) => {
@@ -272,60 +274,20 @@ export default {
                         currentRow++;
                     });
                     // 在每个小表格之间添加一行空白
-                    currentRow++;
+                    // currentRow++;
+                    currentRow+=8;
 
-                    // 为每个小表格添加图片
-                    // 创建一个新的 div 并将 ECharts 图表渲染到该 div
-                    let echartsDiv = document.createElement('div');
-                    echartsDiv.style.width = '600px';
-                    echartsDiv.style.height = '400px';
-                    document.body.appendChild(echartsDiv);
+                    // 生成添加 ECharts 图表作为图片
+                    let base64Image = await this.generateEChartsImage(subDataset.list, this.$echarts);
 
-                    let myChart = this.$echarts.init(echartsDiv);
-                    // 提取 xName 和 value 数据
-                    let xNameArr = subDataset.list.map(item => item.xName);
-                    let valueArr = subDataset.list.map(item => item.value);
-                    let option =  {
-                        xAxis: {
-                            type: 'category',
-                            boundaryGap: false,
-                            // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                            data: xNameArr
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        series: [
-                            {
-                            data: valueArr,
-                            // data: [820, 932, 901, 934, 1290, 1330, 1320],
-                            type: 'line',
-                            areaStyle: {}
-                            }
-                        ]
-                    };
-                    myChart.setOption(option);
-                    // 添加延迟
-                    await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
-                    // 使用 ECharts 的 getDataURL 方法获取图表的 Base64 编码的 URL
-                    let base64Image = myChart.getDataURL({
-                        type: 'png',
-                        pixelRatio: 2,
-                        backgroundColor: '#fff'
-                    });
-                    // 将 'data:image/png;base64,' 部分从 URL 中移除
-                    base64Image = base64Image.replace('data:image/png;base64,', '');
                     let imageId = workbook.addImage({
                         base64: base64Image,
                         extension: 'png',
                     });
                     worksheet.addImage(imageId, {
-                        tl: { col: subDataset.headers.length + 1, row: currentRow - subDataset.list.length - 2 },  // 图片的左上角位置
+                        tl: { col: subDataset.headers.length + 1, row: titleRow  },  // 图片位置是表名右边
                         ext: { width: 300, height: 200 },  // 图片的宽度和高度
                     });
-
-                    // 删除 div
-                    document.body.removeChild(echartsDiv);
                 }
             }
             // 导出工作簿
@@ -337,6 +299,53 @@ export default {
                 link.click();
             });
         },
+        // 生成添加 ECharts 图表作为图片
+        async generateEChartsImage(list, echarts) {
+            // 创建一个新的 div 并将 ECharts 图表渲染到该 div
+            let echartsDiv = document.createElement('div');
+            echartsDiv.style.width = '600px';
+            echartsDiv.style.height = '400px';
+            document.body.appendChild(echartsDiv);
+
+            let myChart = echarts.init(echartsDiv);
+            // 提取 xName 和 value 数据
+            let xNameArr = list.map(item => item.xName);
+            let valueArr = list.map(item => item.value);
+            let option = {
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: xNameArr
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        data: valueArr,
+                        type: 'line',
+                        areaStyle: {}
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            // 添加延迟
+            await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
+            // 使用 ECharts 的 getDataURL 方法获取图表的 Base64 编码的 URL
+            let base64Image = myChart.getDataURL({
+                type: 'png',
+                pixelRatio: 2,
+                backgroundColor: '#fff'
+            });
+            // 将 'data:image/png;base64,' 部分从 URL 中移除
+            base64Image = base64Image.replace('data:image/png;base64,', '');
+
+            // 删除 div
+            document.body.removeChild(echartsDiv);
+
+            return base64Image;
+        },
+
         // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
         // import * as ExcelJS from 'exceljs'
         async exceljsFnFilesfff() {
