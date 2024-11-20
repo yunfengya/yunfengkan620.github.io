@@ -310,6 +310,15 @@ export default {
             let valueArr = list.map(item => item.value);
             let option = {
                 // backgroundColor:'#000237',
+                title: {
+                    text: "图标名称",
+                    left: "center",
+                    // top: "center",
+                    top: "0%",
+                    color: "#000",
+                    fontWeight: "normal",
+                    fontSize: this.setFontSize(14),
+                },
                 grid: {
                     top: '12%',
                     left: '8%',
@@ -622,6 +631,15 @@ export default {
             let valueArr = list.map(item => item.value);
             let option = {
                 // backgroundColor:'#000237',
+                title: {
+                    text: "图标名称",
+                    left: "center",
+                    // top: "center",
+                    top: "0%",
+                    color: "#000",
+                    fontWeight: "normal",
+                    fontSize: this.setFontSize(14),
+                },
                 grid: {
                     top: '12%',
                     left: '8%',
