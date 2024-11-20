@@ -187,7 +187,7 @@ export default {
         },
         // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
         // import * as ExcelJS from 'exceljs'
-        async exceljsFnFiles() {
+        async exceljsFnFilesfff() {
             // 创建一个新的工作簿
             let workbook = new ExcelJS.Workbook();
             // 定义数据集，包括表名、自定义表头、数据字段和数据列表
@@ -305,6 +305,8 @@ export default {
             let echartsDiv = document.createElement('div');
             echartsDiv.style.width = '600px';
             echartsDiv.style.height = '400px';
+            echartsDiv.style.position = 'absolute';  // 设置为绝对定位
+            echartsDiv.style.left = '-9999px';  // 将其放置在视窗之外
             document.body.appendChild(echartsDiv);
 
             let myChart = echarts.init(echartsDiv);
@@ -348,7 +350,7 @@ export default {
 
         // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
         // import * as ExcelJS from 'exceljs'
-        async exceljsFnFilesfff() {
+        async exceljsFnFiles() {
             // 创建一个新的工作簿
             let workbook = new ExcelJS.Workbook();
             // 定义数据集，包括表名、自定义表头、数据字段和数据列表
@@ -419,6 +421,8 @@ export default {
                     let titleCell = worksheet.getCell(currentRow, 1);
                     titleCell.value = subDataset.name;
                     titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
+                    // 保存表名的行数
+                    let titleRow = currentRow;
                     currentRow++;
                     // 写入自定义表头
                     subDataset.headers.forEach((header, index) => {
@@ -433,13 +437,16 @@ export default {
                         currentRow++;
                     });
                     // 在每个小表格之间添加一行空白
-                    currentRow++;
+                    // currentRow++;
+                    currentRow+=8;
 
                     // 为每个小表格添加图片
                     // 创建一个新的 div 并将 ECharts 图表渲染到该 div
                     let echartsDiv = document.createElement('div');
                     echartsDiv.style.width = '600px';
                     echartsDiv.style.height = '400px';
+                    echartsDiv.style.position = 'absolute';  // 设置为绝对定位
+                    echartsDiv.style.left = '-9999px';  // 将其放置在视窗之外
                     document.body.appendChild(echartsDiv);
 
                     let myChart = this.$echarts.init(echartsDiv);
@@ -475,7 +482,7 @@ export default {
                             extension: 'png',
                         });
                         worksheet.addImage(imageId, {
-                            tl: { col: subDataset.headers.length + 1, row: currentRow - subDataset.list.length - 2 },  // 图片的右上角位置
+                            tl: { col: subDataset.headers.length + 1, row: titleRow  },  // 图片位置是表名右边
                             ext: { width: 300, height: 200 },  // 图片的宽度和高度
                         });
                     });
