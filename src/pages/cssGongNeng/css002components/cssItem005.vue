@@ -10,6 +10,7 @@
 
 <script>
 import ExportJsonExcel from 'js-export-excel';
+import html2canvas from 'html2canvas';
 import * as ExcelJS from 'exceljs'
 export default {
     name: "index",
@@ -184,9 +185,9 @@ export default {
                 link.click();
             });
         },
-        // 多个sheet 和每个sheet中有多个小表格  多个图片
+        // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
         // import * as ExcelJS from 'exceljs'
-        exceljsFnFiles() {
+        async exceljsFnFiles() {
             // 创建一个新的工作簿
             let workbook = new ExcelJS.Workbook();
             // 定义数据集，包括表名、自定义表头、数据字段和数据列表
@@ -199,8 +200,8 @@ export default {
                             headers: ['厂区名', '机种名', '段别名', '楼栋名', '楼层名'],
                             columns: ['site', 'model', 'stage', 'floord', 'floor'],
                             list: [
-                                { site: '厂区A', model: '机种1', stage: '段别1', floord: '楼栋1', floor: '1楼', feng: 'fffff' },
-                                { site: '厂区B', model: '机种2', stage: '段别2', floord: '楼栋2', floor: '2楼' },
+                                { site: '厂区A', model: '机种1', stage: '段别1', floord: '楼栋1', floor: '1楼',value:'20', xName: 'kkk' },
+                                { site: '厂区B', model: '机种2', stage: '段别2', floord: '楼栋2', floor: '2楼',value:'30', xName: 'yyy' },
                                 // ... 更多数据项
                             ],
                         },
@@ -209,8 +210,8 @@ export default {
                             headers: ['厂区名', '机种名', '段别名', '楼栋名', '楼层名'],
                             columns: ['site', 'model', 'stage', 'floord', 'floor'],
                             list: [
-                                { site: '厂区C', model: '机种3', stage: '段别3', floord: '楼栋3', floor: '3楼' },
-                                { site: '厂区D', model: '机种4', stage: '段别4', floord: '楼栋4', floor: '4楼' },
+                                { site: '厂区C', model: '机种3', stage: '段别3', floord: '楼栋3', floor: '3楼' ,value:'40', xName: 'kkk' },
+                                { site: '厂区D', model: '机种4', stage: '段别4', floord: '楼栋4', floor: '4楼' ,value:'50', xName: 'yyy' },
                                 // ... 更多数据项
                             ],
                         },
@@ -226,8 +227,8 @@ export default {
                             headers: ['厂区名2', '机种名', '段别名', '楼栋名', '楼层名'],
                             columns: ['site', 'model', 'stage', 'floord', 'floor'],
                             list: [
-                                { site: '厂区A', model: '机种1', stage: '段别1', floord: '楼栋1', floor: '1楼' },
-                                { site: '厂区B', model: '机种2', stage: '段别2', floord: '楼栋2', floor: '2楼' },
+                                { site: '厂区A', model: '机种1', stage: '段别1', floord: '楼栋1', floor: '1楼',value:'60', xName: 'kkk'  },
+                                { site: '厂区B', model: '机种2', stage: '段别2', floord: '楼栋2', floor: '2楼',value:'70', xName: 'yyy'  },
                                 // ... 更多数据项
                             ],
                         },
@@ -236,8 +237,8 @@ export default {
                             headers: ['厂区名2', '机种名', '段别名', '楼栋名', '楼层名'],
                             columns: ['site', 'model', 'stage', 'floord', 'floor'],
                             list: [
-                                { site: '厂区C', model: '机种3', stage: '段别3', floord: '楼栋3', floor: '3楼' },
-                                { site: '厂区D', model: '机种4', stage: '段别4', floord: '楼栋4', floor: '4楼' },
+                                { site: '厂区C', model: '机种3', stage: '段别3', floord: '楼栋3', floor: '3楼' ,value:'80', xName: 'kkk' },
+                                { site: '厂区D', model: '机种4', stage: '段别4', floord: '楼栋4', floor: '4楼' ,value:'90', xName: 'yyy' },
                                 // ... 更多数据项
                             ],
                         },
@@ -247,11 +248,11 @@ export default {
             ];
 
             // 遍历数据集，为每个数据集创建一个工作表，并填充数据
-            datasets.forEach((dataset) => {
+            for (let dataset of datasets) {
                 // 创建一个新的工作表
                 let worksheet = workbook.addWorksheet(dataset.name);
                 let currentRow = 1;
-                dataset.data.forEach((subDataset,subDatasetIndex) => {
+                for (let subDataset of dataset.data) {
                     // 添加小表格的标题
                     worksheet.mergeCells(currentRow, 1, currentRow, subDataset.headers.length);
                     let titleCell = worksheet.getCell(currentRow, 1);
@@ -272,8 +273,208 @@ export default {
                     });
                     // 在每个小表格之间添加一行空白
                     currentRow++;
-                });
+
+                    // 为每个小表格添加图片
+                    // 创建一个新的 div 并将 ECharts 图表渲染到该 div
+                    let echartsDiv = document.createElement('div');
+                    echartsDiv.style.width = '600px';
+                    echartsDiv.style.height = '400px';
+                    document.body.appendChild(echartsDiv);
+
+                    let myChart = this.$echarts.init(echartsDiv);
+                    // 提取 xName 和 value 数据
+                    let xNameArr = subDataset.list.map(item => item.xName);
+                    let valueArr = subDataset.list.map(item => item.value);
+                    let option =  {
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                            data: xNameArr
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                            data: valueArr,
+                            // data: [820, 932, 901, 934, 1290, 1330, 1320],
+                            type: 'line',
+                            areaStyle: {}
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                    // 添加延迟
+                    await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
+                    // 使用 ECharts 的 getDataURL 方法获取图表的 Base64 编码的 URL
+                    let base64Image = myChart.getDataURL({
+                        type: 'png',
+                        pixelRatio: 2,
+                        backgroundColor: '#fff'
+                    });
+                    // 将 'data:image/png;base64,' 部分从 URL 中移除
+                    base64Image = base64Image.replace('data:image/png;base64,', '');
+                    let imageId = workbook.addImage({
+                        base64: base64Image,
+                        extension: 'png',
+                    });
+                    worksheet.addImage(imageId, {
+                        tl: { col: subDataset.headers.length + 1, row: currentRow - subDataset.list.length - 2 },  // 图片的左上角位置
+                        ext: { width: 300, height: 200 },  // 图片的宽度和高度
+                    });
+
+                    // 删除 div
+                    document.body.removeChild(echartsDiv);
+                }
+            }
+            // 导出工作簿
+            workbook.xlsx.writeBuffer().then((buffer) => {
+                let blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'exceljsFn下载的工作簿.xlsx';
+                link.click();
             });
+        },
+        // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
+        // import * as ExcelJS from 'exceljs'
+        async exceljsFnFilesfff() {
+            // 创建一个新的工作簿
+            let workbook = new ExcelJS.Workbook();
+            // 定义数据集，包括表名、自定义表头、数据字段和数据列表
+            let datasets = [
+                {
+                    name: 'sheet1',
+                    data: [
+                        {
+                            name: '小表格1',
+                            headers: ['厂区名', '机种名', '段别名', '楼栋名', '楼层名'],
+                            columns: ['site', 'model', 'stage', 'floord', 'floor'],
+                            list: [
+                                { site: '厂区A', model: '机种1', stage: '段别1', floord: '楼栋1', floor: '1楼',value:'20', xName: 'kkk' },
+                                { site: '厂区B', model: '机种2', stage: '段别2', floord: '楼栋2', floor: '2楼',value:'30', xName: 'yyy' },
+                                // ... 更多数据项
+                            ],
+                        },
+                        {
+                            name: '小表格2',
+                            headers: ['厂区名', '机种名', '段别名', '楼栋名', '楼层名'],
+                            columns: ['site', 'model', 'stage', 'floord', 'floor'],
+                            list: [
+                                { site: '厂区C', model: '机种3', stage: '段别3', floord: '楼栋3', floor: '3楼' ,value:'40', xName: 'kkk' },
+                                { site: '厂区D', model: '机种4', stage: '段别4', floord: '楼栋4', floor: '4楼' ,value:'50', xName: 'yyy' },
+                                // ... 更多数据项
+                            ],
+                        },
+                        // ... 更多小表格数据
+                    ],
+                },
+                // ... 更多sheets数据
+                {
+                    name: 'sheet2',
+                    data: [
+                        {
+                            name: '小表格1',
+                            headers: ['厂区名2', '机种名', '段别名', '楼栋名', '楼层名'],
+                            columns: ['site', 'model', 'stage', 'floord', 'floor'],
+                            list: [
+                                { site: '厂区A', model: '机种1', stage: '段别1', floord: '楼栋1', floor: '1楼',value:'60', xName: 'kkk'  },
+                                { site: '厂区B', model: '机种2', stage: '段别2', floord: '楼栋2', floor: '2楼',value:'70', xName: 'yyy'  },
+                                // ... 更多数据项
+                            ],
+                        },
+                        {
+                            name: '小表格2',
+                            headers: ['厂区名2', '机种名', '段别名', '楼栋名', '楼层名'],
+                            columns: ['site', 'model', 'stage', 'floord', 'floor'],
+                            list: [
+                                { site: '厂区C', model: '机种3', stage: '段别3', floord: '楼栋3', floor: '3楼' ,value:'80', xName: 'kkk' },
+                                { site: '厂区D', model: '机种4', stage: '段别4', floord: '楼栋4', floor: '4楼' ,value:'90', xName: 'yyy' },
+                                // ... 更多数据项
+                            ],
+                        },
+                        // ... 更多小表格数据
+                    ],
+                },
+            ];
+
+            // 遍历数据集，为每个数据集创建一个工作表，并填充数据
+            for (let dataset of datasets) {
+                // 创建一个新的工作表
+                let worksheet = workbook.addWorksheet(dataset.name);
+                let currentRow = 1;
+                for (let subDataset of dataset.data) {
+                    // 添加小表格的标题
+                    worksheet.mergeCells(currentRow, 1, currentRow, subDataset.headers.length);
+                    let titleCell = worksheet.getCell(currentRow, 1);
+                    titleCell.value = subDataset.name;
+                    titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
+                    currentRow++;
+                    // 写入自定义表头
+                    subDataset.headers.forEach((header, index) => {
+                        worksheet.getCell(currentRow, index + 1).value = header;
+                    });
+                    currentRow++;
+                    // 写入数据列表
+                    subDataset.list.forEach((rowData) => {
+                        subDataset.columns.forEach((column, columnIndex) => {
+                            worksheet.getCell(currentRow, columnIndex + 1).value = rowData[column];
+                        });
+                        currentRow++;
+                    });
+                    // 在每个小表格之间添加一行空白
+                    currentRow++;
+
+                    // 为每个小表格添加图片
+                    // 创建一个新的 div 并将 ECharts 图表渲染到该 div
+                    let echartsDiv = document.createElement('div');
+                    echartsDiv.style.width = '600px';
+                    echartsDiv.style.height = '400px';
+                    document.body.appendChild(echartsDiv);
+
+                    let myChart = this.$echarts.init(echartsDiv);
+                    // 提取 xName 和 value 数据
+                    let xNameArr = subDataset.list.map(item => item.xName);
+                    let valueArr = subDataset.list.map(item => item.value);
+                    let option =  {
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                            data: xNameArr
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                            data: valueArr,
+                            // data: [820, 932, 901, 934, 1290, 1330, 1320],
+                            type: 'line',
+                            areaStyle: {}
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                    // 添加延迟
+                    await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
+                    await html2canvas(echartsDiv).then((canvas) => {
+                        let base64Image = canvas.toDataURL().split(',')[1];  // 将 canvas 转换为 Base64 编码的图片
+                        let imageId = workbook.addImage({
+                            base64: base64Image,
+                            extension: 'png',
+                        });
+                        worksheet.addImage(imageId, {
+                            tl: { col: subDataset.headers.length + 1, row: currentRow - subDataset.list.length - 2 },  // 图片的右上角位置
+                            ext: { width: 300, height: 200 },  // 图片的宽度和高度
+                        });
+                    });
+
+                    // 删除 div
+                    document.body.removeChild(echartsDiv);
+                }
+            }
             // 导出工作簿
             workbook.xlsx.writeBuffer().then((buffer) => {
                 let blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
