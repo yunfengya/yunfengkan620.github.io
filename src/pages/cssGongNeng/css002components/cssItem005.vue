@@ -187,7 +187,7 @@ export default {
         },
         // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
         // import * as ExcelJS from 'exceljs'
-        async exceljsFnFilesfff() {
+        async exceljsFnFiles() {
             // 创建一个新的工作簿
             let workbook = new ExcelJS.Workbook();
             // 定义数据集，包括表名、自定义表头、数据字段和数据列表
@@ -350,7 +350,7 @@ export default {
 
         // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
         // import * as ExcelJS from 'exceljs'
-        async exceljsFnFiles() {
+        async exceljsFnFilesfff() {
             // 创建一个新的工作簿
             let workbook = new ExcelJS.Workbook();
             // 定义数据集，包括表名、自定义表头、数据字段和数据列表
