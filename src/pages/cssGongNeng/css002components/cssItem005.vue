@@ -2,9 +2,13 @@
     <div class="contain_box">
         <div style="width:90%;height:90%;">
             <el-button type="success" @click="jsExportExcelFn">多个sheet 每个sheet只有一个小表</el-button>
+            <p>.</p>
             <el-button type="success" @click="exceljsFn">多个sheet 和每个sheet中有多个小表格</el-button>
+            <p>.</p>
             <el-button type="success" @click="exceljsEchartsImageFn">多个sheet 和每个sheet中有多个小表格  echarts多个图片</el-button>
+            <p>.</p>
             <el-button type="success" @click="exceljsEchartsHtml2canvasImageFn">多个sheet 和每个sheet中有多个小表格  html2canvas多个图片</el-button>
+            <p>.</p>
         </div>
     </div>
 </template>
