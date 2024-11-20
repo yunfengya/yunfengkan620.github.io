@@ -1,9 +1,10 @@
 <template>
     <div class="contain_box">
         <div style="width:90%;height:90%;">
-            <el-button type="success" @click="jsExportExcelFn">点击下载jsExportExcelFn,多个sheet</el-button>
-            <el-button type="success" @click="exceljsFn">exceljsFn点击下载,多个sheet多个小表格</el-button>
-            <el-button type="success" @click="exceljsFnFiles">exceljsFn点击下载,多个sheet多个小表格,多个图片</el-button>
+            <el-button type="success" @click="jsExportExcelFn">多个sheet 每个sheet只有一个小表</el-button>
+            <el-button type="success" @click="exceljsFn">多个sheet 和每个sheet中有多个小表格</el-button>
+            <el-button type="success" @click="exceljsEchartsImageFn">多个sheet 和每个sheet中有多个小表格  echarts多个图片</el-button>
+            <el-button type="success" @click="exceljsEchartsHtml2canvasImageFn">多个sheet 和每个sheet中有多个小表格  html2canvas多个图片</el-button>
         </div>
     </div>
 </template>
@@ -26,8 +27,7 @@ export default {
 
     },
     methods: {
-        // 一个excel中 多个sheet 每个sheet只有一个小表
-        // import ExportJsonExcel from 'js-export-excel';
+        // 一个excel中 多个sheet 每个sheet只有一个小表  import ExportJsonExcel from 'js-export-excel';
         jsExportExcelFn() {
             // let sheetDataValue=this.list||[]
             let sheetDataValue = [
@@ -86,8 +86,8 @@ export default {
             let toExcel = new ExportJsonExcel(option); //new
             toExcel.saveExcel(); //save
         },
-        // 多个sheet 和每个sheet中有多个小表格
-        // import * as ExcelJS from 'exceljs'
+
+        // 多个sheet 和每个sheet中有多个小表格  import * as ExcelJS from 'exceljs'
         exceljsFn() {
             // 创建一个新的工作簿
             let workbook = new ExcelJS.Workbook();
@@ -185,9 +185,9 @@ export default {
                 link.click();
             });
         },
-        // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
-        // import * as ExcelJS from 'exceljs'
-        async exceljsFnFiles() {
+
+        // 多个sheet 和每个sheet中有多个小表格  echarts多个图片   import * as ExcelJS from 'exceljs'
+        async exceljsEchartsImageFn() {
             // 创建一个新的工作簿
             let workbook = new ExcelJS.Workbook();
             // 定义数据集，包括表名、自定义表头、数据字段和数据列表
@@ -299,7 +299,7 @@ export default {
                 link.click();
             });
         },
-        // 生成添加 ECharts 图表作为图片
+        // 生成添加 ECharts 图表作为图片 方法
         async generateEChartsImage(list, echarts) {
             // 创建一个新的 div 并将 ECharts 图表渲染到该 div
             let echartsDiv = document.createElement('div');
@@ -348,9 +348,8 @@ export default {
             return base64Image;
         },
 
-        // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片
-        // import * as ExcelJS from 'exceljs'
-        async exceljsFnFilesfff() {
+        // 多个sheet 和每个sheet中有多个小表格  html2canvas多个图片   import * as ExcelJS from 'exceljs'
+        async exceljsEchartsHtml2canvasImageFn() {
             // 创建一个新的工作簿
             let workbook = new ExcelJS.Workbook();
             // 定义数据集，包括表名、自定义表头、数据字段和数据列表
@@ -467,14 +466,14 @@ export default {
                 link.click();
             });
         },
-        // 生成添加 ECharts 图表作为图片
+        // 生成添加 ECharts doms 的渲染 div 盒子方法
         async generateEChartsHtml2canvasImage(list, echarts) {
             // 创建一个新的 div 并将 ECharts 图表渲染到该 div
             let echartsDiv = document.createElement('div');
             echartsDiv.style.width = '600px';
             echartsDiv.style.height = '400px';
-            // echartsDiv.style.position = 'absolute';  // 设置为绝对定位
-            // echartsDiv.style.left = '-9999px';  // 将其放置在视窗之外
+            echartsDiv.style.position = 'absolute';  // 设置为绝对定位
+            echartsDiv.style.left = '-9999px';  // 将其放置在视窗之外
             document.body.appendChild(echartsDiv);
 
             let myChart = echarts.init(echartsDiv);
