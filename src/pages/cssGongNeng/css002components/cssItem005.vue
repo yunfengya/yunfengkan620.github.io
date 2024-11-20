@@ -440,41 +440,9 @@ export default {
                     // currentRow++;
                     currentRow+=8;
 
-                    // 为每个小表格添加图片
-                    // 创建一个新的 div 并将 ECharts 图表渲染到该 div
-                    let echartsDiv = document.createElement('div');
-                    echartsDiv.style.width = '600px';
-                    echartsDiv.style.height = '400px';
-                    echartsDiv.style.position = 'absolute';  // 设置为绝对定位
-                    echartsDiv.style.left = '-9999px';  // 将其放置在视窗之外
-                    document.body.appendChild(echartsDiv);
-
-                    let myChart = this.$echarts.init(echartsDiv);
-                    // 提取 xName 和 value 数据
-                    let xNameArr = subDataset.list.map(item => item.xName);
-                    let valueArr = subDataset.list.map(item => item.value);
-                    let option =  {
-                        xAxis: {
-                            type: 'category',
-                            boundaryGap: false,
-                            // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                            data: xNameArr
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        series: [
-                            {
-                            data: valueArr,
-                            // data: [820, 932, 901, 934, 1290, 1330, 1320],
-                            type: 'line',
-                            areaStyle: {}
-                            }
-                        ]
-                    };
-                    myChart.setOption(option);
-                    // 添加延迟
-                    await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
+                    // 生成添加 ECharts dom的渲染div盒子
+                    let echartsDiv = await this.generateEChartsHtml2canvasImage(subDataset.list, this.$echarts);
+                    
                     await html2canvas(echartsDiv).then((canvas) => {
                         let base64Image = canvas.toDataURL().split(',')[1];  // 将 canvas 转换为 Base64 编码的图片
                         let imageId = workbook.addImage({
@@ -485,10 +453,9 @@ export default {
                             tl: { col: subDataset.headers.length + 1, row: titleRow  },  // 图片位置是表名右边
                             ext: { width: 300, height: 200 },  // 图片的宽度和高度
                         });
+                        // 删除 div
+                        document.body.removeChild(echartsDiv);  // 移除div
                     });
-
-                    // 删除 div
-                    document.body.removeChild(echartsDiv);
                 }
             }
             // 导出工作簿
@@ -500,7 +467,42 @@ export default {
                 link.click();
             });
         },
+        // 生成添加 ECharts 图表作为图片
+        async generateEChartsHtml2canvasImage(list, echarts) {
+            // 创建一个新的 div 并将 ECharts 图表渲染到该 div
+            let echartsDiv = document.createElement('div');
+            echartsDiv.style.width = '600px';
+            echartsDiv.style.height = '400px';
+            // echartsDiv.style.position = 'absolute';  // 设置为绝对定位
+            // echartsDiv.style.left = '-9999px';  // 将其放置在视窗之外
+            document.body.appendChild(echartsDiv);
 
+            let myChart = echarts.init(echartsDiv);
+            // 提取 xName 和 value 数据
+            let xNameArr = list.map(item => item.xName);
+            let valueArr = list.map(item => item.value);
+            let option = {
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: xNameArr
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        data: valueArr,
+                        type: 'line',
+                        areaStyle: {}
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            // 添加延迟
+            await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
+            return echartsDiv;
+        },
         
     }
 };
