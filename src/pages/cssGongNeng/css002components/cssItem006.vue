@@ -330,7 +330,7 @@ export default {
             let base64Image = myChart.getDataURL({
                 type: 'png',
                 pixelRatio: 2,
-                backgroundColor: '#fff'
+                backgroundColor: '#d4d4d4'
             });
             // 将 'data:image/png;base64,' 部分从 URL 中移除
             base64Image = base64Image.replace('data:image/png;base64,', '');
