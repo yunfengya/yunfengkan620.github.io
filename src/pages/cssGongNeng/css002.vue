@@ -27,6 +27,7 @@ import cssItem003 from "./css002components/cssItem003";
 import cssItem004 from "./css002components/cssItem004";
 import cssItem005 from "./css002components/cssItem005";
 import cssItem006 from "./css002components/cssItem006";
+import cssItem007 from "./css002components/cssItem007";
 
 export default {
     name: "index",
@@ -39,6 +40,7 @@ export default {
         cssItem004,
         cssItem005,
         cssItem006,
+        cssItem007,
     },
     data() {
         return {
@@ -52,6 +54,7 @@ export default {
                 { label: "大文件切片", name: "cssItem004" },
                 { label: "excel下载", name: "cssItem005" },
                 { label: "exceljs使用", name: "cssItem006" },
+                { label: "放大移动效果", name: "cssItem007" },
             ],
         };
     },
