@@ -2,7 +2,6 @@
     <div class="contain_box">
         <div class="container">
             <Zoomable>
-                <!-- style="width:100%;height:100%;" -->
                 <div class="img_box"></div>
             </Zoomable>
         </div>
