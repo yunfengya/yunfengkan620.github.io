@@ -43,18 +43,13 @@ export default {
         handleWheel(e) {
             e.preventDefault();
 
-            // 获取鼠标在元素上的位置
-            const rect = this.$refs.zoomable.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
             // 计算新的缩放级别
             const deltaScale = e.deltaY < 0 ? 0.1 : -0.1;
             const newScale = Math.min(Math.max(this.scale + deltaScale, 1), 1.5); // 缩放级别是 最小1倍 ~ 最大2倍
 
-            // 计算新的原点位置
-            const newOriginX = x / newScale;
-            const newOriginY = y / newScale;
+            // 将原点始终设定在左上角
+            const newOriginX = 0;
+            const newOriginY = 0;
 
             // 更新数据
             this.scale = newScale;
