@@ -50,7 +50,7 @@ export default {
 
             // 计算新的缩放级别
             const deltaScale = e.deltaY < 0 ? 0.1 : -0.1;
-            const newScale = Math.min(Math.max(this.scale + deltaScale, 1), 2); // 缩放级别是 最小1倍 ~ 最大2倍
+            const newScale = Math.min(Math.max(this.scale + deltaScale, 1), 1.5); // 缩放级别是 最小1倍 ~ 最大2倍
 
             // 计算新的原点位置
             const newOriginX = x / newScale;
