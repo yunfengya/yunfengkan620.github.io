@@ -310,6 +310,7 @@ export default {
             let valueArr = list.map(item => item.value);
             let option = {
                 // backgroundColor:'#000237',
+                animation: false,  // 关闭延迟渲染动画
                 title: {
                     text: "图标名称",
                     left: "center",
@@ -470,6 +471,7 @@ export default {
             } else {
                 // 接口数据 没有时
                 newOption = {
+                    animation: false,  // 关闭延迟渲染动画
                     title: {
                         text: "暂无数据",
                         left: "center",
@@ -492,7 +494,7 @@ export default {
             let myChart = echarts.init(echartsDiv);
             myChart.setOption(newOption);
             // 添加延迟
-            await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
+            // await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
             // 使用 ECharts 的 getDataURL 方法获取图表的 Base64 编码的 URL
             let base64Image = myChart.getDataURL({
                 type: 'png',
@@ -631,6 +633,7 @@ export default {
             let valueArr = list.map(item => item.value);
             let option = {
                 // backgroundColor:'#000237',
+                animation: false,  // 关闭延迟渲染动画
                 title: {
                     text: "图标名称",
                     left: "center",
@@ -791,6 +794,7 @@ export default {
             } else {
                 // 接口数据 没有时
                 newOption = {
+                    animation: false,  // 关闭延迟渲染动画
                     title: {
                         text: "暂无数据",
                         left: "center",
@@ -813,7 +817,7 @@ export default {
             let myChart = echarts.init(echartsDiv);
             myChart.setOption(newOption);
             // 添加延迟
-            await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
+            // await new Promise(resolve => setTimeout(resolve, 1000));  // 延迟1秒
             return echartsDiv;
         },
         
