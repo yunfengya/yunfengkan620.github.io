@@ -3,7 +3,7 @@
         <div class="container">
             <Zoomable>
                 <!-- style="width:100%;height:100%;" -->
-                <img style="width:100%;height:100%;" src="../../../assets/404bg1.png" alt="">
+                <div class="img_box"></div>
             </Zoomable>
         </div>
     </div>
@@ -50,6 +50,11 @@ export default {
         height: 500px;
         border: 1px solid #000;
         overflow: hidden;
+        .img_box{
+            width:100%;height:100%;
+            background: url("../../../assets/404bg1.png") no-repeat;
+            background-size:100% 100%;
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 <template>
-    <div class="zoomable" ref="zoomable" @wheel="handleWheel">
+    <div class="zoomable" ref="zoomable" @wheel="handleWheel" @mousedown="startDrag" @mousemove="drag" @mouseup="endDrag"
+        @mouseleave="endDrag">
         <el-scrollbar class="scrollbar_top" ref="scrollbar">
             <div class="content" :style="contentStyle">
                 <slot></slot>
@@ -23,6 +24,9 @@ export default {
             originY: 0,
             naturalWidth: 0,
             naturalHeight: 0,
+            dragging: false,
+            startX: 0,
+            startY: 0,
         };
     },
     computed: {
@@ -46,7 +50,7 @@ export default {
 
             // 计算新的缩放级别
             const deltaScale = e.deltaY < 0 ? 0.1 : -0.1;
-            const newScale = Math.min(Math.max(this.scale + deltaScale, 1), 2);//缩放级别是 最小1倍 ~ 最大2倍
+            const newScale = Math.min(Math.max(this.scale + deltaScale, 1), 2); // 缩放级别是 最小1倍 ~ 最大2倍
 
             // 计算新的原点位置
             const newOriginX = x / newScale;
@@ -69,7 +73,23 @@ export default {
                 });
             });
         },
-
+        startDrag(e) {
+            this.dragging = true;
+            this.startX = e.clientX;
+            this.startY = e.clientY;
+        },
+        drag(e) {
+            if (!this.dragging) return;
+            const dx = e.clientX - this.startX;
+            const dy = e.clientY - this.startY;
+            this.$refs.scrollbar.wrap.scrollTop -= dy;
+            this.$refs.scrollbar.wrap.scrollLeft -= dx;
+            this.startX = e.clientX;
+            this.startY = e.clientY;
+        },
+        endDrag() {
+            this.dragging = false;
+        },
     },
     mounted() {
         // 初始化图片的大小
