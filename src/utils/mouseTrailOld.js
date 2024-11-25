@@ -4,19 +4,33 @@ function ApplyStyle(element, styleObj) {
 
 export default {
   install(Vue) {
-    const images = [
-      require("../assets/小蜜蜂.gif"),
-      // require("../assets/lunbo.png"),
-      // require("../assets/lunbo2.png"),
-      // require("../assets/lunbo3.png"),
-      // require("../assets/lunbo4.png"),
-      // require("../assets/lunbo5.png"),
-      // add more image URLs as needed
+    const colors = [
+      "#FFA07A", // 浅鲑鱼色
+      "#FFDEAD", // 浅杏色
+      "#FFFFE0", // 浅黄色
+      "#ADFF2F", // 绿黄色
+      "#ADD8E6", // 浅蓝色
+      "#9370DB", // 中紫色
+      "#FFB6C1", // 浅粉红色
+      "#87CEFA", // 浅天蓝色
+      "#98FB98", // 浅绿色
+      "#FFDAB9", // 桃色
+      "#DDA0DD", // 李子色
+      "#E6E6FA", // 薰衣草色
     ];
+
+    const characters = ["✺", "❆", "❄", "❄", "❄", "✺", "❉", "✹", "✵", "❁", "❆"];
+    // const characters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    // const characters = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵"];
+    // const characters = ["⚡", "💥", "🔥", "✨", "🌟", "💫", "💣", "💎", "🎉", "🎊", "🚀", "🌈"];
+    // const characters = ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼", "═", "║", "╒", "╓", "╔", "╕", "╖", "╗", "╘", "╙", "╚", "╛", "╜", "╝", "╞", "╟", "╠", "╡", "╢", "╣", "╤", "╥", "╦", "╧", "╨", "╩", "╪"];
+
     const elementGroup = [];
 
     class Element {
       constructor() {
+        const num = Math.floor(Math.random() * characters.length);
+        this.character = characters[num];
         this.lifeSpan = 120;
         this.initialStyles = {
           position: "fixed",
@@ -24,19 +38,20 @@ export default {
           display: "block",
           pointerEvents: "none",
           "z-index": "10000000",
+          fontSize: "25px",
           "will-change": "transform",
+          color: "#000000",
         };
 
-        this.init = function (x, y, imageSrc) {
+        this.init = function (x, y, color) {
           this.velocity = {
             x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
             y: 1,
           };
           this.position = { x: x - 10, y: y - 20 };
-          this.element = document.createElement("img");
-          this.element.src = imageSrc;
-          this.element.style.width = "50px"; // Set the image width
-          this.element.style.height = "50px"; // Set the image height
+          this.initialStyles.color = color;
+          this.element = document.createElement("span");
+          this.element.innerHTML = this.character;
           ApplyStyle(this.element, this.initialStyles);
           this.update();
           document.body.appendChild(this.element);
@@ -76,20 +91,15 @@ export default {
     function mouseTrail() {
       document.addEventListener("mousemove", onMouseMove);
     }
-    // 添加一个计数器 控制拖尾出现频率
-    let moveCounter = 0;
+
     function onMouseMove(t) {
-      moveCounter++;
-      if (moveCounter > 3){
-        const imageSrc = images[Math.floor(Math.random() * images.length)];
-        CreateElement(t.clientX, t.clientY, imageSrc);
-        moveCounter = 0;  // 重置计数器
-      }
+      const num = Math.floor(Math.random() * colors.length);
+      CreateElement(t.clientX, t.clientY, colors[num]);
     }
 
-    function CreateElement(x, y, imageSrc) {
+    function CreateElement(x, y, color) {
       const e = new Element();
-      e.init(x, y, imageSrc);
+      e.init(x, y, color);
       elementGroup.push(e);
     }
 
