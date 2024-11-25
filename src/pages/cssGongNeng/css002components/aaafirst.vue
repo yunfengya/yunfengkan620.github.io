@@ -13,7 +13,9 @@ export default {
         };
     },
     mounted() {
-        
+        // main.js中全局引入的类似插件的函数调用，鼠标拖尾
+        this.$mouseTrail();
+        this.$Rander();
     },
     beforeDestroy() {
         

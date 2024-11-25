@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import Element from 'element-ui'
 
+import MouseTrail from './utils/mouseTrail.js';//自定义的 鼠标拖尾插件
+
 import './style/elementui.scss'
 import './style/index.css'
 import './style/index.scss'
@@ -19,6 +21,9 @@ Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
 Vue.use(Element)
+
+Vue.use(MouseTrail);
+
 new Vue({
   router,
   store,
