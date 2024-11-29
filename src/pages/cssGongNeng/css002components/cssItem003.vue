@@ -7,6 +7,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">生成二维码</el-button>
+                <el-button type="primary" @click="downLoadImgFn()">下载二维码</el-button>
             </el-form-item>
         </el-form>
         <!-- 展示生成的二维码图片 -->
@@ -93,6 +94,14 @@ export default {
                 // 如果出错，打印错误信息
                 console.error(err)
             }
+        },
+
+        downLoadImgFn(){
+            let link = document.createElement('a');
+            // link.download = 'QRCode.png';
+            link.download = `${this.formInline.stringInput}.png`;
+            link.href = this.qrCodeImg;
+            link.click();
         }
     },
 };
