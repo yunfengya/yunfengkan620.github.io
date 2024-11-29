@@ -38,6 +38,7 @@ import cssItem013 from "./css001components/cssItem013";
 import cssItem014 from "./css001components/cssItem014";
 import cssItem015 from "./css001components/cssItem015";
 import cssItem016 from "./css001components/cssItem016";
+import cssItem017 from "./css001components/cssItem017";
 
 export default {
     name: "index",
@@ -61,6 +62,7 @@ export default {
         cssItem014,
         cssItem015,
         cssItem016,
+        cssItem017,
     },
     data() {
         return {
@@ -85,6 +87,7 @@ export default {
                 { label: "卡片悬浮发光", name: "cssItem014" },
                 { label: "9宫格抽奖", name: "cssItem015" },
                 { label: "大转盘抽奖", name: "cssItem016" },
+                { label: "蜡烛", name: "cssItem017" },
             ],
         };
     },
