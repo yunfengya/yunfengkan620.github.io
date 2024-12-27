@@ -29,6 +29,7 @@ import cssItem005 from "./css002components/cssItem005";
 import cssItem006 from "./css002components/cssItem006";
 import cssItem007 from "./css002components/cssItem007";
 import cssItem008 from "./css002components/cssItem008";
+import cssItem009 from "./css002components/cssItem009";
 
 export default {
     name: "index",
@@ -43,6 +44,7 @@ export default {
         cssItem006,
         cssItem007,
         cssItem008,
+        cssItem009,
     },
     data() {
         return {
@@ -58,6 +60,7 @@ export default {
                 { label: "exceljs使用", name: "cssItem006" },
                 { label: "放大移动效果", name: "cssItem007" },
                 { label: "卡片复选禁用", name: "cssItem008" },
+                { label: "卡片步骤", name: "cssItem009" },
             ],
         };
     },
