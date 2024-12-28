@@ -1,19 +1,19 @@
 <template>
     <div class="contain_box">
         <div class="container">
-            <Zoomable>
+            <ChangeSize>
                 <div class="img_box"></div>
-            </Zoomable>
+            </ChangeSize>
         </div>
     </div>
 </template>
 
 <script>
-import Zoomable from './Zoomable.vue';
+import ChangeSize from '@/components/ChangeSize/index.vue';
 export default {
     name: "index",
     components: {
-        Zoomable,
+        ChangeSize,
     },
     data() {
         return {

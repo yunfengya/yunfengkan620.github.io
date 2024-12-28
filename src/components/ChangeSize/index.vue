@@ -1,4 +1,5 @@
 <template>
+    <!-- 图片放大，拖动滑动效果 -->
     <div class="zoomable" ref="zoomable" @wheel="handleWheel" @mousedown="startDrag" @mousemove="drag" @mouseup="endDrag"
         @mouseleave="endDrag">
         <el-scrollbar class="scrollbar_top" ref="scrollbar">
