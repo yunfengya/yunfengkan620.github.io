@@ -158,26 +158,64 @@ export default {
                 font-size: 12px;
             }
 
-            /* 自定义滚动条样式css  */
-            &::-webkit-scrollbar {
-                width: 8px;//竖向滚动条的宽度
-                height: 8px;//横向滚动条的高度
-            }
+            // /* 自定义滚动条样式css  */
+            // &::-webkit-scrollbar {
+            //     width: 8px;//竖向滚动条的宽度
+            //     height: 8px;//横向滚动条的高度
+            // }
 
-            &::-webkit-scrollbar-track {
-                background: #24978d;
-                border-radius: 1px;
-                border-right: 1px solid #2f3742;
-            }
+            // &::-webkit-scrollbar-track {
+            //     background: #24978d;
+            //     border-radius: 1px;
+            //     border-right: 1px solid #2f3742;
+            // }
 
-            &::-webkit-scrollbar-thumb {
-                background: #3af1e2;
-                border-radius: 2px;
-            }
-            //去除xy轴交叉色
-            &::-webkit-scrollbar-corner {
-                background-color: transparent;
-            }
+            // &::-webkit-scrollbar-thumb {
+            //     background: #3af1e2;
+            //     border-radius: 2px;
+            // }
+            // //去除xy轴交叉色
+            // &::-webkit-scrollbar-corner {
+            //     background-color: transparent;
+            // }
+        }
+        /* 自定义滚动条样式css  */
+        // 默认不显示
+        .layout-left::-webkit-scrollbar {
+            width: 8px;//竖向滚动条的宽度
+            height: 8px;//横向滚动条的高度
+        }
+        .layout-left::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 8px;
+            border: 1px solid transparent;
+        }
+        .layout-left::-webkit-scrollbar-thumb {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 8px;
+        }
+        // 鼠标滑过显示
+        .layout-left:hover::-webkit-scrollbar {
+            width: 8px;//竖向滚动条的宽度
+            height: 8px;//横向滚动条的高度
+        }
+        .layout-left:hover::-webkit-scrollbar-track {
+            background: #ffe4cb;
+            border-radius: 8px;
+            border: 1px solid #ffedde;
+        }
+        .layout-left:hover::-webkit-scrollbar-thumb {
+            cursor: pointer;
+            // background: linear-gradient(0deg, #fc902b, #5bf818);//从上到下
+            // background: linear-gradient(90deg, #fc902b, #5bf818);//从左到右
+            background: linear-gradient(45deg, #fc902b, #5bf818);// 从对角线开始渐变
+            border: 1px solid #ffedde;
+            border-radius: 8px;
+        }
+        //去除xy轴交叉色
+        .layout-left::-webkit-scrollbar-corner {
+            background-color: transparent;
         }
 
         .layout-right {
