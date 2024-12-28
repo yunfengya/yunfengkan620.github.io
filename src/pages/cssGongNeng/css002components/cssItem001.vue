@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import RangeSelector from './RangeSelector.vue'
+// import RangeSelector from './RangeSelector.vue'
+import RangeSelector from '@/components/RangeSelector/index.vue'
 
 export default {
     components: {
