@@ -23,7 +23,7 @@ export default {
 };
 </script>
   
-<style scoped>
+<style scoped lang="scss">
 .scrollbar_components_box {
     width: 100%;
     height: 100%;
