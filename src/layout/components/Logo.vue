@@ -2,7 +2,10 @@
   <div class="logo">
     <!-- <img src="https://dbyxs.xyz:3006/uploads/fae4e814a5d9510d10277ff78ea6dc12" alt=""> -->
     <img src="../../assets/book_img.png" alt="">
-    <div class="pc_name">system</div>
+    <div class="pc_name">
+      云
+      <span @click="githubFn()" style="cursor:pointer;color:#17e1ff">前往github</span>
+    </div>
   </div>
 </template>
 <script>
@@ -10,6 +13,11 @@ export default {
   data() {
     return {
 
+    }
+  },
+  methods:{
+    githubFn(){
+      window.open('https://github.com/yunfengya/yunfengkan620.github.io/tree/project_vue','_blank')
     }
   }
 }
@@ -39,5 +47,6 @@ img {
   font-size: 14px;
   font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
   vertical-align: middle;
+  overflow: hidden;
 }
 </style>
