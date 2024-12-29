@@ -1,6 +1,12 @@
 <template>
     <div class="contain_box">
-        <MyScrollbar>
+        <MyScrollbar 
+            :scrollbar-width="'8px'" 
+            :scrollbar-height="'8px'" 
+            :scrollbar-color="'#23477d'"
+            :scrollbar-border-color="'#d3e3fd'"
+            :scrollbar-track-color="'#d3e3fd'"
+        >
             <!-- Your content goes here -->
             <p v-for="item in 50" :key="item" style="width:130%">{{ item }}</p>
         </MyScrollbar>
