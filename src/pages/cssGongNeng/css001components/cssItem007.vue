@@ -67,7 +67,7 @@ export default {
     .bg_img {
         width: 50px;
         height: 50px;
-        background: url("~@/assets/cartoonFigure.png") no-repeat;
+        background: url("~@/assets/book_img.png") no-repeat;
         background-size: 100% auto;
     }
 

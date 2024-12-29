@@ -29,7 +29,7 @@
       <div class="header_right">
         <el-dropdown trigger="click">
           <div style="display:flex;justify-content:center;align-items:center;cursor: pointer;">
-            <el-avatar :src="require('../../assets/cartoonFigure.png')"></el-avatar>
+            <el-avatar :src="require('../../assets/book_img.png')"></el-avatar>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </div>
 

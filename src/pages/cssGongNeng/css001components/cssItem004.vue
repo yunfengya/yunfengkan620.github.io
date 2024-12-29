@@ -1,6 +1,6 @@
 <template>
     <div class="contain_box">
-        <img id="image" src="../../../assets/cartoonFigure.png" alt="">
+        <img id="image" src="../../../assets/book_img.png" alt="">
         <canvas id="canvas"></canvas>
     </div>
 </template>
