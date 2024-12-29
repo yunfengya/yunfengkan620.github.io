@@ -3,19 +3,10 @@
         <MyScrollbar
             :scrollbar-width="'8px'" 
             :scrollbar-height="'8px'" 
-            :scrollbar-color="'rgba(160, 160, 160, 0.6)'"
-            :scrollbar-border-color="'rgba(160, 160, 160, 0.3)'"
-            :scrollbar-track-color="'rgba(160, 160, 160, 0.3)'"
+            :scrollbar-color="'#afb8c8'"
+            :scrollbar-border-color="'transparent'"
+            :scrollbar-track-color="'transparent'"
         ></MyScrollbar>
-
-        <MyScrollbar 
-            :scrollbar-width="'8px'" 
-            :scrollbar-height="'8px'" 
-            :scrollbar-color="'linear-gradient(45deg, #c42b1c, #5bf818)'"
-            :scrollbar-border-color="'rgba(160, 160, 160, 0.3)'"
-            :scrollbar-track-color="'rgba(160, 160, 160, 0.3)'"
-        ></MyScrollbar>
-
     -->
     <div class="scrollbar_components_box" ref="scrollContent" :style="scrollbarStyle">
         <slot></slot>
@@ -39,11 +30,11 @@ export default {
         },
         scrollbarBorderColor: {
             type: String,
-            default: '#ffedde'
+            default: 'transparent',// transparent #ffedde
         },
         scrollbarTrackColor: {
             type: String,
-            default: '#ffe4cb'
+            default: 'transparent',// transparent #ffedde
         },
     },
     computed: {
