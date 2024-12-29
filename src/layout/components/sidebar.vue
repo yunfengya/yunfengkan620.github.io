@@ -8,7 +8,7 @@
     <!-- :background-color="variables.menuBg"  -->
     <Logo />
     <div class="sider_box" style="height:calc(100vh - 50px);">
-      <MyScrollbar
+      <MyScrollBar
         :scrollbar-width="'8px'" 
         :scrollbar-height="'8px'" 
         :scrollbar-color="'linear-gradient(45deg, #fc902b, #5bf818)'"
@@ -32,13 +32,12 @@
             />
           </el-menu>
         </el-scrollbar>
-      </MyScrollbar>
+      </MyScrollBar>
     </div>
   </div>
 </template>
 <script>
-// import MyScrollbar from '@/components/MyScrollBar/index.vue';
-import MyScrollbar from '@/components/./myScrollBar/index.vue';
+import MyScrollBar from '@/components/MyScrollBar/index.vue';
 import { mapGetters, mapActions } from 'vuex'
 import Logo from './Logo.vue'
 import sidebarItem from './sidebarItem.vue'
@@ -46,7 +45,7 @@ export default {
   components: {
     Logo,
     sidebarItem,
-    MyScrollbar,
+    MyScrollBar,
   },
   computed: {
     ...mapGetters(['getRout', 'sidebar']),

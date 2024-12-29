@@ -1,6 +1,6 @@
 <template>
     <div class="contain_box">
-        <MyScrollbar 
+        <MyScrollBar 
             :scrollbar-width="'8px'" 
             :scrollbar-height="'8px'" 
             :scrollbar-color="'rgba(144, 147, 153, 0.3)'"
@@ -9,16 +9,15 @@
             <p v-for="(item,index) in 50" :key="index" style="width:130%;">
                 -.-.-.-.-.-----...---...---...-.-.-.-.-.-----...---...---...-.-.-.-.-.-----...---...---...-.-.-.-.-{{ item }}
             </p>
-        </MyScrollbar>
+        </MyScrollBar>
     </div>
 </template>
 <script>
-// import MyScrollbar from '@/components/MyScrollBar/index.vue';
-import MyScrollbar from '@/components/./myScrollBar/index.vue';
+import MyScrollBar from '@/components/MyScrollBar/index.vue';
 export default {
     name: "index",
     components: {
-        MyScrollbar,
+        MyScrollBar,
     },
     data() {
         return {
