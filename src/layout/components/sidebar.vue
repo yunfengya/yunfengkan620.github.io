@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import MyScrollBar from '@/components/MyScrollBar/index.vue';
+import MyScrollBar from '@/components/myScrollBar/index.vue';
 import { mapGetters, mapActions } from 'vuex'
 import Logo from './Logo.vue'
 import sidebarItem from './sidebarItem.vue'

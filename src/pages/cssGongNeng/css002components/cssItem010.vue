@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-import MyScrollBar from '@/components/MyScrollBar/index.vue';
+import MyScrollBar from '@/components/myScrollBar/index.vue';
 export default {
     name: "index",
     components: {
