@@ -7,28 +7,33 @@
     <!-- logo区域 -->
     <!-- :background-color="variables.menuBg"  -->
     <Logo />
-    <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        background-color="#304156"
-        :default-active="activeMenu"
-        :collapse="sidebar"
-        text-color="#bfcbd9"
-        :unique-opened="true"
-        active-text-color="#409EFF"
-        :collapse-transition="true"
-        mode="vertical"
-      >
-        <sidebar-item
-          v-for="route in getRout"
-          :key="route.path"
-          :item="route"
-          :base-path="route.path"
-        />
-      </el-menu>
-    </el-scrollbar>
+    <div class="sider_box" style="height:calc(100vh - 50px);">
+      <MyScrollbar>
+        <el-scrollbar wrap-class="scrollbar-wrapper">
+          <el-menu
+            background-color="#304156"
+            :default-active="activeMenu"
+            :collapse="sidebar"
+            text-color="#bfcbd9"
+            :unique-opened="true"
+            active-text-color="#409EFF"
+            :collapse-transition="true"
+            mode="vertical"
+          >
+            <sidebar-item
+              v-for="route in getRout"
+              :key="route.path"
+              :item="route"
+              :base-path="route.path"
+            />
+          </el-menu>
+        </el-scrollbar>
+      </MyScrollbar>
+    </div>
   </div>
 </template>
 <script>
+import MyScrollbar from '@/components/MyScrollBar/index.vue';
 import { mapGetters, mapActions } from 'vuex'
 import Logo from './Logo.vue'
 import sidebarItem from './sidebarItem.vue'
@@ -36,6 +41,7 @@ export default {
   components: {
     Logo,
     sidebarItem,
+    MyScrollbar,
   },
   computed: {
     ...mapGetters(['getRout', 'sidebar']),
@@ -81,7 +87,6 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 1001;
-  overflow: hidden;
 }
 ::v-deep .el-menu--collapse {
   width: 100%;
