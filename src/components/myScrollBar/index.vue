@@ -3,7 +3,7 @@
         <MyScrollbar
             :scrollbar-width="'8px'" 
             :scrollbar-height="'8px'" 
-            :scrollbar-color="'#afb8c8'"
+            :scrollbar-color="'rgba(144, 147, 153, 0.3)'"
             :scrollbar-border-color="'transparent'"
             :scrollbar-track-color="'transparent'"
         ></MyScrollbar>
