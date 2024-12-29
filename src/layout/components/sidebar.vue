@@ -8,7 +8,11 @@
     <!-- :background-color="variables.menuBg"  -->
     <Logo />
     <div class="sider_box" style="height:calc(100vh - 50px);">
-      <MyScrollbar>
+      <MyScrollbar
+        :scrollbar-width="'8px'" 
+        :scrollbar-height="'8px'" 
+        :scrollbar-color="'linear-gradient(45deg, #fc902b, #5bf818)'"
+      >
         <el-scrollbar wrap-class="scrollbar-wrapper">
           <el-menu
             background-color="#304156"

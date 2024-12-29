@@ -26,7 +26,8 @@ export default {
         },
         scrollbarColor: {
             type: String,
-            default: 'linear-gradient(45deg, #fc902b, #5bf818)'
+            // default: 'linear-gradient(45deg, #fc902b, #5bf818)'
+            default: 'rgba(144, 147, 153, 0.3)'
         },
         scrollbarBorderColor: {
             type: String,
