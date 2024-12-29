@@ -6,7 +6,9 @@
             :scrollbar-color="'rgba(144, 147, 153, 0.3)'"
         >
             <!-- Your content goes here -->
-            <p v-for="item in 50" :key="item" style="width:130%">{{ item }}</p>
+            <p v-for="(item,index) in 50" :key="index" style="width:130%;">
+                -.-.-.-.-.-----...---...---...-.-.-.-.-.-----...---...---...-.-.-.-.-.-----...---...---...-.-.-.-.-{{ item }}
+            </p>
         </MyScrollbar>
     </div>
 </template>
