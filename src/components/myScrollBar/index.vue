@@ -6,9 +6,18 @@
             :scrollbar-color="'rgba(144, 147, 153, 0.3)'"
             :scrollbar-border-color="'transparent'"
             :scrollbar-track-color="'transparent'"
+            :autoScroll="true"
+            :alwaysShowScrollbar="true"
         ></MyScrollbar>
     -->
-    <div class="scrollbar_components_box" ref="scrollContent" :style="scrollbarStyle">
+    <div 
+        class="scrollbar_components_box" 
+        ref="scrollContent" 
+        :style="scrollbarStyle"
+        :class="{ 'always-show-scrollbar': alwaysShowScrollbar }"
+        @mouseenter="stopScroll" 
+        @mouseleave="startScroll"
+    >
         <slot></slot>
     </div>
 </template>
@@ -37,6 +46,14 @@ export default {
             type: String,
             default: 'transparent',// transparent #ffedde
         },
+        autoScroll: {
+            type: Boolean,
+            default: false, // 是否开启自动滚动功能
+        },
+        alwaysShowScrollbar: {
+            type: Boolean,
+            default: false, // 是否始终显示滚动条，不管是否鼠标是否滑过 //如果alwaysShowScrollbar为false，鼠标滑过才显示滚动条
+        },
     },
     computed: {
         scrollbarStyle() {
@@ -47,6 +64,39 @@ export default {
                 '--scrollbar-track-color': this.scrollbarTrackColor,
                 '--scrollbar-border-color': this.scrollbarBorderColor
             };
+        }
+    },
+    data() {
+        return {
+            scrolltimer: "",
+        };
+    },
+    mounted() {
+        this.startScroll();
+    },
+    activated() {
+        this.startScroll();
+    },
+    beforeDestroy() {
+        this.stopScroll();
+    },
+    deactivated() {
+        this.stopScroll();
+    },
+    methods: {
+        startScroll() {
+            if (this.autoScroll){
+                const scrollDom = this.$refs.scrollContent;
+                this.scrolltimer = window.setInterval(() => {
+                    scrollDom.scrollTop += 1.5;
+                    if (scrollDom.clientHeight + scrollDom.scrollTop >= scrollDom.scrollHeight){
+                        scrollDom.scrollTop = 0;
+                    }
+                }, 150);
+            }
+        },
+        stopScroll() {
+            window.clearInterval(this.scrolltimer);
         }
     }
 };
@@ -76,6 +126,13 @@ export default {
     &::-webkit-scrollbar-thumb {
         background: transparent;
         border: 1px solid transparent;
+        border-radius: var(--scrollbar-width);
+    }
+    /* 如果alwaysShowScrollbar为false，鼠标滑过才显示滚动条 */
+    &.always-show-scrollbar::-webkit-scrollbar-thumb {
+        cursor: pointer;
+        background: var(--scrollbar-color);
+        border: 1px solid var(--scrollbar-border-color);
         border-radius: var(--scrollbar-width);
     }
 
