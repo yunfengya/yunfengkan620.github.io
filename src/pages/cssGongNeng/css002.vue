@@ -31,6 +31,7 @@ import cssItem007 from "./css002components/cssItem007";
 import cssItem008 from "./css002components/cssItem008";
 import cssItem009 from "./css002components/cssItem009";
 import cssItem010 from "./css002components/cssItem010";
+import cssItem011 from "./css002components/cssItem011";
 
 export default {
     name: "index",
@@ -47,6 +48,7 @@ export default {
         cssItem008,
         cssItem009,
         cssItem010,
+        cssItem011,
     },
     data() {
         return {
@@ -64,6 +66,7 @@ export default {
                 { label: "卡片复选禁用", name: "cssItem008" },
                 { label: "卡片步骤", name: "cssItem009" },
                 { label: "优美原生滚动条", name: "cssItem010" },
+                { label: "输入框", name: "cssItem011" },
             ],
         };
     },
