@@ -59,6 +59,7 @@ export default {
         { name:'office文件转化工具',linkstring:'https://www.ilovepdf.com/zh-cn',imgUrl:require('@/assets/book_img.png')},
         { name:'博客园',linkstring:'https://www.cnblogs.com/',imgUrl:require('@/assets/book_img.png')},
         { name:'菜鸟工具',linkstring:'https://www.jyshare.com/',imgUrl:require('@/assets/book_img.png')},
+        { name:'岩石教学',linkstring:'https://www.rss1.cn/front',imgUrl:require('@/assets/book_img.png')},
         { name:'掘金',linkstring:'https://juejin.cn/',imgUrl:require('@/assets/book_img.png')},
         { name:'echarts文档',linkstring:'https://echarts.apache.org/zh/cheat-sheet.html',imgUrl:require('@/assets/book_img.png')},
         { name:'echarts案例',linkstring:'https://madeapie.com/#/',imgUrl:require('@/assets/book_img.png')},
