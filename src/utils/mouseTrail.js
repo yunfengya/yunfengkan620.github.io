@@ -35,8 +35,8 @@ export default {
           this.position = { x: x - 10, y: y - 20 };
           this.element = document.createElement("img");
           this.element.src = imageSrc;
-          this.element.style.width = "50px"; // Set the image width
-          this.element.style.height = "50px"; // Set the image height
+          this.element.style.width = "20px"; // Set the image width
+          this.element.style.height = "20px"; // Set the image height
           ApplyStyle(this.element, this.initialStyles);
           this.update();
           document.body.appendChild(this.element);
