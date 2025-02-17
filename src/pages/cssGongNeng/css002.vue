@@ -32,7 +32,6 @@ import cssItem008 from "./css002components/cssItem008";
 import cssItem009 from "./css002components/cssItem009";
 import cssItem010 from "./css002components/cssItem010";
 import cssItem011 from "./css002components/cssItem011";
-import cssItem012 from "./css002components/cssItem012";
 
 export default {
     name: "index",
@@ -50,7 +49,6 @@ export default {
         cssItem009,
         cssItem010,
         cssItem011,
-        cssItem012,
     },
     data() {
         return {
@@ -69,7 +67,6 @@ export default {
                 { label: "卡片步骤", name: "cssItem009" },
                 { label: "优美原生滚动条", name: "cssItem010" },
                 { label: "输入框", name: "cssItem011" },
-                { label: "接口数据", name: "cssItem012" },
             ],
         };
     },

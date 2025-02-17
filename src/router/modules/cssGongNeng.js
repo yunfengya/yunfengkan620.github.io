@@ -29,6 +29,15 @@ export const cssGongNeng = [
       },
       // 
       {
+        path: "/cssGongNeng/zjiekou",
+        component: () => import("@/pages/cssGongNeng/zjiekou.vue"),
+        meta: {
+          title: "接口调用",
+          icon: "el-icon-star-on",
+        },
+      },
+      // 
+      {
         path: "/cssGongNeng/zdaikaifa",
         component: () => import("@/pages/cssGongNeng/zdaikaifa.vue"),
         meta: {
