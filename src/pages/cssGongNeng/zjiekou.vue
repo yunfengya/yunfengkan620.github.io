@@ -35,7 +35,7 @@ export default {
                 // ... 其他参数
             };
             // 你应该从某处获取这个token
-            const token = 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImNlMWQ4OWE0LWM2MjYtNDQ2Ni1iNDgwLTBkZTczYjcwYmQ3YSJ9.4SO5pINcyXLClGe00GfB7Gpv6FlP0pGs_WBFTsngo3ZsW7ftkFOXnJ-EImg64jDubmkCTlXy43hVA8iY4Je3vA'; 
+            const token = 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjdkMWI1ZjhiLTEyMzUtNDYwMS1iZGJmLWYzZGFhMDdlOTUwZiJ9.UUrq3-g2_9r6cQLwtjgAaDkxOtCdgXKlEIHoBleNqOztUoBmSpGLlT22MqwjU-JZ4J_Kv4KlgDmPJi-ehYwL9A'; 
             const method = 'get'; // 或者'GET', 'PUT', 'DELETE'等
             const timeout = 10000; // 10秒超时
             const responseType = 'json'; // 或者'blob'
