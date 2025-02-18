@@ -66,7 +66,7 @@ export default {
                     || fileLastName == "ppt" || fileLastName == "pptx"
                     || fileLastName == "doc" || fileLastName == "docx"
                 ) {
-                    this.$alert("该文件暂不支持在线预览，是否下载本地预览?", '提示', {
+                    this.$confirm("该文件暂不支持在线预览，是否下载本地预览?", '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
