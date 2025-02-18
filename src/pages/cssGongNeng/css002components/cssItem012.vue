@@ -1,7 +1,7 @@
 <template>
     <div class="contain_box">
         <div>
-            <el-button class="button" size="mini" @click="lookToFlow()">查看</el-button>
+            <el-button class="button" size="mini" @click="lookToFlow()">查看(不能预览就下载)</el-button>
         </div>
 
         <!-- 下载和预览 -->
