@@ -7,7 +7,7 @@
 
 <script>
 // 导入api.js中的callApi函数
-import { callApi } from '@/api/fatp_api.js';
+import { fatp_activityRanking } from '@/api/fatp_apiOne.js';
 export default {
     name: "index",
     data() {
@@ -23,36 +23,19 @@ export default {
     },
     methods: {
         submitForm(){
-            this.fetchData()
+            this.fatp_activityRanking()
         },
-
-        async fetchData() {
-            // 定义接口URL、参数和token
-            const endpoint = 'http://10.190.196.161:8301/peopleManagement/userActivity/activityRanking';
-            const params = {
+        fatp_activityRanking() {
+            let _data={
                 date: '2025-02-17',
                 type: '0'
-                // ... 其他参数
-            };
-            // 你应该从某处获取这个token
-            const token = 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjdkMWI1ZjhiLTEyMzUtNDYwMS1iZGJmLWYzZGFhMDdlOTUwZiJ9.UUrq3-g2_9r6cQLwtjgAaDkxOtCdgXKlEIHoBleNqOztUoBmSpGLlT22MqwjU-JZ4J_Kv4KlgDmPJi-ehYwL9A'; 
-            const method = 'get'; // 或者'GET', 'PUT', 'DELETE'等
-            const timeout = 10000; // 10秒超时
-            const responseType = 'json'; // 或者'blob'
-            try {
-                // 调用封装好的接口函数
-                const data = await callApi(endpoint, params, token, method, timeout, responseType);
-                // 处理响应数据
-                console.log(data);
-                if(data.code==200){
-                    this.tableList = data.rows||[]
-                }else{
-                    this.$message.error(data.msg)
-                }
-            } catch (error) {
-                // 处理错误
-                console.error('There was a problem fetching the data:', error);
             }
+            fatp_activityRanking(_data).then(res=>{
+                // console.log('res',res);
+                if(res.code==200){
+                    this.tableList=res.rows||[]
+                }
+            })
         },
         
     }
