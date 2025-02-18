@@ -21,7 +21,32 @@ export async function fatp_activityRanking(query) {
       // 接口返回数据 调用封装好的接口函数
       const data = await callApi(endpoint, params, token, method, timeout, responseType);
       // 处理响应数据
-      console.log(data);
+      // console.log(data);
+      return data
+  } catch (error) {
+      // 处理错误
+      console.error('There was a problem fetching the data:', error);
+  }
+}
+
+// 获取文件
+export async function fatp_getfile(query) {
+  // 定义接口URL、参数和token
+  const endpoint = 'http://10.190.196.161:8301/file/getfile';
+  const params = {
+      // date: '2025-02-17',
+      // type: '0'
+      // ... 其他参数
+      ...query
+  };
+  const method = 'post'; // 或者'GET', 'PUT', 'DELETE'等
+  const timeout = 10000; // 10秒超时
+  const responseType = 'blob'; // 或者'blob'  'json'
+  try {
+      // 接口返回数据 调用封装好的接口函数
+      const data = await callApi(endpoint, params, token, method, timeout, responseType);
+      // 处理响应数据
+      // console.log(data);
       return data
   } catch (error) {
       // 处理错误

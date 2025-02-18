@@ -6,7 +6,7 @@
 </template>
 
 <script>
-// 导入api.js中的callApi函数
+// 接口
 import { fatp_activityRanking } from '@/api/fatp_apiOne.js';
 export default {
     name: "index",

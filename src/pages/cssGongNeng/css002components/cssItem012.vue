@@ -16,6 +16,8 @@
 </template>
 
 <script>
+// 接口
+import { fatp_getfile } from '@/api/fatp_apiOne.js';
 import iFrame from "@/components/iFrame/index";
 export default {
     name: "index",
@@ -44,8 +46,14 @@ export default {
         // 
         // 预览 和 下载
         seeFile() {
-            this.fileName = '测试.png';
-            this.urlPath = '文件地址参数kjfdihfdnfdkdjfkhdkdhf';
+            this.fileName = 'L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
+            this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20240731100023/L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
+            // this.fileName = 'Epson机械手 负载-惯量-离心率说明.pdf';
+            // this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20241018160642/Epson机械手 负载-惯量-离心率说明.pdf';
+            let _data = {
+                filename: this.fileName,
+                filepath: this.urlPath
+            }
             let fileLastName = this.fileName.split(".").slice(-1)[0].toLowerCase() || ''//文件后缀名
             if (
                     fileLastName == "xlsx" || fileLastName == "xls"|| fileLastName == "xlsm"
@@ -55,11 +63,7 @@ export default {
                     || fileLastName == "ppt" || fileLastName == "pptx"
                     || fileLastName == "doc" || fileLastName == "docx"
                 ) {
-                    let _data = {
-                        filename: this.fileName,
-                        filepath: this.urlPath
-                    }
-                    this.$modal.confirm("该文件暂不支持在线预览，是否下载本地预览?", '提示', {
+                    this.$alert("该文件暂不支持在线预览，是否下载本地预览?", '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -70,7 +74,7 @@ export default {
                             duration: 0,
                             showClose: true
                         }); 
-                        getfile(_data).then(res => {
+                        fatp_getfile(_data).then(res => {
                             if (res) {
                                 // res 是文件流
                                 if (messageInstance) {
@@ -95,11 +99,7 @@ export default {
                 } else {
                     this.drawer = true;
                     this.fileLoading = true;
-                    let _data = {
-                        filename: this.fileName,
-                        filepath: this.urlPath
-                    }
-                    getfile(_data).then(res => {
+                    fatp_getfile(_data).then(res => {
                         if (res) {
                             // res 是文件流
                             this.fileLoading = false;
