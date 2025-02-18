@@ -19,7 +19,9 @@ export async function callApi(endpoint, params, token, method = 'GET', timeout =
     const headers = {
         'Content-Type': 'application/json'
     };
-
+    // if(responseType === 'blob'){
+    //   headers['Accept'] = 'application/octet-stream';
+    // }
     // 如果提供了token，则将其添加到请求头中
     if (token) {
         headers['Authorization'] = `Bearer ${token}`;

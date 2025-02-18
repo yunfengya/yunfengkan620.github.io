@@ -76,6 +76,7 @@ export default {
                         }); 
                         fatp_getfile(_data).then(res => {
                             if (res) {
+                                console.log(res);
                                 // res 是文件流
                                 if (messageInstance) {
                                     messageInstance.close();
@@ -101,6 +102,7 @@ export default {
                     this.fileLoading = true;
                     fatp_getfile(_data).then(res => {
                         if (res) {
+                            console.log(res);
                             // res 是文件流
                             this.fileLoading = false;
                             this.fileUrl = this.createObjectURLWithDynamicType(res, this.fileName)
