@@ -1,7 +1,8 @@
 <template>
     <div class="contain_box">
         <div>
-            <el-button class="button" size="mini" @click="lookToFlow()">查看(不能预览就下载)</el-button>
+            <el-button class="button" size="mini" @click="lookToFlow1()">查看(能预览的)</el-button>
+            <el-button class="button" size="mini" @click="lookToFlow2()">查看(不能预览的)</el-button>
         </div>
 
         <!-- 下载和预览 -->
@@ -39,17 +40,19 @@ export default {
         
     },
     methods: {
-        lookToFlow() {
-
+        lookToFlow1() {
+            this.fileName = 'Epson机械手 负载-惯量-离心率说明.pdf';
+            this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20241018160642/Epson机械手 负载-惯量-离心率说明.pdf';
+            this.seeFile()
+        },
+        lookToFlow2() {
+            this.fileName = 'L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
+            this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20240731100023/L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
             this.seeFile()
         },
         // 
         // 预览 和 下载
         seeFile() {
-            this.fileName = 'L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
-            this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20240731100023/L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
-            // this.fileName = 'Epson机械手 负载-惯量-离心率说明.pdf';
-            // this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20241018160642/Epson机械手 负载-惯量-离心率说明.pdf';
             let _data = {
                 filename: this.fileName,
                 filepath: this.urlPath
