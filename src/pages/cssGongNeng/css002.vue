@@ -33,6 +33,7 @@ import cssItem009 from "./css002components/cssItem009";
 import cssItem010 from "./css002components/cssItem010";
 import cssItem011 from "./css002components/cssItem011";
 import cssItem012 from "./css002components/cssItem012";
+import cssItem013 from "./css002components/cssItem013";
 
 export default {
     name: "index",
@@ -51,6 +52,7 @@ export default {
         cssItem010,
         cssItem011,
         cssItem012,
+        cssItem013,
     },
     data() {
         return {
@@ -70,6 +72,7 @@ export default {
                 { label: "优美原生滚动条", name: "cssItem010" },
                 { label: "输入框", name: "cssItem011" },
                 { label: "封装下载各种文件", name: "cssItem012" },
+                { label: "可拖动指定区域大小", name: "cssItem013" },
             ],
         };
     },
