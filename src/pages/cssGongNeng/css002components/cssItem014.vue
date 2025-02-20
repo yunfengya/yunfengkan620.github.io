@@ -3,29 +3,31 @@
     <div class="chat-container">
       <!-- 对话区域 -->
       <div class="chat-box" ref="chatBox">
-        <div v-for="(msg, index) in messages" :key="index" class="message-item">
-          <!-- AI回答 -->
-          <div v-if="msg.type === 'bot'" class="bot-msg">
-            <div class="avatar">
-              <img src="@/assets/logo.png" alt="AI头像" />
+        <MyScrollBar>
+          <div v-for="(msg, index) in messages" :key="index" class="message-item">
+            <!-- AI回答 -->
+            <div v-if="msg.type === 'bot'" class="bot-msg">
+              <div class="avatar">
+                <img src="@/assets/deepseek.png" alt="AI头像" />
+              </div>
+              <div class="bubble">
+                <span class="typing-text">{{ msg.showText }}</span>
+                <div class="time-stamp">{{ formatTime(msg.timestamp) }}</div>
+              </div>
             </div>
-            <div class="bubble">
-              <span class="typing-text">{{ msg.showText }}</span>
-              <div class="time-stamp">{{ formatTime(msg.timestamp) }}</div>
-            </div>
-          </div>
 
-          <!-- 用户提问 -->
-          <div v-else class="user-msg">
-            <div class="bubble">
-              {{ msg.content }}
-              <div class="time-stamp">{{ formatTime(msg.timestamp) }}</div>
-            </div>
-            <div class="avatar">
-              <img src="@/assets/book_img.png" alt="用户头像" />
+            <!-- 用户提问 -->
+            <div v-else class="user-msg">
+              <div class="bubble">
+                {{ msg.content }}
+                <div class="time-stamp">{{ formatTime(msg.timestamp) }}</div>
+              </div>
+              <div class="avatar">
+                <img src="@/assets/book_img.png" alt="用户头像" />
+              </div>
             </div>
           </div>
-        </div>
+        </MyScrollBar>
       </div>
 
       <!-- 输入区域 -->
@@ -46,14 +48,22 @@
 </template>
 
 <script>
+import MyScrollBar from '@/components/myScrollBar/index.vue';
 export default {
   name: "index",
   components: {
-    
+    MyScrollBar
   },
   data() {
     return {
-      messages: [],
+      messages: [
+        {
+          type: "bot",
+          content: '你好，我是你的AI助手。有什么我可以帮助您的吗？',
+          showText: "你好，我是你的AI助手。有什么我可以帮助您的吗？",// 用于动画 打出文字效果
+          timestamp: new Date(),
+        }
+      ],
       inputText: "",
       textareaStyles: {
         minHeight: "50px",
@@ -110,7 +120,14 @@ export default {
         console.log('数据存在，执行删除');
         localStorage.removeItem('chat_history_v1');
         if(localStorage.getItem('chat_history_v1') == null){
-          this.messages= [];
+          this.messages= [
+            {
+              type: "bot",
+              content: '你好，我是你的AI助手。有什么我可以帮助您的吗？',
+              showText: "你好，我是你的AI助手。有什么我可以帮助您的吗？",// 用于动画 打出文字效果
+              timestamp: new Date(),
+            }
+          ];
           this.$message({
             message: '您的历史记录已清空！',
             type: 'success'
