@@ -34,6 +34,7 @@ import cssItem010 from "./css002components/cssItem010";
 import cssItem011 from "./css002components/cssItem011";
 import cssItem012 from "./css002components/cssItem012";
 import cssItem013 from "./css002components/cssItem013";
+import cssItem014 from "./css002components/cssItem014";
 
 export default {
     name: "index",
@@ -53,6 +54,7 @@ export default {
         cssItem011,
         cssItem012,
         cssItem013,
+        cssItem014,
     },
     data() {
         return {
@@ -73,6 +75,7 @@ export default {
                 { label: "输入框", name: "cssItem011" },
                 { label: "封装下载各种文件", name: "cssItem012" },
                 { label: "可拖动区域宽度", name: "cssItem013" },
+                { label: "AI-GPT简单页面", name: "cssItem014" },
             ],
         };
     },
