@@ -95,7 +95,7 @@ export default {
   // overflow: auto;
 
   ::v-deep .scrollbar_box {
-    width: 100%;
+    width: 50%;
     height: 100%;
     .el-scrollbar__wrap {
       // overflow: hidden;
