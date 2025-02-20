@@ -11,6 +11,7 @@
             </div>
             <div class="bubble">
               <span class="typing-text">{{ msg.showText }}</span>
+              <div class="time-stamp">{{ formatTime(msg.timestamp) }}</div>
             </div>
           </div>
 
@@ -18,6 +19,7 @@
           <div v-else class="user-msg">
             <div class="bubble">
               {{ msg.content }}
+              <div class="time-stamp">{{ formatTime(msg.timestamp) }}</div>
             </div>
             <div class="avatar">
               <img src="@/assets/book_img.png" alt="用户头像" />
@@ -37,17 +39,17 @@
           :style="textareaStyles"
         ></textarea>
         <button @click="sendMessage">发送</button>
+        <button @click="clearHistory">清空历史</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import aaa from "./aaa";
 export default {
   name: "index",
   components: {
-    aaa,
+    
   },
   data() {
     return {
@@ -60,9 +62,38 @@ export default {
       },
     };
   },
-  mounted() {},
+  mounted() {
+    this.loadHistory()
+    this.$nextTick(() => {
+      this.scrollToBottom()
+    })
+  },
   beforeDestroy() {},
   methods: {
+    // 加载历史记录
+    loadHistory() {
+      try {
+        const saved = localStorage.getItem('chat_history_v1')
+        if (saved) {
+          this.messages = JSON.parse(saved).map(msg => ({
+            ...msg,
+            timestamp: new Date(msg.timestamp)
+          }))
+        }
+      } catch (e) {
+        console.error('加载历史记录失败:', e)
+      }
+    },
+
+    // 时间格式化
+    formatTime(date) {
+      return new Date(date).toLocaleTimeString('zh-CN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      })
+    },
+
     autoResize() {
       // this.$nextTick(() => {
       //   const textarea = this.$refs.input
@@ -74,6 +105,27 @@ export default {
       //   textarea.style.height = `${height}px`
       // })
     },
+    clearHistory(){
+      if (localStorage.getItem('chat_history_v1') !== null) {
+        console.log('数据存在，执行删除');
+        localStorage.removeItem('chat_history_v1');
+        if(localStorage.getItem('chat_history_v1') == null){
+          this.messages= [];
+          this.$message({
+            message: '您的历史记录已清空！',
+            type: 'success'
+          });
+        }
+      } else {
+        console.log('数据不存在');
+        this.$message({
+          message: '暂无历史数据！',
+          type: ''
+        });
+      }
+
+    },
+    // 提问信息
     async sendMessage() {
       const question = this.inputText.trim();
       if (!question) return;
@@ -82,42 +134,28 @@ export default {
       this.messages.push({
         type: "user",
         content: question,
+        timestamp: new Date(),
       });
 
-      // 模拟AI回复（替换为实际API调用）
-      const response = await this.mockAIResponse(question);
-
-      // 添加AI消息并启动打字动画
-      this.addBotMessage(response);
-
+      this.scrollToBottom();// 最新消息底部
       this.inputText = "";
-      // this.autoResize()
-      this.scrollToBottom();
-    },
-    addBotMessage(text) {
+      const response = await this.mockAIResponse(question);// 模拟AI回复（替换为实际API调用）
+
+      // 添加 AI 消息 并启动打字动画
       const newMsg = {
         type: "bot",
-        content: text,
-        showText: "",
+        content: response,
+        showText: "",// 用于动画 打出文字效果
+        timestamp: new Date(),
       };
       this.messages.push(newMsg);
-      this.typewriterEffect(newMsg);
-    },
-    typewriterEffect(msg) {
-      let index = 0;
-      const timer = setInterval(() => {
-        msg.showText += msg.content[index];
-        index++;
-        if (index >= msg.content.length) clearInterval(timer);
-        this.scrollToBottom();
-      }, 50);
-    },
-    scrollToBottom() {
-      this.$nextTick(() => {
-        const container = this.$refs.chatBox;
-        container.scrollTop = container.scrollHeight;
+      this.typewriterEffect(newMsg,()=>{
+        this.saveHistory()// 保存 此条消息
       });
+
+      // this.autoResize()
     },
+    // AI 接口回复信息
     mockAIResponse(question) {
       // 替换为实际API调用
       return new Promise((resolve) => {
@@ -128,6 +166,31 @@ export default {
         }, 500);
       });
     },
+    //用于动画 打出文字效果函数
+    typewriterEffect(msg,callback) {
+      let index = 0;
+      const timer = setInterval(() => {
+        msg.showText += msg.content[index];
+        index++;
+        if (index >= msg.content.length){
+          clearInterval(timer);
+          if(callback) callback();
+        }
+        this.scrollToBottom();
+      }, 50);
+    },
+    // 最新消息底部
+    scrollToBottom() {
+      this.$nextTick(() => {
+        const container = this.$refs.chatBox;
+        container.scrollTop = container.scrollHeight;
+      });
+    },
+    // 保存历史记录
+    saveHistory() {
+      localStorage.setItem('chat_history_v1', JSON.stringify(this.messages))
+    },
+    
   },
 };
 </script>
