@@ -209,14 +209,12 @@ export default {
 /* 容器样式 */
 .contain_box {
   width: 100%;
-  height: calc(100vh - 4.2rem);
-  /* 视口的高度减去顶部的导航栏高度 */
+  height: calc(100vh - 4.2rem); // 视口的高度减去顶部的导航栏高度
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid gray;
-  /* 外框样式 */
+  border: 1px solid gray; // 外框样式
 
   .chat-container {
     min-width: 500px;
@@ -226,100 +224,106 @@ export default {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     background: #f5f7fa;
     overflow: hidden;
-  }
 
-  .chat-box {
-    height: 500px;
-    padding: 20px;
-    overflow-y: auto;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  }
+    .chat-box {
+      height: 500px;
+      padding: 20px;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 
-  .message-item {
-    margin: 15px 0;
-  }
+      .message-item {
+        margin: 15px 0;
+      }
 
-  /* 通用消息样式 */
-  .bubble {
-    max-width: 70%;
-    padding: 12px 18px;
-    border-radius: 18px;
-    line-height: 1.6;
-    position: relative;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
+      // 通用消息样式
+      .bubble {
+        max-width: 70%;
+        padding: 12px 18px;
+        border-radius: 18px;
+        line-height: 1.6;
+        position: relative;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-  /* AI消息样式 */
-  .bot-msg {
-    display: flex;
-    align-items: start;
-    gap: 12px;
-  }
-  .bot-msg .bubble {
-    background: white;
-    border-top-left-radius: 4px;
-    color: #333;
-  }
+      // AI消息样式
+      .bot-msg {
+        display: flex;
+        align-items: start;
+        gap: 12px;
 
-  /* 用户消息样式 */
-  .user-msg {
-    display: flex;
-    justify-content: flex-end;
-    align-items: start;
-    gap: 12px;
-  }
-  .user-msg .bubble {
-    background: #007bff;
-    color: white;
-    border-bottom-right-radius: 4px;
-  }
+        .bubble {
+          background: white;
+          border-top-left-radius: 4px;
+          color: #333;
+        }
+      }
 
-  .avatar {
-    flex-shrink: 0;
-  }
-  .avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
+      // 用户消息样式
+      .user-msg {
+        display: flex;
+        justify-content: flex-end;
+        align-items: start;
+        gap: 12px;
 
-  .input-area {
-    display: flex;
-    gap: 10px;
-    padding: 15px;
-    background: white;
-    border-top: 1px solid #eee;
-  }
-  textarea {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    resize: none;
-    font-size: 14px;
-    line-height: 1.6;
-    transition: all 0.3s ease;
-  }
-  textarea:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-  }
+        .bubble {
+          background: #007bff;
+          color: white;
+          border-bottom-right-radius: 4px;
+        }
+      }
 
-  button {
-    padding: 8px 20px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  button:hover {
-    background: #0056b3;
-    transform: translateY(-1px);
+      .avatar {
+        flex-shrink: 0;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      padding: 15px;
+      background: white;
+      border-top: 1px solid #eee;
+
+      textarea {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        resize: none;
+        font-size: 14px;
+        line-height: 1.6;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+      }
+
+      button {
+        padding: 8px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #0056b3;
+          transform: translateY(-1px);
+        }
+      }
+    }
   }
 
   .typing-text {
