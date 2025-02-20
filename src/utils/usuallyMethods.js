@@ -167,3 +167,25 @@ export function getMonthStartToEnd(year, month){
     return [getFirstDayOfMonth(year, month),getLastDayOfMonth(year, month)]
 }
   
+
+// 
+export function getFormattedTime(dateSeparator = '-', timeSeparator = ':') {
+    const now = new Date();
+    const year = now.getFullYear();// 年（四位数，如 2025）
+    const month = padZero(now.getMonth() + 1);// 月（0-11，需+1）
+    const date = padZero(now.getDate());// 日（1-31）
+    const hours = padZero(now.getHours());// 时（0-23）
+    const minutes = padZero(now.getMinutes());// 分（0-59）
+    const seconds = padZero(now.getSeconds());// 秒（0-59）
+    return `${year}${dateSeparator}${month}${dateSeparator}${date} ${hours}${timeSeparator}${minutes}${timeSeparator}${seconds}`;
+}
+// 补零工具函数（内部使用）
+function padZero(num) {
+    return num.toString().padStart(2, '0');
+}
+// // 使用方式
+// // 默认格式（YYYY-MM-DD HH:mm:ss）
+// console.log(getFormattedTime()); // 示例：2025-02-20 15:30:45
+// // 自定义分隔符
+// console.log(getFormattedTime('/', '-')); // 输出：2025/02/20 15-30-45
+// console.log(getFormattedTime('.', ':')); // 输出：2025.02.20 15:30:45

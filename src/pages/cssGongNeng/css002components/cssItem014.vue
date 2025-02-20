@@ -2,8 +2,8 @@
   <div class="contain_box">
     <div class="chat-container">
       <!-- 对话区域 -->
-      <div class="chat-box" ref="chatBox">
-        <MyScrollBar>
+      <div class="chat-box" ref="chatBox1">
+        <MyScrollBar ref="chatBox">
           <div v-for="(msg, index) in messages" :key="index" class="message-item">
             <!-- AI回答 -->
             <div v-if="msg.type === 'bot'" class="bot-msg">
@@ -12,7 +12,7 @@
               </div>
               <div class="bubble">
                 <span class="typing-text">{{ msg.showText }}</span>
-                <div class="time-stamp">{{ formatTime(msg.timestamp) }}</div>
+                <div class="time-stamp">{{ msg.timestamp }}</div>
               </div>
             </div>
 
@@ -20,7 +20,7 @@
             <div v-else class="user-msg">
               <div class="bubble">
                 {{ msg.content }}
-                <div class="time-stamp">{{ formatTime(msg.timestamp) }}</div>
+                <div class="time-stamp">{{ msg.timestamp }}</div>
               </div>
               <div class="avatar">
                 <img src="@/assets/book_img.png" alt="用户头像" />
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { getFormattedTime } from '@/utils/usuallyMethods.js';//获取当前时间
 import MyScrollBar from '@/components/myScrollBar/index.vue';
 export default {
   name: "index",
@@ -61,7 +62,7 @@ export default {
           type: "bot",
           content: '你好，我是你的AI助手。有什么我可以帮助您的吗？',
           showText: "你好，我是你的AI助手。有什么我可以帮助您的吗？",// 用于动画 打出文字效果
-          timestamp: new Date(),
+          timestamp: getFormattedTime(),
         }
       ],
       inputText: "",
@@ -87,21 +88,11 @@ export default {
         if (saved) {
           this.messages = JSON.parse(saved).map(msg => ({
             ...msg,
-            timestamp: new Date(msg.timestamp)
           }))
         }
       } catch (e) {
         console.error('加载历史记录失败:', e)
       }
-    },
-
-    // 时间格式化
-    formatTime(date) {
-      return new Date(date).toLocaleTimeString('zh-CN', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      })
     },
 
     autoResize() {
@@ -125,7 +116,7 @@ export default {
               type: "bot",
               content: '你好，我是你的AI助手。有什么我可以帮助您的吗？',
               showText: "你好，我是你的AI助手。有什么我可以帮助您的吗？",// 用于动画 打出文字效果
-              timestamp: new Date(),
+              timestamp: getFormattedTime(),
             }
           ];
           this.$message({
@@ -151,7 +142,7 @@ export default {
       this.messages.push({
         type: "user",
         content: question,
-        timestamp: new Date(),
+        timestamp: getFormattedTime(),
       });
 
       this.scrollToBottom();// 最新消息底部
@@ -163,7 +154,7 @@ export default {
         type: "bot",
         content: response,
         showText: "",// 用于动画 打出文字效果
-        timestamp: new Date(),
+        timestamp: getFormattedTime(),
       };
       this.messages.push(newMsg);
       this.typewriterEffect(newMsg,()=>{
@@ -199,7 +190,9 @@ export default {
     // 最新消息底部
     scrollToBottom() {
       this.$nextTick(() => {
-        const container = this.$refs.chatBox;
+        // const container = this.$refs.chatBox;
+        const container = this.$refs.chatBox.$el;// MyScrollBar
+        // console.log('container',container);
         container.scrollTop = container.scrollHeight;
       });
     },
