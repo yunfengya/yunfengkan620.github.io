@@ -72,7 +72,7 @@ export default {
                 { label: "优美原生滚动条", name: "cssItem010" },
                 { label: "输入框", name: "cssItem011" },
                 { label: "封装下载各种文件", name: "cssItem012" },
-                { label: "可拖动指定区域大小", name: "cssItem013" },
+                { label: "可拖动区域宽度", name: "cssItem013" },
             ],
         };
     },
