@@ -2,7 +2,7 @@
 import { callApi } from '@/api/fatp_api.js';
 
 // 你应该从某处获取这个token
-const token = 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImI0NGIxNWM2LTNhZDItNGQ4OS1hNGFjLWMyYTE0ZWEzMWZkYiJ9.t29fkWB74HGlv4UR6H9H6RvXYc1o-lk7WUB1rTF0vaT3WmmZ9bVqIzovUHfro3_lF4MIWyFWFjtGkr53o4uNgA'; 
+const token = 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjE3MjMwYjlhLTA3N2MtNDYyNS05ZmNhLTBjOWYwZTJkZjBiMyJ9.FgO6mjSVYX0C8mEBRamTmmUcRgfPXR5y1GNxcmqMz8EyB5wkhJ87Xy86pcP0knQOBJmPQ7dwHImPGu5bwiNUcw'; 
 
 // 查询列表
 export async function fatp_activityRanking(query) {

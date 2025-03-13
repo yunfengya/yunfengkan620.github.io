@@ -46,8 +46,10 @@ export default {
             this.seeFile()
         },
         lookToFlow2() {
-            this.fileName = 'L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
-            this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20240731100023/L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
+            // this.fileName = 'L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
+            // this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20240731100023/L1 LXKS Paste sernik shim to senik cowling-SM15.xlsm';
+            this.fileName = '锁附原理介绍 .pptx';
+            this.urlPath = 'https://lzisilon.luxsan-mes.local:9000/fatp/library/20240629130036/锁附原理介绍 .pptx';
             this.seeFile()
         },
         // 
