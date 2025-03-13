@@ -1,17 +1,92 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>book_img.png">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>book_img.png" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script>
+      (function (doc, win) {
+        const docEl = doc.documentElement,
+          resizeEvt =
+            "orientationchange" in window ? "orientationchange" : "resize",
+          recalc = function () {
+            var clientWidth = docEl.clientWidth; // 当前窗口的宽度
+            if (!clientWidth) return;
+            var whdef = 10 / 1920; // 表示1920的设计图,使用100PX的默认值
+            var rem = clientWidth * whdef; // 以默认比例值乘以当前窗口宽度,得到该宽度下的相应FONT-SIZE值
+            docEl.style.fontSize = rem + "px";
+          };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        let herf = window.location.href;
+        console.log(herf);
+        if (!herf.includes("localhost")) {
+          // 禁止右键
+          win.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+          });
+          // end
+        }
+        doc.addEventListener("DOMContentLoaded", recalc, false);
+      })(document, window);
+
+      // 禁止F12
+      document.onkeydown = function (e) {
+        if (e.keyCode == 123) {
+          //F12
+          // alert("F12审查元素已被禁用！");
+          return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0)) {
+          // alert("F12审查元素已被禁用！");
+          return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == "C".charCodeAt(0)) {
+          // alert("F12审查元素已被禁用！");
+          return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0)) {
+          // alert("F12审查元素已被禁用！");
+          return false;
+        }
+        if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) {
+          // alert("查看源代码已被禁用！");
+          return false;
+        }
+      };
+    </script>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+
+  <!-- <script src="https://cdn.staticfile.net/translate.js/3.12.0/q"></script> -->
+  <script src="https://dics.luxsan-ict.com//translate.js"></script>
+  <script>
+    // translate.language.setLocal('chinese_simplified'); //设置本地语种（当前网页的语种）。如果不设置，默认就是 'chinese_simplified' 简体中文。 可填写如 'english'、'chinese_simplified' 等，具体参见文档下方关于此的说明
+    translate.selectLanguageTag.show = false; //不出现的select的选择语言
+    translate.service.use('client.edge');
+    let lang = localStorage.getItem('lang')
+    if(lang){
+        translate.language.setDefaultTo(lang); //设置本地语种
+    }
+    // translate.ignore.text.push('厂区'); //翻译时忽略指定的文字不翻译
+      //开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化区域，是指使用 translate.setDocuments(...) 设置的区域。如果未设置，那么为监控整个网页的变化
+    //   translate.language.clearCacheLanguage();//清除历史翻译语种的缓存
+    setTimeout(()=>{
+        translate.listener.start(); 
+    },300)
+    translate.execute(); //执行翻译初始化操作，显示出select语言选择
+
+  </script>
 </html>

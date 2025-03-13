@@ -32,9 +32,14 @@
             <el-avatar :src="require('../../assets/book_img.png')"></el-avatar>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </div>
-
-          <el-dropdown-menu slot="dropdown">
+          <!--类名为它的忽略翻译 class="ignore" -->
+          <el-dropdown-menu slot="dropdown" class="ignore">
             <el-dropdown-item icon="el-icon-plus" @click.native="myCenter()">个人中心</el-dropdown-item>
+
+            <el-dropdown-item icon="el-icon-plus" @click.native="changeLanguage('chinese_simplified')" >中文</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-plus" @click.native="changeLanguage('english')" >English</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-plus" @click.native="changeLanguage('indonesian')" >indonesian</el-dropdown-item>
+
             <el-dropdown-item icon="el-icon-check" @click.native="exitLogin()">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -64,6 +69,14 @@ export default {
     this.getBreadcrumb()
   },
   methods: {
+    changeLanguage(korean){
+   
+      console.log("translate",translate)
+      localStorage.setItem('lang',korean)
+      // translate.language.clearCacheLanguage();//清除历史翻译语种的缓存
+      translate.changeLanguage(korean)
+      
+    },
     ...mapActions('sidebar', ['toggleSidebar']),
     getBreadcrumb() {
       let matched = this.$route.matched.filter(
