@@ -2,8 +2,9 @@
     <div class="contain_box">
         <div>
             <div>ppt在线预览方案：</div>
+            <div> github作者：https://github.com/501351981/vue-office</div>
             <div>https://juejin.cn/post/7450420067802726437</div>
-            <div>https://github.com/501351981/pptx-preview</div>
+            <div>当前使用的ppt预览：https://github.com/501351981/pptx-preview</div>
             <div>https://juejin.cn/post/7418389059287908404</div>
         </div>
         <h1>------------------------------------------------------</h1>
