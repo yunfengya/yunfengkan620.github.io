@@ -1,7 +1,7 @@
 <template>
   <div class="contain_box">
     <div class="ex1_box">
-      <ResizableDivs_X_Y
+      <ResizableDivsXY
         direction="horizontal"
         defaultPrimarySize="30%"
         minPrimarySize="20%"
@@ -9,18 +9,18 @@
       >
         <template v-slot:div1>
           <div class="content">
-            <p>左侧 Div 内容</p>
+            左侧 Div 内容
           </div>
         </template>
         <template v-slot:div2>
           <div class="content">
-            <p>右侧 Div 内容</p>
+            右侧 Div 内容
           </div>
         </template>
-      </ResizableDivs_X_Y>
+      </ResizableDivsXY>
     </div>
     <div class="ex2_box">
-      <ResizableDivs_X_Y
+      <ResizableDivsXY
         direction="vertical"
         defaultPrimarySize="30%"
         minPrimarySize="20%"
@@ -28,25 +28,25 @@
       >
         <template v-slot:div1>
           <div class="content">
-            <p>上方 Div 内容</p>
+            上方 Div 内容
           </div>
         </template>
         <template v-slot:div2>
           <div class="content">
-            <p>下方 Div 内容</p>
+            下方 Div 内容
           </div>
         </template>
-      </ResizableDivs_X_Y>
+      </ResizableDivsXY>
     </div>
   </div>
 </template>
 
 <script>
-import ResizableDivs_X_Y from "@/components/ResizableDivs/ResizableDivs_X_Y";
+import ResizableDivsXY from "@/components/ResizableDivs/ResizableDivsXY";
 export default {
   name: "index",
   components: {
-    ResizableDivs_X_Y,
+    ResizableDivsXY,
   },
   data() {
     return {};
