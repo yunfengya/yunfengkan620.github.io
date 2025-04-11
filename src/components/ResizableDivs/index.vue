@@ -159,8 +159,13 @@ export default {
 
 .resizer {
   width: 5px;
-  cursor: ew-resize;
+  /* cursor: ew-resize; */
+  /* cursor: row-resize; */
+  cursor: col-resize;
   background-color: #ddd;
   /* 其他样式 */
+}
+.resizer:hover {
+  background-color: #aaa;
 }
 </style>
