@@ -36,6 +36,7 @@ import cssItem012 from "./css002components/cssItem012";
 import cssItem013 from "./css002components/cssItem013";
 import cssItem014 from "./css002components/cssItem014";
 import cssItem015 from "./css002components/cssItem015";
+import cssItem016 from "./css002components/cssItem016";
 
 export default {
     name: "index",
@@ -57,6 +58,7 @@ export default {
         cssItem013,
         cssItem014,
         cssItem015,
+        cssItem016,
     },
     data() {
         return {
@@ -79,6 +81,7 @@ export default {
                 { label: "可拖动区域宽度", name: "cssItem013" },
                 { label: "AI-GPT简单页面", name: "cssItem014" },
                 { label: "office在线预览", name: "cssItem015" },
+                { label: "table", name: "cssItem016" },
             ],
         };
     },
