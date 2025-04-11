@@ -35,8 +35,8 @@ export default {
     // this.handleScreen()
     // window.onresize = () => this.handleScreen()
     // main.js中全局引入的类似插件的函数调用，鼠标拖尾
-    this.$mouseTrail();
-    this.$Rander();
+    // this.$mouseTrail();
+    // this.$Rander();
   },
 }
 </script>

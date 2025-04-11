@@ -8,8 +8,8 @@ export default {
         return {
             bodyWidth: window.innerWidth,
             bodyHeight: window.innerHeight,
-            beeWidth: 200,   // 小蜜蜂的宽度
-            beeHeight: 100,  // 小蜜蜂的高度
+            beeWidth: 100,   // 小蜜蜂的宽度
+            beeHeight: 50,  // 小蜜蜂的高度
             x: 0,
             y: 0,
             duration: 2000   // 动画的持续时间
@@ -70,8 +70,8 @@ export default {
 <style scoped>
 .bee {
     position: fixed;
-    min-width: 200px;
-    min-height: 100px;
+    min-width: 100px;
+    min-height: 50px;
     background-size: contain;
     /* 确保小蜜蜂不会被拉伸 */
 }
