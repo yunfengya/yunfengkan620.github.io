@@ -1,24 +1,52 @@
 <template>
   <div class="contain_box">
     <!-- 正文 -->
-    <el-scrollbar class="scrollbar_box" ref="">
-      <div style="text-align:right;">
-        <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
-          class="el-icon-upload el-icon--right"></i>
-        </el-button>
-      </div>
-      <!--  -->
-      <div class="cardList_box">
-        <div v-for="(item,index) in linkList" :key="index" @click="toLinkFn(item.linkstring)">
-          <Card
-            :content="`${item.name}`"
-            :imgUrl="`${item.imgUrl}`"
-            :link="itemLink"
-            ref="Card"
-          />
-        </div>
-      </div>
-    </el-scrollbar>
+    <ResizableDivsXY direction="horizontal" defaultPrimarySize="85%" minPrimarySize="10%" maxPrimarySize="90%">
+      <template v-slot:div1>
+        <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(144, 147, 153, 0.6)'">
+          <div class="tabDiv">
+            <el-table border :data="tableData" style="width: 100%">
+                <el-table-column prop="" label="名称" width="" align="center"> 
+                  <template slot-scope="scope">
+                    {{ scope.row.name }}
+                  </template>
+                </el-table-column>
+                <el-table-column prop="" label="描述" width="" align="center">
+                  <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                      <p>名称: {{ scope.row.name||'--' }}</p>
+                      <p>描述: {{ scope.row.desc || '--' }}</p>
+                      <div slot="reference" class="name-wrapper">
+                        <el-link v-if="scope.row.status=='1'" type="danger">查看</el-link>
+                        <el-link v-if="scope.row.status=='2'" type="info">查看</el-link>
+                      </div>
+                    </el-popover>
+                  </template>
+                </el-table-column>
+            </el-table>
+          </div>
+        </MyScrollBar>
+      </template>
+      <template v-slot:div2>
+        <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(144, 147, 153, 0.6)'">
+          <div style="text-align:right;">
+            <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
+              class="el-icon-upload el-icon--right"></i>
+            </el-button>
+          </div>
+          <div class="cardList_box">
+            <div v-for="(item,index) in linkList" :key="index" @click="toLinkFn(item.linkstring)">
+              <Card
+                :content="`${item.name}`"
+                :imgUrl="`${item.imgUrl}`"
+                :link="itemLink"
+                ref="Card"
+              />
+            </div>
+          </div>
+        </MyScrollBar>
+      </template>
+    </ResizableDivsXY>
 
     <!-- 悬浮不影响正文 -->
     <!-- 可根据 v-if 判断 用户是否有公告消息，进行显示 -->
@@ -30,10 +58,14 @@
   </div>
 </template>
 <script>
+import ResizableDivsXY from "@/components/ResizableDivs/ResizableDivsXY";
+import MyScrollBar from '@/components/myScrollBar/index.vue';
 import Card from './components/card.vue'; // 记得调整路径
 export default {
   name: "index",
   components: {
+    ResizableDivsXY,
+    MyScrollBar,
     Card,
   },
   data() {
@@ -69,7 +101,20 @@ export default {
         { name:'透明图制作',linkstring:'https://inkpx.com/',imgUrl:require('@/assets/book_img.png')},
         { name:'图片素材',linkstring:'https://pixabay.com/zh/',imgUrl:require('@/assets/book_img.png')},
       ],
-      itemLink: '' // 存储当前卡片的链接
+      itemLink: '', // 存储当前卡片的链接
+
+      tableData: [
+        {
+          name: "基于vue3通用的后台管理模板",
+          status: "1",// 1 红色待研究  2 灰色已完成
+          desc: "",
+        },
+        {
+          name: "测试",
+          status: "2",
+          desc: "",
+        },
+      ],
     };
   },
   watch: {},
@@ -94,30 +139,9 @@ export default {
   height: 100%;
   // overflow: auto;
 
-  ::v-deep .scrollbar_box {
-    width: 50%;
-    height: 100%;
-    .el-scrollbar__wrap {
-      // overflow: hidden;
-      width: 100%;
-      height: 100% !important;
-      .el-scrollbar__view {
-        width: 100%;
-        height: 100% !important;
-        .cardList_box{
-          display: flex;
-          flex-wrap: wrap;
-        }
-      }
-    }
-    .el-scrollbar__thumb {
-      background-color: #53c2d3;
-    }
-    // 清除原生滚动条
-    ::-webkit-scrollbar {
-      width: 0px; 
-      background: transparent; 
-    }
+  .cardList_box{
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 
