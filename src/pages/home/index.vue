@@ -1,7 +1,7 @@
 <template>
   <div class="contain_box">
     <!-- 正文 -->
-    <ResizableDivsXY direction="horizontal" defaultPrimarySize="85%" minPrimarySize="10%" maxPrimarySize="90%">
+    <ResizableDivsXY direction="horizontal" defaultPrimarySize="95%" minPrimarySize="10%" maxPrimarySize="95%">
       <template v-slot:div1>
         <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(144, 147, 153, 0.6)'">
           <div class="tabDiv">
@@ -108,7 +108,7 @@ export default {
           name: "基于vue3通用的后台管理模板", status: "1",// 1 红色待研究  2 灰色已完成
           desc: `
           掘金：https://juejin.cn/post/7482988000948813860
-          
+
           `,
         },
         {
