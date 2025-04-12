@@ -3,7 +3,7 @@
     <!-- 正文 -->
     <ResizableDivsXY direction="horizontal" defaultPrimarySize="95%" minPrimarySize="10%" maxPrimarySize="95%">
       <template v-slot:div1>
-        <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(144, 147, 153, 0.6)'">
+        <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(64, 158, 255, 0.4)'">
           <div class="tabDiv">
             <el-table border :data="tableData" style="width: 100%">
                 <el-table-column prop="" label="名称" width="" align="center"> 
@@ -28,7 +28,7 @@
         </MyScrollBar>
       </template>
       <template v-slot:div2>
-        <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(144, 147, 153, 0.6)'">
+        <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(64, 158, 255, 0.4)'">
           <div style="text-align:right;">
             <el-button type="success" icon="el-icon-edit" round :disabled="gonggaoFlag" @click="openGongGao()">打开公告<i
               class="el-icon-upload el-icon--right"></i>
@@ -108,7 +108,7 @@ export default {
           name: "基于vue3通用的后台管理模板", status: "1",// 1 红色待研究  2 灰色已完成
           desc: `
           掘金：https://juejin.cn/post/7482988000948813860
-
+          github地址：https://github.com/jinxudong996/admin-pro
           `,
         },
         {
