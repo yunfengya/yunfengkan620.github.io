@@ -137,12 +137,13 @@ export default {
 <style scoped lang="scss">
 .contain_box {
     width: 100%;
-    height: calc(100vh - 4.2rem);
+    height: 100%;
+    /* 视口的高度减去顶部的导航栏高度 */
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid gray;
+    /* 外框样式 */
 }
 
 .error {

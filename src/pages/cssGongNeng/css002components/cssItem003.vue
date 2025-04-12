@@ -110,12 +110,12 @@ export default {
 <style scoped lang="scss">
 /* 容器样式 */
 .contain_box {
-    width: 100%; // 容器的宽度为100%
-    height: calc(100vh - 4.2rem); // 容器的高度为视口的高度减去顶部的导航栏高度
-    overflow: hidden; // 隐藏超出容器的内容
-    display: flex; // 设置容器为弹性盒子
-    justify-content: center; // 在主轴方向上居中对齐
-    align-items: center; // 在交叉轴方向上居中对齐
-    border: 1px solid gray; // 设置容器的边框
+    width: 100%;
+    height: 100%;
+    /* 视口的高度减去顶部的导航栏高度 */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
