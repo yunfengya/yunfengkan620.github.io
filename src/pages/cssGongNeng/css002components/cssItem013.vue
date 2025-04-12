@@ -1,74 +1,26 @@
 <template>
   <div class="contain_box">
-    <ResizableDivsXY
-        direction="horizontal"
-        defaultPrimarySize="30%"
-        minPrimarySize="20%"
-        maxPrimarySize="50%"
-      >
-        <template v-slot:div1>
-          <div class="content">
-            左侧 Div 内容
-          </div>
-        </template>
-        <template v-slot:div2>
-          <!-- <div class="content">
-            右侧 Div 内容
-          </div> -->
-            <ResizableDivsXY
-                direction="vertical"
-                defaultPrimarySize="30%"
-                minPrimarySize="20%"
-                maxPrimarySize="50%"
-            >
-                <template v-slot:div1>
-                    <div class="content">
-                        上方 Div 内容
-                    </div>
-                </template>
-                <template v-slot:div2>
-                    <div class="content">
-                        下方 Div 内容
-                    </div>
-                </template>
-            </ResizableDivsXY>
-        </template>
+    <ResizableDivsXY direction="horizontal" defaultPrimarySize="30%" minPrimarySize="20%" maxPrimarySize="50%">
+      <template v-slot:div1>
+        <div class="content">
+          左侧 Div 内容
+        </div>
+      </template>
+      <template v-slot:div2>
+        <ResizableDivsXY direction="vertical" defaultPrimarySize="30%" minPrimarySize="20%" maxPrimarySize="50%">
+          <template v-slot:div1>
+            <div class="content">
+                上方 Div 内容
+            </div>
+          </template>
+          <template v-slot:div2>
+            <div class="content">
+                下方 Div 内容
+            </div>
+          </template>
+        </ResizableDivsXY>
+      </template>
     </ResizableDivsXY>
-    <!-- <ResizableDivsXY
-        direction="horizontal"
-        defaultPrimarySize="30%"
-        minPrimarySize="20%"
-        maxPrimarySize="50%"
-      >
-        <template v-slot:div1>
-          <div class="content">
-            左侧 Div 内容
-          </div>
-        </template>
-        <template v-slot:div2>
-          <div class="content">
-            右侧 Div 内容
-          </div>
-        </template>
-    </ResizableDivsXY> -->
-
-    <!-- <ResizableDivsXY
-        direction="vertical"
-        defaultPrimarySize="30%"
-        minPrimarySize="20%"
-        maxPrimarySize="50%"
-      >
-        <template v-slot:div1>
-          <div class="content">
-            上方 Div 内容
-          </div>
-        </template>
-        <template v-slot:div2>
-          <div class="content">
-            下方 Div 内容
-          </div>
-        </template>
-    </ResizableDivsXY> -->
   </div>
 </template>
 
