@@ -120,15 +120,16 @@ export default {
 
 .itemDiv {
     flex-shrink: 0;
-    width: 13rem;
-    height: 4.2rem;
+    min-width: 6rem;
+    height: 2.2rem;
     text-align: center;
-    line-height: 4.2rem;
+    line-height: 2.2rem;
     color: #36909e;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     // float: left;
     margin-right: 0.6rem;
     margin-bottom: 0.6rem;
+    padding: 0 0.4rem;
     background-color: #23477d;
     // background: url("~@/assets/images/equipment/wxz.png") no-repeat;
     // background-size: 100% 100%;
@@ -136,7 +137,8 @@ export default {
 }
 
 .activeItem {
-    font-weight: bold;
+    // font-weight: bold;
+    font-weight: 600;
     color: #17e1ff;
     background-color: #2b599e;
     // background: url("~@/assets/images/equipment/xz.png") no-repeat;
