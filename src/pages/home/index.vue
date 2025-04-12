@@ -105,14 +105,15 @@ export default {
 
       tableData: [
         {
-          name: "基于vue3通用的后台管理模板",
-          status: "1",// 1 红色待研究  2 灰色已完成
-          desc: "",
+          name: "基于vue3通用的后台管理模板", status: "1",// 1 红色待研究  2 灰色已完成
+          desc: `
+          掘金：https://juejin.cn/post/7482988000948813860
+          
+          `,
         },
         {
-          name: "测试",
-          status: "2",
-          desc: "",
+          name: "测试", status: "2",
+          desc: ``,
         },
       ],
     };
