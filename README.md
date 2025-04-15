@@ -9,4 +9,6 @@ yunfengkan的个人网站，日常记录,githubpages
 [001悬浮公告](https://yunfengya.github.io/yunfengkan620.github.io/001悬浮公告.html)
 ## 2 
 [002正方体旋转](https://yunfengya.github.io/yunfengkan620.github.io/002正方体旋转.html)
+## 3 
+[003二维码生成器](https://yunfengya.github.io/yunfengkan620.github.io/003二维码生成器.html)
 
