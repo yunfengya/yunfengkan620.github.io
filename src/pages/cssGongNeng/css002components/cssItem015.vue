@@ -9,14 +9,30 @@
         </div>
         <h1>------------------------------------------------------</h1>
         <div>
-            <el-button class="button" size="mini" @click="lookToFlow1()">查看(office文件)</el-button>
+            <el-button class="button" size="mini" @click="lookToFlow1()">查看接口文件流(office文件)</el-button>
         </div>
         <h1>------------------------------------------------------</h1>
+        <div>
+            <el-upload
+                class="upload-demo"
+                ref="upload"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :on-change="handleChange"
+                :file-list="fileList"
+                :auto-upload="false"
+            >
+                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                <div slot="tip" class="el-upload__tip">上传office文件，点击查看</div>
+            </el-upload>
+
+            <el-button class="button" size="mini" @click="lookToFlow2()">查看手动上传的(office文件,word,excel,ppt)</el-button>
+        </div>
         
         <!-- 下载和预览 -->
         <el-dialog v-dialogDrag title="" :visible.sync="drawer" append-to-body v-if="drawer" width="1060px" :center="true"
             :with-header="false" @close="close()">
             <p class="fileName">{{ fileName }}</p>
+            <!-- ppt -->
             <div v-loading="fileLoading" style="">
                 <div id="pptx-wrapper" style=""></div>
             </div>
@@ -38,6 +54,8 @@ export default {
             drawer: false,
             fileName: "",
             fileLoading: false,
+
+            fileList:[],
         };
     },
     mounted() {
@@ -85,6 +103,59 @@ export default {
 
         close() {
             //释放blob:url
+        },
+
+        
+        
+        handleChange(file, fileList) {
+            // console.log(file);
+            // 存储文件信息
+            // 获取文件原始对象
+            const rawFile = file.raw;
+            this.fileInfo = {
+                name: rawFile.name,
+                type: rawFile.type,
+                size: rawFile.size,
+                lastModifiedDate: new Date(rawFile.lastModified).toLocaleString()
+            };
+            
+            // 创建文件阅读器获取文件流
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                // 获取文件流（ArrayBuffer格式）
+                this.fileStream = e.target.result;
+                
+                // 在控制台输出文件流信息
+                console.log('文件流获取成功:', {
+                    fileName: rawFile.name,
+                    fileType: rawFile.type,
+                    fileSize: rawFile.size,
+                    fileStream: this.fileStream
+                });
+            };
+            
+            // 读取为ArrayBuffer（二进制数据）
+            reader.readAsArrayBuffer(rawFile);
+            
+            // 也可以根据需要读取为其他格式：
+            // reader.readAsText(rawFile) - 文本文件
+            // reader.readAsDataURL(rawFile) - Base64编码
+            // reader.readAsBinaryString(rawFile) - 二进制字符串
+            
+        },
+        lookToFlow2(){
+            if (!this.fileStream) {
+                this.$message.error('没有可用的文件流');
+                return;
+            }
+            this.fileName = this.fileInfo.name;
+            this.drawer = true;
+            console.log('文件流：', this.fileStream);
+            setTimeout(() => {
+                this.pptxPreviewFn(this.fileStream);
+            }, 2000);
+            
         },
     }
 };
