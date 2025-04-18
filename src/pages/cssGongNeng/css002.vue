@@ -45,6 +45,7 @@ import cssItem013 from "./css002components/cssItem013";
 import cssItem014 from "./css002components/cssItem014";
 import cssItem015 from "./css002components/cssItem015";
 import cssItem016 from "./css002components/cssItem016";
+import cssItem017 from "./css002components/cssItem017";
 
 export default {
     name: "index",
@@ -69,6 +70,7 @@ export default {
         cssItem014,
         cssItem015,
         cssItem016,
+        cssItem017,
     },
     data() {
         return {
@@ -92,6 +94,7 @@ export default {
                 { label: "AI-GPT简单页面", name: "cssItem014" },
                 { label: "office在线预览", name: "cssItem015" },
                 { label: "table", name: "cssItem016" },
+                { label: "X6 图编辑引擎 | AntV", name: "cssItem017" },
             ],
         };
     },
