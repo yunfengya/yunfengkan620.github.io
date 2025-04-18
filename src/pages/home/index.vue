@@ -123,6 +123,10 @@ export default {
           name: "拖拽功能", status: "1",
           desc: `拖拽功能：https://juejin.cn/post/7491164546045624356`,
         },
+        {
+          name: "二维码", status: "1",
+          desc: `二维码qrcode：https://juejin.cn/post/7455999467525210139`,
+        },
       ],
     };
   },
