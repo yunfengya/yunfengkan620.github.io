@@ -112,12 +112,16 @@ export default {
           `,
         },
         {
-          name: " 官方推荐 🔥 RuoYi-Vue 全新 Pro 版本，优化重构所有功能。基于 Spring Boot + MyBatis Plus + Vue & Element 实现的后台管理系统 + 微信小程序，支持 RBAC 动态权限、数据权限、SaaS 多租户、Flowable 工作流、三方登录、支付、短信、商城", status: "2",
+          name: " 官方推荐 🔥 RuoYi-Vue 全新 Pro 版本，优化重构所有功能。基于 Spring Boot + MyBatis Plus + Vue & Element 实现的后台管理系统 + 微信小程序，支持 RBAC 动态权限、数据权限、SaaS 多租户、Flowable 工作流、三方登录、支付、短信、商城", status: "1",
           desc: `若依新版：https://gitee.com/zhijiantianya/ruoyi-vue-pro`,
         },
         {
-          name: "npm包流程节点图插件", status: "2",
+          name: "npm包流程节点图插件", status: "1",
           desc: `npm包流程节点图插件：https://www.npmjs.com/package/@antv/x6/v/1.14.0`,
+        },
+        {
+          name: "拖拽功能", status: "1",
+          desc: `拖拽功能：https://juejin.cn/post/7491164546045624356`,
         },
       ],
     };
