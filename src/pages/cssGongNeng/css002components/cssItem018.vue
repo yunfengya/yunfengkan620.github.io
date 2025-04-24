@@ -4,8 +4,11 @@
         <div class="carousel">
             <div class="carousel-inner">
                 <!-- 使用 v-for 渲染轮播项 -->
-                <div v-for="(item, index) in items" :key="index" class="carousel-item"
-                    :style="{ backgroundImage: `url(${item})` }">{{ index }}</div>
+                <div v-for="(item, index) in items" :key="index" class="carousel-item">
+                    <!-- 幻灯片内容 -->
+                    <iFrame v-if="item.type=='链接'" :src="item.url" style="height: auto; width: 100%"></iFrame>
+                    <component v-else :is="item.url" style="height: auto; width: 100%"></component>
+                </div>
             </div>
             <!-- 左右控制按钮 -->
             <div class="controls">
@@ -17,18 +20,24 @@
 </template>
 
 <script>
+import iFrame from "@/components/iFrame/index";
+import cssItem014 from "./cssItem014.vue";
 export default {
     name: "CarouselComponent",
+    components:{
+        iFrame,
+        cssItem014,
+    },
     data() {
         return {
             items: [
-                require('../../../assets/lunbo.png'),
-                require('../../../assets/lunbo2.png'),
-                require('../../../assets/lunbo3.png'),
-                require('../../../assets/lunbo4.png'),
-                require('../../../assets/lunbo5.png'),
-                require('../../../assets/lunbo.png'),
-                require('../../../assets/lunbo5.png'),
+                {type:'链接',url:'https://www.baidu.com/'},
+                {type:'链接',url:'https://www.baidu.com/'},
+                {type:'链接',url:'https://www.baidu.com/'},
+                {type:'链接',url:'https://www.baidu.com/'},
+                {type:'链接',url:'https://www.baidu.com/'},
+                {type:'链接',url:'https://www.baidu.com/'},
+                {type:'组件',url:'cssItem014'},
             ],
             currentAngle: 0, // 当前旋转角度
             angleStep: 360 / 7, // 每张图片的旋转角度
@@ -165,9 +174,6 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    background-position: center;
     transform: rotateY(0deg) translateZ(0px);
     
     display: flex;
