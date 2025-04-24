@@ -46,6 +46,7 @@ import cssItem014 from "./css002components/cssItem014";
 import cssItem015 from "./css002components/cssItem015";
 import cssItem016 from "./css002components/cssItem016";
 import cssItem017 from "./css002components/cssItem017";
+import cssItem018 from "./css002components/cssItem018";
 
 export default {
     name: "index",
@@ -71,6 +72,7 @@ export default {
         cssItem015,
         cssItem016,
         cssItem017,
+        cssItem018,
     },
     data() {
         return {
@@ -95,6 +97,7 @@ export default {
                 { label: "office在线预览", name: "cssItem015" },
                 { label: "table", name: "cssItem016" },
                 { label: "X6 图编辑引擎 | AntV", name: "cssItem017" },
+                { label: "3D轮播", name: "cssItem018" },
             ],
         };
     },
