@@ -229,9 +229,9 @@ export default {
 
 /* 每个轮播项的样式 */
 .carousel-item {
-  color: aqua;
+  /* color: aqua; */
   border: 1px dashed aqua;
-  border-radius: 20%;
+  /* border-radius: 20%; */
   position: absolute;
   width: 100%;
   height: 100%;
