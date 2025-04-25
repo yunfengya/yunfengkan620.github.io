@@ -47,6 +47,7 @@ import cssItem015 from "./css002components/cssItem015";
 import cssItem016 from "./css002components/cssItem016";
 import cssItem017 from "./css002components/cssItem017";
 import cssItem018 from "./css002components/cssItem018";
+import cssItem019 from "./css002components/cssItem019";
 
 export default {
     name: "index",
@@ -73,6 +74,7 @@ export default {
         cssItem016,
         cssItem017,
         cssItem018,
+        cssItem019,
     },
     data() {
         return {
@@ -98,6 +100,7 @@ export default {
                 { label: "table", name: "cssItem016" },
                 { label: "X6 图编辑引擎 | AntV", name: "cssItem017" },
                 { label: "3D轮播", name: "cssItem018" },
+                { label: "element幻灯片", name: "cssItem019" },
             ],
         };
     },
