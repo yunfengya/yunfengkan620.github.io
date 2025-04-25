@@ -1,5 +1,32 @@
 <template>
     <div class="contain_box">
+        <!-- 
+            fullConfigItems : 轮播图数据源          (数组)
+            autoplay : 是否自动播放             （毫秒 值为 0 或 false 时禁用自动轮播）
+            direction : 播放方向                （值: 'next' 或 'prev'）
+            showControls : 是否显示控件         （布尔值 上一页/下一页按钮）
+            baseRadius : 基础半径               （半径，值越大，轮播项的分布越分散）
+            minRadius : 最小半径                （控制轮播项在缩放时的最小半径，用于调整近大远小的效果）
+            perspective : 透视距离              （值越小，透视效果越强（类似近距离观察）值越大，透视效果越弱（类似远距离观察））
+            tiltAngle : 倾斜角度                （正数：向前倾斜     负数：向后倾斜     0：无倾斜）
+            transitionDuration : 过渡时间       （过渡时间 旋转过程的慢动作，单位毫秒）
+            width : 容器宽度                    （容器宽度）
+            height : 容器高度                 （容器高度）
+            maxWidth : 最大宽度                 （最大宽度）
+            maxHeight : 最大高度                （最大高度）
+            backgroundColor : 背景颜色          （最大容器的 背景颜色）
+            handleMouseEnter : 鼠标进入事件
+            handleMouseLeave : 鼠标离开事件
+            handleDirectionChange : 方向改变事件
+            handleDirectionChange : 方向改变事件
+         -->
+
+         <!-- 
+            数据源（items）
+            动画行为（autoplay、direction、transitionDuration）
+            3D 效果（baseRadius、perspective、tiltAngle）
+            样式布局（尺寸、背景色）
+          -->
         <LunBo3D 
             ref="lunbo3d"
             :items="fullConfigItems"
@@ -15,7 +42,7 @@
             height="400px"
             :maxWidth="300"
             :maxHeight="300"
-            backgroundColor="#f0f0f0"
+            backgroundColor="#d1d0d0"
             @mouseenter="handleMouseEnter"
             @mouseleave="handleMouseLeave"
             @prev="handleDirectionChange('prev')"
