@@ -98,7 +98,7 @@ export default {
 .carousel-container {
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 60vh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -110,8 +110,10 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 50%;
   gap: 2%;
+  /* 倒影 */
+  -webkit-box-reflect: below 1px linear-gradient(transparent 10%, #0005);
 }
 
 .carousel-item {
