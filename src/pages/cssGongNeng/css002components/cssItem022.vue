@@ -130,6 +130,9 @@ export default {
   align-items: center;
   justify-content: center;
   transform: translateX(var(--translate-x)) scale(var(--scale, 1));
+  /* 可下移位置 */
+  /* transform: translateX(var(--translate-x)) translateY(var(--translate-y, 0)) scale(var(--scale, 1)); */
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .item-content {
@@ -146,10 +149,12 @@ export default {
   height: 80%;
   z-index: 10;
   transform: translateX(var(--translate-x)) scale(1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* 邻近项目样式 */
 .carousel-item.near {
+  /* --translate-y: 5%; */
   /* 从 0.85 调整为 0.8 */
   --scale: 0.85;
   /*  */
@@ -160,6 +165,7 @@ export default {
 
 /* 较远项目样式 */
 .carousel-item.far {
+  /* --translate-y: 10%; */
   --scale: 0.7;
   width: 26%;
   height: 70%;
