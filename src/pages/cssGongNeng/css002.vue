@@ -50,6 +50,7 @@ import cssItem018 from "./css002components/cssItem018";
 import cssItem019 from "./css002components/cssItem019";
 import cssItem020 from "./css002components/cssItem020";
 import cssItem021 from "./css002components/cssItem021";
+import cssItem022 from "./css002components/cssItem022";
 
 export default {
     name: "index",
@@ -79,6 +80,7 @@ export default {
         cssItem019,
         cssItem020,
         cssItem021,
+        cssItem022,
     },
     data() {
         return {
@@ -106,7 +108,8 @@ export default {
                 { label: "3D轮播", name: "cssItem018" },
                 { label: "element幻灯片", name: "cssItem019" },
                 { label: "封装3D轮播", name: "cssItem020" },
-                { label: "轮播", name: "cssItem021" },
+                { label: "卡片轮播", name: "cssItem021" },
+                { label: "堆叠卡片轮播", name: "cssItem022" },
             ],
         };
     },
