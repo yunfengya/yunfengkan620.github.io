@@ -183,12 +183,12 @@ export default {
   background: rgba(255, 255, 255, 0.7);
   border: none;
   border-radius: 50%;
-  width: 5vw;
-  height: 5vw;
-  font-size: 3vw;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 20px;
   cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s ease;
+  z-index: 20;
 }
 
 .nav-button:hover {
@@ -202,37 +202,5 @@ export default {
 
 .next-button {
   right: 2%;
-}
-
-@media (max-width: 768px) {
-  .carousel-item {
-    width: 20%;
-    height: 50%;
-  }
-  
-  .carousel-item.active {
-    width: 25%;
-    height: 60%;
-  }
-  
-  .carousel-item.near {
-    width: 22%;
-    height: 55%;
-  }
-  
-  .carousel-item.far {
-    width: 20%;
-    height: 50%;
-  }
-  
-  .item-content {
-    font-size: 3vw;
-  }
-  
-  .nav-button {
-    width: 8vw;
-    height: 8vw;
-    font-size: 5vw;
-  }
 }
 </style>
