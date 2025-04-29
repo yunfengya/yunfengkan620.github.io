@@ -249,7 +249,9 @@ export default {
   height: 100%;
   pointer-events: none; /* 允许点击穿透到轮播图 */
 }
-
+.carousel-container:hover .button{
+  opacity: 1;
+}
 .button {
   position: absolute;
   top: 50%;
@@ -267,6 +269,7 @@ export default {
   justify-content: center;
   pointer-events: auto; /* 恢复按钮点击事件 */
   border-radius: 50%;
+  opacity: 0;
   transition: all 0.3s ease;
 }
 
