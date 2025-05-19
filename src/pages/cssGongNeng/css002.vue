@@ -52,6 +52,7 @@ import cssItem020 from "./css002components/cssItem020";
 import cssItem021 from "./css002components/cssItem021";
 import cssItem022 from "./css002components/cssItem022";
 import cssItem023 from "./css002components/cssItem023";
+import cssItem024 from "./css002components/cssItem024";
 
 export default {
     name: "index",
@@ -83,6 +84,7 @@ export default {
         cssItem021,
         cssItem022,
         cssItem023,
+        cssItem024,
     },
     data() {
         return {
@@ -113,6 +115,7 @@ export default {
                 { label: "卡片轮播", name: "cssItem021" },
                 { label: "堆叠卡片轮播", name: "cssItem022" },
                 { label: "s型卡片播放", name: "cssItem023" },
+                { label: "自定义指令，可拖动元素", name: "cssItem024" },
             ],
         };
     },

@@ -5,6 +5,8 @@ import store from './store'
 import Element from 'element-ui'
 
 import MouseTrail from './utils/mouseTrail.js';//自定义的 鼠标拖尾插件
+import directive from "./directive"; // directives 自定义指令
+
 
 import './style/elementui.scss'
 import './style/index.css'
@@ -23,6 +25,7 @@ Vue.prototype.$bus = new Vue()
 Vue.use(Element)
 
 Vue.use(MouseTrail);
+Vue.use(directive);
 
 new Vue({
   router,
