@@ -27,6 +27,11 @@
         <Header></Header>
         <Main> </Main>
       </div> -->
+      
+      <!-- AI 图标 GIF -->
+      <div v-dialogDrag class="dragDiv">
+        <i @click.stop="transAIVisible" class="AI_bg" ></i>
+      </div>
     </div>
   </div>
 </template>
@@ -58,6 +63,11 @@ export default {
   },
   watch: {
     $route(route) {},
+  },
+  methods: {
+    transAIVisible() {
+      
+    },
   },
 }
 </script>
@@ -107,5 +117,24 @@ export default {
   height: calc(100% - 54px);
   overflow: hidden;
   padding-top: 54px;
+}
+
+// AI
+
+.dragDiv {
+    width: 60px;
+    height: 60px;
+    cursor: move;
+    z-index: 999999;
+    position: absolute;
+    bottom: 4rem;
+    right: 6rem;
+    .AI_bg{
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      background: url("~@/assets/AI/smt.gif") no-repeat center;
+      background-size: 60px 60px;
+    }
 }
 </style>
