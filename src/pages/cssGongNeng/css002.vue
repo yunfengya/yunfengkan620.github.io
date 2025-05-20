@@ -53,6 +53,7 @@ import cssItem021 from "./css002components/cssItem021";
 import cssItem022 from "./css002components/cssItem022";
 import cssItem023 from "./css002components/cssItem023";
 import cssItem024 from "./css002components/cssItem024";
+import cssItem025 from "./css002components/cssItem025";
 
 export default {
     name: "index",
@@ -85,6 +86,7 @@ export default {
         cssItem022,
         cssItem023,
         cssItem024,
+        cssItem025,
     },
     data() {
         return {
@@ -116,6 +118,7 @@ export default {
                 { label: "堆叠卡片轮播", name: "cssItem022" },
                 { label: "s型卡片播放", name: "cssItem023" },
                 { label: "自定义指令，可拖动元素", name: "cssItem024" },
+                { label: "dom,拖动重排数据顺序", name: "cssItem025" },
             ],
         };
     },
