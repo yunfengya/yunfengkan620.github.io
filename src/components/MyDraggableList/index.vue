@@ -1,6 +1,6 @@
 <template>
     <!-- 
-        拖拽排序，
+        单表格 拖拽排序，
     -->
     <div class="draggable-list">
         <slot></slot>
