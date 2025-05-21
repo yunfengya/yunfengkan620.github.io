@@ -1,6 +1,6 @@
 <template>
     <div class="statusBox" v-show="true">
-        <ResizableDivsXY direction="horizontal" defaultPrimarySize="15%" minPrimarySize="10%" maxPrimarySize="50%">
+        <ResizableDivsXY direction="horizontal" defaultPrimarySize="20%" minPrimarySize="10%" maxPrimarySize="70%">
             <template v-slot:div1>
                 <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(144, 147, 153, 0.6)'"
                     style="display: flex;flex-direction: row;flex-wrap:wrap;align-content: flex-start;"
