@@ -29,7 +29,7 @@
         </div>
         
         <!-- 下载和预览 -->
-        <el-dialog v-dragDiv title="" :visible.sync="drawer" append-to-body v-if="drawer" width="1060px" :center="true"
+        <el-dialog v-dragDialog title="" :visible.sync="drawer" append-to-body v-if="drawer" width="1060px" :center="true"
             :with-header="false" @close="close()">
             <p class="fileName">{{ fileName }}</p>
             <!-- ppt -->

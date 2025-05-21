@@ -1,5 +1,5 @@
 /**
-* v-dragDiv 弹窗拖拽
+* v-dragDiv 盒子拖拽
 * Copyright (c) 2019 ruoyi
 */
 

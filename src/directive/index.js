@@ -1,8 +1,10 @@
 
 import dragDiv from './dragDiv'
+import dragDialog from './dragDialog'
 
 const install = function(Vue) {
   Vue.directive('dragDiv', dragDiv)
+  Vue.directive('dragDialog', dragDialog)
 
 }
 
