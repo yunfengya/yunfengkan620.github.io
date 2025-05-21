@@ -51,4 +51,9 @@ export default {
 
   /* margin-top: 60px; */
 }
+/* 全局设置 element ui dialog垂直居中 */
+.el-dialog {
+  top: 50%;
+  transform: translateY(-50%);
+}
 </style>
