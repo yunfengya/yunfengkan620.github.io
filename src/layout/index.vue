@@ -29,7 +29,7 @@
       </div> -->
       
       <!-- AI 图标 GIF -->
-      <div v-dialogDrag class="dragDiv">
+      <div v-dragDiv class="dragDiv">
         <i @click.stop="transAIVisible" class="AI_bg" ></i>
       </div>
     </div>

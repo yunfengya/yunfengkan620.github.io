@@ -1,8 +1,8 @@
 
-import dialogDrag from './drag'
+import dragDiv from './dragDiv'
 
 const install = function(Vue) {
-  Vue.directive('dialogDrag', dialogDrag)
+  Vue.directive('dragDiv', dragDiv)
 
 }
 

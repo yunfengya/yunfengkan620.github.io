@@ -1,5 +1,5 @@
 /**
-* v-dialogDrag 弹窗拖拽
+* v-dragDiv 弹窗拖拽
 * Copyright (c) 2019 ruoyi
 */
 
@@ -7,7 +7,7 @@
 使用方式
 <template>
     <div class="contain_box">
-        <div v-dialogDrag class="dragDiv">自定义指令，可拖动元素</div>
+        <div v-dragDiv class="dragDiv">自定义指令，可拖动元素</div>
     </div>
 </template>
 
