@@ -1,19 +1,19 @@
 <template>
     <div class="contain_box">
-        <draggable v-model="dataList" :animation="200" class="draggable-container" @end="onDragEnd">
+        <Draggable v-model="dataList" :animation="200" class="Draggable-container" @end="onDragEnd">
             <div class="item_box" v-for="(item,index) in dataList" :key="index">{{item}}</div>
-        </draggable>
+        </Draggable>
     </div>
 </template>
 
 <script>
 // npm install vuedraggable --save    Vue 的拖拽插件，比如 vuedraggable
 // 文档 https://www.npmjs.com/package/vuedraggable
-import draggable from 'vuedraggable';
+import Draggable from 'vuedraggable';
 export default {
     name: "index",
     components: {
-        draggable,
+        Draggable,
     },
 
     data() {
@@ -54,7 +54,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-    .draggable-container {
+    .Draggable-container {
         border: 1px solid #e606fb;
         display: flex;
         flex-wrap: wrap;
