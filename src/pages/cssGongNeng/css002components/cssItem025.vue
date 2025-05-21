@@ -55,6 +55,7 @@ export default {
     flex-wrap: wrap;
     align-content: flex-start;
     .draggable-container {
+        border: 1px solid #e606fb;
         display: flex;
         flex-wrap: wrap;
         width: 100%;
@@ -62,8 +63,8 @@ export default {
     .item_box{
         width: 120px;
         height: 80px;
-        color: #23cc28;
-        border: 1px solid #007acc;
+        color: #1ec600;
+        border: 1px solid #6b6b6b;
         margin: 10px;
         cursor: pointer;
         user-select: none;
