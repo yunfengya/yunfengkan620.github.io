@@ -28,9 +28,9 @@
 <script>
 import ResizableDivsXY from "@/components/ResizableDivs/ResizableDivsXY";
 import MyScrollBar from '@/components/myScrollBar/index.vue';
+import demoEcharts from "./echart001components/demoEcharts";
 import echartItem001 from "./echart001components/echartItem001";
 import echartItem002 from "./echart001components/echartItem002";
-import demoEcharts from "./echart001components/demoEcharts";
 
 export default {
     name: "echart001",
@@ -45,11 +45,11 @@ export default {
     data() {
         return {
             activeIndex: 0,
-            activeName: "echartItem001",
+            activeName: "demoEcharts",
             nameList: [
+                { label: "demoEcharts", name: "demoEcharts" },
                 { label: "常规环图", name: "echartItem001" },
                 { label: "echartItem002", name: "echartItem002" },
-                { label: "demoEcharts", name: "demoEcharts" },
             ],
         };
     },
