@@ -88,11 +88,11 @@ export default {
 /* 容器样式 */
 .contain_box {
     width: 100%;
-    height: calc(100vh - 4.2rem);
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     background-color: #f9f9f9;
     /* 添加背景色 */
 }

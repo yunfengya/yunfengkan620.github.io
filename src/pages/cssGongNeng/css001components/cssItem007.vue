@@ -37,9 +37,9 @@ export default {
 <style scoped lang="scss">
 .contain_box {
     width: 100%;
-    height: calc(100% - 4.2rem);
+    height: 100%;
     overflow: auto;
-    border: 1px solid gray;
+    // border: 1px solid gray;
     // position: relative;
 }
 
