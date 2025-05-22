@@ -1,21 +1,33 @@
 <template>
     <div class="statusBox" v-show="true">
-        <el-row class="elRow">
-            <div style="width:100%;height:100%;" @wheel="handleScroll">
-                <el-scrollbar class="scrollbar_top" ref="scrollbar">
+        <ResizableDivsXY direction="horizontal" defaultPrimarySize="20%" minPrimarySize="10%" maxPrimarySize="70%">
+            <template v-slot:div1>
+                <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(144, 147, 153, 0.6)'"
+                    style="display: flex;flex-direction: row;flex-wrap:wrap;align-content: flex-start;"
+                >
                     <div v-for="(item, index) in nameList" :key="index" :class="activeIndex == index ? 'activeItem' : ''"
                         class="itemDiv" @click="chooseItem(index, item.name)">
                         {{ item.label }}
                     </div>
-                </el-scrollbar>
-            </div>
-        </el-row>
-        <keep-alive include="echartItem001">
-            <component :is="activeName" :ref="activeName"></component>
-        </keep-alive>
+                </MyScrollBar>
+            </template>
+            <template v-slot:div2>
+                <MyScrollBar :scrollbar-width="'8px'" :scrollbar-height="'8px'" :scrollbar-color="'rgba(144, 147, 153, 0.6)'">
+                    <!-- 
+                        include="cssItem001,cssItem002" 缓存哪些
+                        不写默认缓存所有
+                    -->
+                    <keep-alive include="cssItem001">
+                        <component :is="activeName" :ref="activeName"></component>
+                    </keep-alive>
+                </MyScrollBar>
+            </template>
+        </ResizableDivsXY>
     </div>
 </template>
 <script>
+import ResizableDivsXY from "@/components/ResizableDivs/ResizableDivsXY";
+import MyScrollBar from '@/components/myScrollBar/index.vue';
 import echartItem001 from "./echart001components/echartItem001";
 import echartItem002 from "./echart001components/echartItem002";
 import demoEcharts from "./echart001components/demoEcharts";
@@ -24,6 +36,8 @@ export default {
     name: "echart001",
     props: [""],
     components: {
+        ResizableDivsXY,
+        MyScrollBar,
         echartItem001,
         echartItem002,
         demoEcharts,
@@ -46,15 +60,6 @@ export default {
             this.activeIndex = idnex;
             this.activeName = name;
         },
-        // 滚轮横向滚动
-        handleScroll(event) {
-            // 获取 <el-scrollbar> 的原生滚动容器
-            const scrollbar = this.$refs.scrollbar.$refs.wrap;
-            // 阻止纵向默认滚动
-            event.preventDefault();
-            // 根据滚轮的 deltaY 实现横向滚动
-            scrollbar.scrollLeft += event.deltaY;
-        },
     },
 };
 </script>
@@ -65,44 +70,24 @@ export default {
     // padding: 1rem 1rem;
     // height: calc(100vh - 2rem);
     padding: 0rem;
-    height: calc(100vh - 0rem);
+    height: calc(100vh - 20px - 54px);
+    border: 1px solid #000;
     // background-color: #e1e1e1;
     // background-color: rgba(57, 77, 102,.5);
 }
 
-.elRow {
-    height: 4.2rem;
-    width: 100%;
-    // display: flex;
-    ::v-deep .scrollbar_top {
-        width: 100%;
-        height: 100% !important;
-        .el-scrollbar__wrap{
-            overflow: hidden;
-            width: 100%;
-            height: 100% !important;
-            .el-scrollbar__view {
-                width: 100%;
-                height: 100% !important;
-                display: flex;
-            }
-        }
-        .el-scrollbar__thumb{
-            background-color: #bdf7bb;
-        }
-    }
-}
-
 .itemDiv {
     flex-shrink: 0;
-    width: 13rem;
-    height: 4.2rem;
+    min-width: 6rem;
+    height: 2.2rem;
     text-align: center;
-    line-height: 4.2rem;
-    color: #36909e;
-    font-size: 1.6rem;
+    line-height: 2.2rem;
+    color: #babcbc;
+    font-size: 1.4rem;
     // float: left;
     margin-right: 0.6rem;
+    margin-bottom: 0.6rem;
+    padding: 0 0.4rem;
     background-color: #23477d;
     // background: url("~@/assets/images/equipment/wxz.png") no-repeat;
     // background-size: 100% 100%;
@@ -110,7 +95,8 @@ export default {
 }
 
 .activeItem {
-    font-weight: bold;
+    // font-weight: bold;
+    font-weight: 600;
     color: #17e1ff;
     background-color: #2b599e;
     // background: url("~@/assets/images/equipment/xz.png") no-repeat;
