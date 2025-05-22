@@ -63,11 +63,12 @@ export default {
             
 
             let option={
-                title:{
-                    text:'数据分析'
-                },
+                // title:{
+                //     text:'数据分析'
+                // },
                 tooltip: {
-                    trigger: 'axis',
+                    // trigger: 'axis',
+                    trigger: 'item',
                     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                         type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
                     }
@@ -161,6 +162,7 @@ export default {
                     },
                 },
                 visualMap: {
+                    show:false,
                     // color:colorData,
                     // min: 1,
                     // // max: 10,
@@ -174,6 +176,25 @@ export default {
                         name: '测试图',
                         type: 'heatmap',
                         data: seriesData,
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter:(param)=>{
+                                    // console.log(param)
+                                    if(param.value[2]==0){
+                                        return '没有数据'
+                                    }else{
+                                        return param.value[2]+'次'
+                                    }
+                                }
+                            }
+                        },
+                        // itemStyle: {
+                        //     emphasis: {
+                        //         shadowBlur:20,
+                        //         shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        //     }
+                        // },
                         zlevel: -1
                     }
                 ],
@@ -182,7 +203,7 @@ export default {
                         type: 'slider',
                         xAxisIndex: 0,
                         startValue: 0, // 从头开始。
-                        endValue: 1, // 一次性展示几个
+                        endValue: 6, // 一次性展示几个
                         backgroundColor: "transparent", // 滑块轨道的颜色
                         borderColor: "transparent", // 滑块轨道边框的颜色
                         moveHandleSize: 1, //移动手柄的尺寸高度。
@@ -213,7 +234,7 @@ export default {
                         // start: 0,
                         // end: 100,
                         startValue: 0, // 从头开始。
-                        endValue: 1, // 一次性展示几个
+                        endValue: 6, // 一次性展示几个
                     },
                 ],
             }
