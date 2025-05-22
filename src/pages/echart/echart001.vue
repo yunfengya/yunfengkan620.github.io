@@ -31,6 +31,7 @@ import MyScrollBar from '@/components/myScrollBar/index.vue';
 import demoEcharts from "./echart001components/demoEcharts";
 import echartItem001 from "./echart001components/echartItem001";
 import echartItem002 from "./echart001components/echartItem002";
+import echartItem003 from "./echart001components/echartItem003";
 
 export default {
     name: "echart001",
@@ -38,9 +39,10 @@ export default {
     components: {
         ResizableDivsXY,
         MyScrollBar,
+        demoEcharts,
         echartItem001,
         echartItem002,
-        demoEcharts,
+        echartItem003,
     },
     data() {
         return {
@@ -50,6 +52,7 @@ export default {
                 { label: "demoEcharts", name: "demoEcharts" },
                 { label: "常规环图", name: "echartItem001" },
                 { label: "echartItem002", name: "echartItem002" },
+                { label: "堆叠柱图，判断每个色块颜色", name: "echartItem003" },
             ],
         };
     },
