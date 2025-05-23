@@ -50,6 +50,7 @@ export default {
   color: #2c3e50;
 
   /* margin-top: 60px; */
+  /* cursor: url("~@/assets/AI/mouser.png"), auto; */
 }
 /* 全局设置 element ui dialog垂直居中 */
 .el-dialog {
