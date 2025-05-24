@@ -72,8 +72,17 @@ export default {
         // 通过事件委托，计算移动的距离 （开始拖拽至结束拖拽的距离）
         const l = e.clientX - disX;
         const t = e.clientY - disY;
-
-
+        // 避免拖出边界
+        if (l < 0) {
+          l = 0
+        } else if (l > window.innerWidth - oDiv.offsetWidth) {
+          l = window.innerWidth - oDiv.offsetWidth
+        }
+        if (t < 0) {
+          t = 0
+        } else if (t > window.innerHeight - oDiv.offsetHeight) {
+          t = window.innerHeight - oDiv.offsetHeight
+        }
 
         // 移动当前元素
         oDiv.style.left = `${l}px`;
