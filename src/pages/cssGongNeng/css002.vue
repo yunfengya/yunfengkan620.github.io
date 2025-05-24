@@ -54,6 +54,7 @@ import cssItem022 from "./css002components/cssItem022";
 import cssItem023 from "./css002components/cssItem023";
 import cssItem024 from "./css002components/cssItem024";
 import cssItem025 from "./css002components/cssItem025";
+import cssItem025JiaoHu from "./css002components/cssItem025JiaoHu";
 import cssItem026 from "./css002components/cssItem026";
 import cssItem027 from "./css002components/cssItem027";
 
@@ -89,6 +90,7 @@ export default {
         cssItem023,
         cssItem024,
         cssItem025,
+        cssItem025JiaoHu,
         cssItem026,
         cssItem027,
     },
@@ -123,6 +125,7 @@ export default {
                 { label: "s型卡片播放", name: "cssItem023" },
                 { label: "自定义指令，可拖动元素", name: "cssItem024" },
                 { label: "插件,拖动重排顺序", name: "cssItem025" },
+                { label: "插件,拖动重排顺序-增删交互", name: "cssItem025JiaoHu" },
                 { label: "自我封装,单表,拖动重排顺序", name: "cssItem026" },
                 { label: "自我封装,多表,拖动重排顺序", name: "cssItem027" },
             ],
