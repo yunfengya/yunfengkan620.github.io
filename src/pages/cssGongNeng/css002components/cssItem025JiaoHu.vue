@@ -17,7 +17,7 @@
             <div class="add_del_box" >
                 <el-button @click="addSeconedBtn(index1)" type="primary" icon="el-icon-plus" circle></el-button>
             </div>
-            <div class="contain_box">
+            <div class="table_list_box">
                 <Draggable v-model="item1.itemList" :animation="200" class="Draggable_box2" @end="onDragEndAll">
                     <div class="item_box" v-for="(item2,index2) in item1.itemList" :key="index2">
                         <el-button @click="delSeconedBtn(item2,index2,index1)" type="primary" icon="el-icon-minus" circle></el-button>
@@ -163,7 +163,7 @@ export default {
         .add_del_box{
             width:10%;
         }
-        .contain_box{
+        .table_list_box{
             width: 90%;
             .Draggable_box2 {
                 margin: 10px;
