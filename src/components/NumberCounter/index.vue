@@ -62,7 +62,7 @@
 
 <script>
 export default {
-  name: "NumberCounter",
+  name: "numberCounter",
   props: {
     targetNumber: {
       type: Number,
