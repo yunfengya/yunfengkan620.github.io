@@ -57,6 +57,7 @@ import cssItem025 from "./css002components/cssItem025";
 import cssItem025JiaoHu from "./css002components/cssItem025JiaoHu";
 import cssItem026 from "./css002components/cssItem026";
 import cssItem027 from "./css002components/cssItem027";
+import cssItem028 from "./css002components/cssItem028";
 
 export default {
     name: "index",
@@ -93,6 +94,7 @@ export default {
         cssItem025JiaoHu,
         cssItem026,
         cssItem027,
+        cssItem028,
     },
     data() {
         return {
@@ -128,6 +130,7 @@ export default {
                 { label: "插件,拖动重排顺序-增删交互", name: "cssItem025JiaoHu" },
                 { label: "自我封装,单表,拖动重排顺序", name: "cssItem026" },
                 { label: "自我封装,多表,拖动重排顺序", name: "cssItem027" },
+                { label: "数字动效", name: "cssItem028" },
             ],
         };
     },
