@@ -32,6 +32,8 @@
       <div v-dragDiv class="dragDiv">
         <i @click.stop="transAIVisible" class="AI_bg" ></i>
       </div>
+      <!-- AI dialog -->
+      <AIDialog ref="AIDialog"></AIDialog>
     </div>
   </div>
 </template>
@@ -39,6 +41,7 @@
 import Main from './components/main.vue'
 import sidebar from './components/sidebar.vue'
 import Header from './components/header.vue'
+import AIDialog from '@/components/AIDialog/index.vue'
 import { mapGetters } from 'vuex'
 export default {
   computed: {
@@ -53,6 +56,7 @@ export default {
     sidebar,
     Header,
     Main,
+    AIDialog,
   },
   name: 'Layout',
   data() {
@@ -66,7 +70,7 @@ export default {
   },
   methods: {
     transAIVisible() {
-      
+      this.$refs.AIDialog.dialogVisibleFn()
     },
   },
 }
