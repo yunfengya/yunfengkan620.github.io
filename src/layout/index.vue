@@ -30,7 +30,7 @@
       
       <!-- AI 图标 GIF -->
       <div v-dragDiv class="dragDiv">
-        <i @click.stop="transAIVisible" class="AI_bg" ></i>
+        <i @mousedown="mouseDown()" @mouseup="mouseUp()" class="AI_bg" ></i>
       </div>
       <!-- AI dialog -->
       <AIDialog ref="AIDialog"></AIDialog>
@@ -60,7 +60,9 @@ export default {
   },
   name: 'Layout',
   data() {
-    return {}
+    return {
+      firstTime: null,
+    }
   },
   created() {
     // console.log(this.$route, '路由模块')
@@ -69,8 +71,14 @@ export default {
     $route(route) {},
   },
   methods: {
-    transAIVisible() {
-      this.$refs.AIDialog.dialogVisibleFn()
+    mouseDown(){
+      this.firstTime = new Date().getTime()
+    },
+    mouseUp(){
+      const lastTime = new Date().getTime()
+      if ((lastTime - this.firstTime) < 200) {
+          this.$refs.AIDialog.dialogVisibleFn()
+      }
     },
   },
 }
