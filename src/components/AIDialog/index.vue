@@ -10,6 +10,11 @@
       @opened="handleOpened"
     >
       <div class="AI_contain">
+        <!-- 头部 -->
+        <div class="chat_header">
+          <i class="AI_bg" ></i>
+          <span>AI智能助手</span>
+        </div>
         <!-- 对话区域 -->
         <div class="chat_box" ref="chatBox1">
           <MyScrollBar ref="chatBox">
@@ -21,7 +26,7 @@
               <!-- AI回答 -->
               <div v-if="msg.type === 'bot'" class="bot_msg">
                 <div class="avatar">
-                  <img src="@/assets/deepseek.png" alt="AI头像" />
+                  <img src="@/assets/AI/smt.gif" alt="AI头像" />
                 </div>
                 <div class="bubble">
                   <span class="typing_text">{{ msg.showText }}</span>
@@ -274,9 +279,32 @@ export default {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     background: #f5f7fa;
     overflow: hidden;
+    .chat_header{
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(-48.24deg, #8f05ff, #24c9dd 100%);
+
+      display: flex;
+      align-items: center;
+      .AI_bg{
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background: url("~@/assets/AI/smt.gif") no-repeat center;
+        background-size: 50px 50px;
+        padding-left: 20px;
+      }
+      span{
+        padding-left: 1px;
+        display: inline-block;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
     .chat_box {
         height: 500px;
-        padding: 20px;
+        padding: 5px;
         overflow-y: auto;
         background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 
@@ -306,6 +334,16 @@ export default {
                         animation: blink 0.7s infinite;
                     }
                 }
+                .avatar {
+                  flex-shrink: 0;
+                  img {
+                      width: 40px;
+                      height: 40px;
+                      // border-radius: 50%;
+                      object-fit: cover;
+                      // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                  }
+                }
             }
             // 用户消息样式
             .user_msg {
@@ -318,15 +356,15 @@ export default {
                     color: white;
                     border-bottom-right-radius: 4px;
                 }
-            }
-            .avatar {
-                flex-shrink: 0;
-                img {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    object-fit: cover;
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                .avatar {
+                  flex-shrink: 0;
+                  img {
+                      width: 40px;
+                      height: 40px;
+                      border-radius: 50%;
+                      object-fit: cover;
+                      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+                  }
                 }
             }
 
