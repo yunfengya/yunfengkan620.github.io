@@ -133,26 +133,25 @@ export default {
     width: 100%;
     height: 100%;
     // background-color: rgb(177, 175, 175);
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
     .big_box{
         display: flex;
         .add_del_box{
             width:10%;
         }
         .Draggable_box1 {
-            margin: 10px;
+            padding: 10px;
+            box-sizing: border-box;
             border: 1px solid #e606fb;
             display: flex;
             flex-wrap: wrap;
             width: 90%;
+            gap: 10px;
             .item_box{
                 width: 120px;
                 height: 80px;
                 color: #1ec600;
+                box-sizing: border-box;
                 border: 1px solid #6b6b6b;
-                margin: 10px;
                 cursor: pointer;
                 user-select: none;
             }
@@ -166,7 +165,9 @@ export default {
         .table_list_box{
             width: 90%;
             .Draggable_box2 {
-                margin: 10px;
+                padding: 10px;
+                gap: 10px;
+                box-sizing: border-box;
                 border: 1px solid #fb8006;
                 display: flex;
                 flex-wrap: wrap;
@@ -175,8 +176,8 @@ export default {
                     width: 120px;
                     height: 80px;
                     color: #1ec600;
+                    box-sizing: border-box;
                     border: 1px solid #6b6b6b;
-                    margin: 10px;
                     cursor: pointer;
                     user-select: none;
                 }
