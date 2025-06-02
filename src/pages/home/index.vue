@@ -127,6 +127,10 @@ export default {
           name: "二维码", status: "1",
           desc: `二维码qrcode：https://juejin.cn/post/7455999467525210139`,
         },
+        {
+          name: "有趣", status: "1",
+          desc: `有趣 : https://jiangsihan.cn/`,
+        },
       ],
     };
   },
