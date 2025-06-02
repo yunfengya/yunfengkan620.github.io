@@ -131,6 +131,10 @@ export default {
           name: "有趣", status: "1",
           desc: `有趣 : https://jiangsihan.cn/`,
         },
+        {
+          name: "鱼儿项目", status: "1",
+          desc: `鱼儿项目 : https://juejin.cn/post/7480267450286653455`,
+        },
       ],
     };
   },
