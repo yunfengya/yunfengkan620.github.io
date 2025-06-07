@@ -105,6 +105,10 @@ export default {
 
       tableData: [
         {
+          name: "微信小程序", status: "1",
+          desc: `微信小程序: https://gitee.com/woniudiancang/bee`,
+        },
+        {
           name: "基于vue3通用的后台管理模板", status: "1",// 1 红色待研究  2 灰色已完成
           desc: `
           掘金：https://juejin.cn/post/7482988000948813860
