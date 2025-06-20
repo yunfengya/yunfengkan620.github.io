@@ -58,6 +58,7 @@ import cssItem025JiaoHu from "./css002components/cssItem025JiaoHu";
 import cssItem026 from "./css002components/cssItem026";
 import cssItem027 from "./css002components/cssItem027";
 import cssItem028 from "./css002components/cssItem028";
+import cssItem029 from "./css002components/cssItem029";
 
 export default {
     name: "index",
@@ -95,6 +96,7 @@ export default {
         cssItem026,
         cssItem027,
         cssItem028,
+        cssItem029,
     },
     data() {
         return {
@@ -131,6 +133,7 @@ export default {
                 { label: "自我封装,单表,拖动重排顺序", name: "cssItem026" },
                 { label: "自我封装,多表,拖动重排顺序", name: "cssItem027" },
                 { label: "数字动效", name: "cssItem028" },
+                { label: "富文本", name: "cssItem029" },
             ],
         };
     },
