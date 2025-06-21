@@ -33,9 +33,32 @@ export default {
         return {
             editor: null,
             html: '<h2><span style="color: rgb(235, 144, 58);"><strong>hello</strong></span></h2>',
-            toolbarConfig: {},
-            editorConfig: { placeholder: '请输入内容...' },
-            mode: 'default', // or 'simple'
+            toolbarConfig: {
+                // // 工具栏配置
+                // toolbarKeys: [
+                //     'bold', // 加粗
+                // ]
+            },
+            editorConfig: { 
+                placeholder: '请输入内容...',
+                // MENU_CONF: {
+                //     uploadImage: {
+                //         server: 'your-upload-url', // 替换为您的图片上传接口
+                //         fieldName: 'file',
+                //         headers: {
+                //             Authorization: 'your-auth-token' // 替换为您的认证信息
+                //         },
+                //         customInsert: (res, insertFn) => {
+                //             if (res.code === 0) {
+                //                 insertFn(res.data.url);
+                //             } else {
+                //                 message.error('图片上传失败');
+                //             }
+                //         }
+                //     }
+                // }
+            },
+            mode: 'default', // simple  default
 
             resultHtml:'',
         };
