@@ -20,6 +20,9 @@
             <el-button type="primary" size="mini" @click="clearFn()">清空</el-button>
             <div v-html="resultHtml"></div>
         </div>
+
+        <!-- 封装版 -->
+        <!-- <WangEditor ref="wangEditor"></WangEditor> -->
     </div>
 </template>
 
@@ -27,9 +30,10 @@
 import {base64_Image} from "./cssItem029img.js"
 // 富文本文档 https://www.wangeditor.com/v5/for-frame.html#demo
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import WangEditor from "@/components/WangEditor"
 export default {
     name: "index",
-    components: { Editor, Toolbar },
+    components: { Editor, Toolbar ,WangEditor},
     data() {
         return {
             editor: null,
