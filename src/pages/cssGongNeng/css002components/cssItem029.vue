@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import {base64_Image} from "./cssItem029img.js"
 // 富文本文档 https://www.wangeditor.com/v5/for-frame.html#demo
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 export default {
@@ -56,7 +57,7 @@ export default {
                 //             }
                 //         }
                 //     }
-                // }
+                // },
             },
             mode: 'default', // simple  default
 
@@ -80,7 +81,9 @@ export default {
       },
       btnFn(){
         console.log(this.html);
-        this.resultHtml = this.html;
+        // this.resultHtml = this.html;
+        // 添加 生成base64图片
+        this.resultHtml = this.html + `<img src="${base64_Image}" alt="Uploaded Image" />`;
       },
       clearFn(){
         this.html = ''
