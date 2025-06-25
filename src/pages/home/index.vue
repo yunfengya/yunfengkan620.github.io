@@ -105,6 +105,14 @@ export default {
 
       tableData: [
         {
+          name: "vue3-ts模板，掘友版，纯前端项目", status: "1",
+          desc: `掘金地址: https://juejin.cn/post/7511485959554646027
+                演示文档：https://www.lingchen.kim/art-design-pro/#/dashboard/console
+                官方文档：https://www.lingchen.kim/art-design-pro/docs/zh/
+                github地址：https://github.com/Daymychen/art-design-pro
+          `,
+        },
+        {
           name: "微信小程序", status: "1",
           desc: `微信小程序: https://gitee.com/woniudiancang/bee`,
         },
