@@ -31,12 +31,12 @@ export default {
     data() {
         return {
             items: [
-                {type:'链接',url:'https://www.baidu.com/'},
-                {type:'链接',url:'https://www.baidu.com/'},
-                {type:'链接',url:'https://www.baidu.com/'},
-                {type:'链接',url:'https://www.baidu.com/'},
-                {type:'链接',url:'https://www.baidu.com/'},
-                {type:'链接',url:'https://www.baidu.com/'},
+                {type:'链接',url:'cssItem014'},
+                {type:'链接',url:'cssItem014'},
+                {type:'链接',url:'cssItem014'},
+                {type:'链接',url:'cssItem014'},
+                {type:'链接',url:'cssItem014'},
+                {type:'链接',url:'cssItem014'},
                 {type:'组件',url:'cssItem014'},
             ],
             currentAngle: 0, // 当前旋转角度
