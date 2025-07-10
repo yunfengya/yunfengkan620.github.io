@@ -49,6 +49,7 @@ import cssItem017 from "./css002components/cssItem017";
 import cssItem018 from "./css002components/cssItem018";
 import cssItem019 from "./css002components/cssItem019";
 import cssItem020 from "./css002components/cssItem020";
+import cssItem020add from "./css002components/cssItem020add";
 import cssItem021 from "./css002components/cssItem021";
 import cssItem022 from "./css002components/cssItem022";
 import cssItem023 from "./css002components/cssItem023";
@@ -87,6 +88,7 @@ export default {
         cssItem018,
         cssItem019,
         cssItem020,
+        cssItem020add,
         cssItem021,
         cssItem022,
         cssItem023,
@@ -124,6 +126,7 @@ export default {
                 { label: "3D轮播", name: "cssItem018" },
                 { label: "element幻灯片", name: "cssItem019" },
                 { label: "封装3D轮播", name: "cssItem020" },
+                { label: "3D轮播可增减", name: "cssItem020add" },
                 { label: "卡片轮播", name: "cssItem021" },
                 { label: "堆叠卡片轮播", name: "cssItem022" },
                 { label: "s型卡片播放", name: "cssItem023" },
