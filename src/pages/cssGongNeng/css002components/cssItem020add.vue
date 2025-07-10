@@ -46,14 +46,17 @@ export default {
     init() {
         this.$nextTick(()=>{
             this.occupyDeg = 360 / this.total;
+            // 修改或重新计算旋转半径 * 1.3
             this.translateZRadius = Math.round(
-              this.$refs.carousel.offsetWidth / 2 / Math.tan(Math.PI / this.total)
+              this.$refs.carousel.offsetWidth / 2 / Math.tan(Math.PI / this.total) * 1.3
             );
             this.cells.forEach((cell, i) => {
               const cells = this.$refs.carousel.querySelectorAll(".cell");
               if (cells[i]) {
-                  const cellAngle = this.occupyDeg * i;
-                  cells[i].style.transform = `rotateY(${cellAngle}deg) translateZ(${this.translateZRadius}px)`;
+                    const cellAngle = this.occupyDeg * i;
+                    // rotateY(${cellAngle}deg) 用来 左右按钮 切换 旋转角度的
+                    // translateZ(${this.translateZRadius}px) 用来调整远近视角距离的
+                    cells[i].style.transform = `rotateY(${cellAngle}deg) translateZ(${this.translateZRadius}px)`;
               }
             });
             this.carouseChange();
@@ -61,9 +64,9 @@ export default {
         })
     },
     carouseChange(angleOutside) {
-      const angle = angleOutside || this.occupyDeg * this.index * -1;
-      this.$refs.carousel.style.transform = `translateZ(${-this
-        .translateZRadius}px) rotateY(${angle}deg)`;
+        const angle = angleOutside || this.occupyDeg * this.index * -1;
+        // translateY(30px) 用来调整抬头视角
+        this.$refs.carousel.style.transform = `translateY(0px) translateZ(${-this.translateZRadius}px) rotateY(${angle}deg)`;
     },
     next() {
     //   this.index = (this.index + 1) % this.total;
@@ -148,10 +151,8 @@ export default {
             cursor: grab;
             .cell {
                 position: absolute;
-                width: 280px;
-                height: 180px;
-                left: 10px;
-                top: 10px;
+                width: 100%;
+                height: 100%;
                 border: 2px solid #000;
                 background-color: rgba(255, 255, 255, 0.8);
                 display: flex;
