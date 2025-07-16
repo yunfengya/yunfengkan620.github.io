@@ -70,11 +70,22 @@ export default {
   watch: {
     $route(route) {},
   },
+  mounted() {
+    
+  },
   methods: {
+    setBG_color(){
+      const getRandomColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`;
+      const colorBox = document.querySelector('.dragDiv');
+      colorBox.style.backgroundColor = getRandomColor();
+      // this.$forceUpdate();
+    },
     mouseDown(){
+      this.setBG_color()
       this.firstTime = new Date().getTime()
     },
     mouseUp(){
+      this.setBG_color()
       const lastTime = new Date().getTime()
       if ((lastTime - this.firstTime) < 200) {
           this.$refs.AIDialog.dialogVisibleFn()
