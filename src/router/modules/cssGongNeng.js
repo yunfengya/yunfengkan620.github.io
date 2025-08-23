@@ -45,6 +45,15 @@ export const cssGongNeng = [
           icon: "el-icon-star-on",
         },
       },
+      // 
+      {
+        path: "/cssGongNeng/zJuanWang",
+        component: () => import("@/pages/cssGongNeng/zJuanWang.vue"),
+        meta: {
+          title: "zJuanWang",
+          icon: "el-icon-star-on",
+        },
+      },
     ],
   },
 ];
