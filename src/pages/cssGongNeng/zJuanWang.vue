@@ -1,7 +1,7 @@
 <template>
     <div class="contain_box">
-        <el-row :gutter="10">
-            <el-col :span="8">
+        <ResizableDivsXY direction="horizontal" defaultPrimarySize="20%" minPrimarySize="10%" maxPrimarySize="70%">
+            <template v-slot:div1>
                 <el-select v-model="selectDepartValue" multiple placeholder="请选择">
                     <el-option
                         v-for="item in departmentList"
@@ -12,8 +12,8 @@
                 </el-select>
                 <el-button class="" icon="" size="mini" @click="search()">查询</el-button>
                 <el-button class="" icon="" size="mini" @click="clear()">清空</el-button>
-            </el-col>
-            <el-col :span="16">
+            </template>
+            <template v-slot:div2>
                 <el-table :data="tableData" class="table_dom" style="width: 100%;height:100%;font-size:12px;" height="85vh" :default-sort="{ prop: 'cc', order: 'descending' }">
 
                     <el-table-column label="序号" prop="" type="index" align="center"></el-table-column>
@@ -42,15 +42,16 @@
                     </el-table-column>
 
                 </el-table>
-            </el-col>
-        </el-row>
+            </template>
+        </ResizableDivsXY>
     </div>
 </template>
 <script>
+import ResizableDivsXY from "@/components/ResizableDivs/ResizableDivsXY";
 import {departmentList,List} from "./zJuanWang.js"
 export default {
     name: "index",
-    components: {},
+    components: {ResizableDivsXY},
     data() {
         return {
             selectDepartValue:[],
