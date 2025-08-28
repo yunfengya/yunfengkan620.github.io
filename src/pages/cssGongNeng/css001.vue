@@ -48,6 +48,7 @@ import cssItem015 from "./css001components/cssItem015";
 import cssItem016 from "./css001components/cssItem016";
 import cssItem017 from "./css001components/cssItem017";
 import cssItem018 from "./css001components/cssItem018";
+import cssItem019 from "./css001components/cssItem019";
 
 export default {
     name: "index",
@@ -75,6 +76,7 @@ export default {
         cssItem016,
         cssItem017,
         cssItem018,
+        cssItem019,
     },
     data() {
         return {
@@ -101,6 +103,7 @@ export default {
                 { label: "大转盘抽奖", name: "cssItem016" },
                 { label: "蜡烛", name: "cssItem017" },
                 { label: "涟漪动效", name: "cssItem018" },
+                { label: "指令-懒加载(image和背景)", name: "cssItem019" },
             ],
         };
     },
