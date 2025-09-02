@@ -1,5 +1,7 @@
 // const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -18,8 +20,8 @@ module.exports = {
     // host: '127.0.0.1',
     host: "localhost",
     port: 8080,
-    open: true,
-    hot: true,
+    open: true,//自动打开浏览器
+    hot: true,//启用了热模块替换,允许您在不刷新页面的情况下更新模块
     // overlay: {
     //   warnings: false,
     //   errors: true,
@@ -32,6 +34,14 @@ module.exports = {
         '@': resolve('src'),
       },
     },
+     plugins: [
+      new CompressionWebpackPlugin({
+        test: /\.(js|css|html|svg)$/, // 匹配需要压缩的文件类型
+        threshold: 10240, // 只有当文件大小大于这个值时才会进行压缩
+        deleteOriginalAssets: false, // 是否删除原文件
+      }),
+      new BundleAnalyzerPlugin(),// 打包分析插件,启动项目 后可以看到打包后的文件大小，方便优化
+    ],
   },
   
 }
