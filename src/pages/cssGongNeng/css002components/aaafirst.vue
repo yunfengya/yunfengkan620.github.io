@@ -10,6 +10,12 @@
             Iframe嵌套页面的编辑：iframeNode.contentDocument.designMode = "on";
 
         </div>
+        <div>
+            <div v-html="stringContain"></div>
+            <button @click="copyFn(stringContain)">点击复制</button>
+            <el-input v-model="inputValue" placeholder=""></el-input>
+        </div>
+        <div>一键千分位:{{ new Intl.NumberFormat('zh-CN').format(1234567) }}</div>
     </div>
 </template>
 
@@ -18,7 +24,8 @@ export default {
     name: "index",
     data() {
         return {
-            
+            stringContain: `<p style="color:orange;">这是复制的内容</p>`,
+            inputValue:'',
         };
     },
     mounted() {
@@ -28,7 +35,26 @@ export default {
         
     },
     methods: {
-        
+        async copyFn(stringContain){
+            try {
+                await navigator.clipboard.writeText(stringContain);
+                this.$notify({
+                    title: '复制成功',
+                    message: stringContain,
+                    type: 'success',
+                    duration: 2000,
+                    position: 'top-right'
+                });
+            } catch (err) {
+                this.$notify({
+                    title: '复制失败',
+                    message: stringContain,
+                    type: 'error',
+                    duration: 2000,
+                    position: 'top-right'
+                });
+            }
+        }
     }
 };
 </script>
