@@ -36,9 +36,12 @@ module.exports = {
     },
      plugins: [
       new CompressionWebpackPlugin({
-        test: /\.(js|css|html|svg)$/, // 匹配需要压缩的文件类型
-        threshold: 10240, // 只有当文件大小大于这个值时才会进行压缩
-        deleteOriginalAssets: false, // 是否删除原文件
+        // cache: false, // 不启用文件缓存                  
+        test: /\.(js|css|html|ttf|eot|woff|png|svg|jpg|jpeg)?$/i, // 压缩文件格式     
+        filename: '[path].gz[query]', // 压缩后的文件名  
+        algorithm: 'gzip', // 使用gzip压缩             
+        // threshold: 10240, //以字节为单位压缩超过此大小的文件，使用默认值10240
+        minRatio: 0.8 // 压缩率小于1才会压缩                  
       }),
       new BundleAnalyzerPlugin(),// 打包分析插件,启动项目 后可以看到打包后的文件大小，方便优化
     ],
