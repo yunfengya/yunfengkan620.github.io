@@ -105,6 +105,14 @@ export default {
 
       tableData: [
         {
+          name: "代理网站", status: "1",
+          desc: `
+            fastlink.cc （或者 web03.fastlink.cc）注册个账号 然后购买下；
+            我的：网络代理登3210367285@qq.com密是英文名yfk全拼；
+            软件下载：v2ray下载，Clash下载
+          `,
+        },
+        {
           name: "vue3-ts模板，掘友版，纯前端项目", status: "1",
           desc: `掘金地址: https://juejin.cn/post/7511485959554646027
                 演示文档：https://www.lingchen.kim/art-design-pro/#/dashboard/console
