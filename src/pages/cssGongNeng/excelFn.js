@@ -337,8 +337,8 @@ export const generateSampleTables = (tableListSort) => {
 // 执行方法
 export const exportExcelFn = async () => {
     let tableStyle = {
-        nameColor: "70c000",           // 表格名称颜色 
-        headerColor: "de4132",           // 表头背景色
+        nameColor: "000000ff",           // 表格名称颜色 
+        headerColor: "d2d0cebc",           // 表头背景色
         headerFontColor: "#000000ff",      // 表头字体颜色
         align: "center",                  // 文本对齐方式
         alternateRowColors: false,         // 是否交替行颜色
