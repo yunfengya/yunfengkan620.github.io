@@ -58,7 +58,12 @@ export const exportMultipleSheets = async (sheets, options = {}) => {
                             worksheet.mergeCells(currentRow, startCol, currentRow, startCol + numCols - 1);
                             const titleCell = worksheet.getCell(currentRow, startCol);
                             titleCell.value = title;
-                            titleCell.font = { bold: true, size: 14, color: { argb: "FF000000" } };
+                            titleCell.font = { 
+                                bold: true, 
+                                size: 14, 
+                                // color: { argb: "FF000000" } // 表名颜色
+                                color: { argb: tableStyle?.nameColor || "FF000000" } 
+                            };
                             titleCell.alignment = { vertical: "middle", horizontal: "center" };
                         }
 
@@ -107,7 +112,8 @@ export const exportMultipleSheets = async (sheets, options = {}) => {
                             titleRow.font = {
                                 bold: true,
                                 size: 14,
-                                color: { argb: "FF000000" },
+                                // color: { argb: "FF000000" } // 表名颜色
+                                color: { argb: tableStyle?.nameColor || "FF000000" } 
                             };
                             titleRow.alignment = {
                                 vertical: "middle",
@@ -166,7 +172,8 @@ export const exportMultipleSheets = async (sheets, options = {}) => {
                             titleCell.font = {
                                 bold: true,
                                 size: 14,
-                                color: { argb: "FF000000" },
+                                // color: { argb: "FF000000" } // 表名颜色
+                                color: { argb: tableStyle?.nameColor || "FF000000" } 
                             };
                             titleCell.alignment = {
                                 vertical: "middle",
@@ -242,11 +249,11 @@ export const exportMultipleSheets = async (sheets, options = {}) => {
 
 // 辅助函数：应用表头样式
 const applyHeaderStyle = (cell, tableStyle) => {
-    cell.font = { bold: true, color: { argb: "FFFFFFFF" } };
+    cell.font = { bold: true, color: { argb: tableStyle?.headerFontColor || "1f1f1f" } };
     cell.fill = {
         type: "pattern",
         pattern: "solid",
-        fgColor: { argb: tableStyle?.headerColor || "FF0070C0" },
+        fgColor: { argb: tableStyle?.headerColor || "d2d0cebc" },
     };
     cell.alignment = { vertical: "middle", horizontal: "center" };
     cell.border = {
@@ -317,10 +324,10 @@ export const generateSampleTables = (tableListSort) => {
                     (tableListItem) => apiListItem[tableListItem.prop]
                 )
             ),
-            tableStyle: {
-                headerColor: "0070c0",
+            tableStyle: item1.tableStyle || {
+                headerColor: "d2d0cebc",
                 align: "center",
-                alternateRowColors: true,
+                alternateRowColors: false,
             },
         });
     });
@@ -329,6 +336,14 @@ export const generateSampleTables = (tableListSort) => {
 
 // 执行方法
 export const exportExcelFn = async () => {
+    let tableStyle = {
+        nameColor: "70c000",           // 表格名称颜色 
+        headerColor: "de4132",           // 表头背景色
+        headerFontColor: "#000000ff",      // 表头字体颜色
+        align: "center",                  // 文本对齐方式
+        alternateRowColors: false,         // 是否交替行颜色
+        cellPadding: 5                    // 单元格内边距
+    };
     let tableListSort = [
         {
             name: "表格1",
@@ -338,6 +353,7 @@ export const exportExcelFn = async () => {
                 { label: "段别", prop: "stage" },
                 { label: "线别", prop: "line" },
             ],
+            tableStyle: tableStyle,
             apiList: [
                 {
                     site: "lxsz",
