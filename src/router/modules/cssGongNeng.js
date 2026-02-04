@@ -38,6 +38,15 @@ export const cssGongNeng = [
       },
       // 
       {
+        path: "/cssGongNeng/excelDemo",
+        component: () => import("@/pages/cssGongNeng/excelDemo.vue"),
+        meta: {
+          title: "Excel导出演示",
+          icon: "el-icon-star-on",
+        },
+      },
+      // 
+      {
         path: "/cssGongNeng/zdaikaifa",
         component: () => import("@/pages/cssGongNeng/zdaikaifa.vue"),
         meta: {
