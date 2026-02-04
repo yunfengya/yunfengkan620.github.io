@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="item_box">
-      <span>同一工作表内的多个表格</span>
+      <span>同一工作表内的多个表格（纵向）</span>
       <el-button 
         type="primary" 
         size="small" 
@@ -12,6 +12,18 @@
       </el-button>
     </div>
     <div class="item_box">
+      <span>同一工作表内的多个表格（横向）</span>
+      <el-button 
+        type="success" 
+        size="small" 
+        @click="exportHorizontalData"
+        :loading="exportingHorizontal"
+      >
+        {{ exportingHorizontal ? '导出中...' : '导出横向布局' }}
+      </el-button>
+    </div>
+
+    <div class="item_box">
       <span>Excel多表导出演示</span>
       <el-button 
         type="primary" 
@@ -19,7 +31,7 @@
         @click="exportData2"
         :loading="exporting2"
       >
-        {{ exporting2 ? '导出中...' : '导出Excel' }}
+        {{ exporting2 ? '导出中...' : '导出多工作表' }}
       </el-button>
     </div>
   </div>
@@ -28,6 +40,7 @@
 <script>
 import { exportMultipleTablesToSingleSheet, generateSampleTables } from '@/pages/cssGongNeng/excelSingleSheetExport';
 import { exportMultipleSheetsToExcel, generateSampleData } from '@/pages/cssGongNeng/excelExport';
+import { exportHorizontalTables, generateHorizontalSampleData } from '@/pages/cssGongNeng/excelHorizontalExport';
 
 export default {
   name: 'ExcelSingleSheetMultiTable',
@@ -35,6 +48,9 @@ export default {
     return {
       exporting1: false,
       sampleTables: generateSampleTables(),
+
+      exportingHorizontal: false,
+      horizontalTables: generateHorizontalSampleData(),
 
       exporting2: false,
       sampleData: generateSampleData(),
@@ -59,6 +75,27 @@ export default {
         this.$message.error('导出失败：' + error.message);
       } finally {
         this.exporting1 = false;
+      }
+    },
+
+    async exportHorizontalData() {
+      this.exportingHorizontal = true;
+      try {
+        const result = await exportHorizontalTables(this.horizontalTables, {
+          fileName: '横向布局示例.xlsx',
+          sheetName: '横向数据报表',
+          spacingCols: 3
+        });
+        
+        if (result.success) {
+          this.$message.success('横向布局导出成功！');
+        } else {
+          this.$message.error(result.message);
+        }
+      } catch (error) {
+        this.$message.error('导出失败：' + error.message);
+      } finally {
+        this.exportingHorizontal = false;
       }
     },
 
