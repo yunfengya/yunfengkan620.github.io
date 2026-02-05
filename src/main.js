@@ -7,6 +7,8 @@ import Element from 'element-ui'
 import MouseTrail from './utils/mouseTrail.js';//自定义的 鼠标拖尾插件
 import directive from "./directive"; // directives 自定义指令
 
+// Import version checker module
+import { startVersionCheck } from './utils/versionChecker';
 
 import './style/elementui.scss'
 import './style/index.css'
@@ -26,6 +28,9 @@ Vue.use(Element)
 
 Vue.use(MouseTrail);
 Vue.use(directive);
+
+// Start version checking
+startVersionCheck();
 
 new Vue({
   router,
