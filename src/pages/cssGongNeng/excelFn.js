@@ -1,6 +1,7 @@
 import ExcelJS from "exceljs";
 
 /**
+ * Author: yunfeng kan
  * 导出多个工作表，每个工作表支持垂直/水平/网格布局
  * @param {Array} sheets - 工作表配置数组，每个元素包含sheetName、tables、direction、gridCols等
  * @param {Object} options - 全局配置
@@ -13,6 +14,8 @@ export const exportMultipleSheets = async (sheets, options = {}) => {
         workbook.creator = "Vue Admin System";
         workbook.created = new Date();
         // 处理每个工作表
+        // console.log('sheets',sheets);
+        
         sheets.forEach((sheetConfig) => {
             const {
                 sheetName = "Sheet1",
@@ -210,9 +213,10 @@ export const exportMultipleSheets = async (sheets, options = {}) => {
                     }
                 });
             }
-
+            // console.log('worksheet',worksheet);
+            
             // 自动调整列宽
-            worksheet.columns.forEach((column) => {
+            worksheet.columns?.forEach((column) => {
                 let maxLength = 0;
                 column.eachCell({ includeEmpty: true }, (cell) => {
                     const length = cell.value
@@ -253,7 +257,7 @@ const applyHeaderStyle = (cell, tableStyle) => {
     cell.fill = {
         type: "pattern",
         pattern: "solid",
-        fgColor: { argb: tableStyle?.headerColor || "d2d0cebc" },
+        fgColor: { argb: tableStyle?.headerColor || "ffffff" },
     };
     cell.alignment = { vertical: "middle", horizontal: "center" };
     cell.border = {
@@ -325,7 +329,7 @@ export const generateSampleTables = (tableListSort) => {
                 )
             ),
             tableStyle: item1.tableStyle || {
-                headerColor: "d2d0cebc",
+                headerColor: "ffffff",
                 align: "center",
                 alternateRowColors: false,
             },
@@ -334,124 +338,148 @@ export const generateSampleTables = (tableListSort) => {
     return tables;
 };
 
-// 执行方法
-export const exportExcelFn = async () => {
-    let tableStyle = {
+// 使用方法 
+export const exportExcelFn = async (excelData_) => {
+    
+    // 表格样式配置
+    let tableStyle_ = {
         nameColor: "FF000000",           // 表格名称颜色 
-        headerColor: "d2d0cebc",           // 表头背景色
+        headerColor: "ffffff",           // 表头背景色
         headerFontColor: "FF000000",      // 表头字体颜色
         align: "center",                  // 文本对齐方式
         alternateRowColors: false,         // 是否交替行颜色
         cellPadding: 5                    // 单元格内边距
     };
-    let tableListSort = [
-        {
-            name: "表格1",
-            tableList: [
-                { label: "厂区", prop: "site" },
-                { label: "机种", prop: "model" },
-                { label: "段别", prop: "stage" },
-                { label: "线别", prop: "line" },
-            ],
-            tableStyle: tableStyle,
-            apiList: [
-                {
-                    site: "lxsz",
-                    model: "rainer",
-                    stage: "hg",
-                    line: "L1",
-                    enable: "Y",
-                },
-                {
-                    site: "lxsz2",
-                    model: "rainer2",
-                    stage: "hg2",
-                    line: "L12",
-                    enable: "N",
-                },
-            ], //接口2 固定格式 数组数据
-        },
-        {
-            name: "表格2",
-            tableList: [
-                { label: "厂区", prop: "site" },
-                { label: "机种", prop: "model" },
-                { label: "段别", prop: "stage" },
-                { label: "线别", prop: "line" },
-            ],
-            apiList: [
-                {
-                    site: "lxsz",
-                    model: "rainer",
-                    stage: "hg",
-                    line: "L1",
-                    enable: "Y",
-                },
-                {
-                    site: "lxsz2",
-                    model: "rainer2",
-                    stage: "hg2",
-                    line: "L12",
-                    enable: "N",
-                },
-            ], //接口2 固定格式 数组数据
-        },
-        {
-            name: "表格3",
-            tableList: [
-                { label: "厂区", prop: "site" },
-                { label: "机种", prop: "model" },
-                { label: "段别", prop: "stage" },
-                { label: "线别", prop: "line" },
-            ],
-            apiList: [
-                {
-                    site: "lxsz",
-                    model: "rainer",
-                    stage: "hg",
-                    line: "L1",
-                    enable: "Y",
-                },
-                {
-                    site: "lxsz2",
-                    model: "rainer2",
-                    stage: "hg2",
-                    line: "L12",
-                    enable: "N",
-                },
-            ], //接口2 固定格式 数组数据
-        },
-    ];
-    let dataList = generateSampleTables(tableListSort);
+
+    // // 多表数据 // 接入API 数据
+    // let tableListSort = [
+    //     {
+    //         name: "表格1",
+    //         // 下载栏位
+    //         tableList: [
+    //             { label: "厂区", prop: "site" },
+    //             { label: "机种", prop: "model" },
+    //             { label: "段别", prop: "stage" },
+    //             { label: "线别", prop: "line" },
+    //         ],
+    //         // tableStyle: tableStyle_,
+    //         apiList: [
+    //             {
+    //                 site: "lxsz",
+    //                 model: "rainer",
+    //                 stage: "hg",
+    //                 line: "L1",
+    //                 enable: "Y",
+    //             },
+    //             {
+    //                 site: "lxsz2",
+    //                 model: "rainer2",
+    //                 stage: "hg2",
+    //                 line: "L12",
+    //                 enable: "N",
+    //             },
+    //         ], //接口2 固定格式 数组数据
+    //     },
+    //     {
+    //         name: "表格2",
+    //         tableList: [
+    //             { label: "厂区", prop: "site" },
+    //             { label: "机种", prop: "model" },
+    //             { label: "段别", prop: "stage" },
+    //             { label: "线别", prop: "line" },
+    //         ],
+    //         tableStyle:{},
+    //         apiList: [
+    //             {
+    //                 site: "lxsz",
+    //                 model: "rainer",
+    //                 stage: "hg",
+    //                 line: "L1",
+    //                 enable: "Y",
+    //             },
+    //             {
+    //                 site: "lxsz2",
+    //                 model: "rainer2",
+    //                 stage: "hg2",
+    //                 line: "L12",
+    //                 enable: "N",
+    //             },
+    //         ], //接口2 固定格式 数组数据
+    //     },
+    //     {
+    //         name: "表格3",
+    //         tableList: [
+    //             { label: "厂区", prop: "site" },
+    //             { label: "机种", prop: "model" },
+    //             { label: "段别", prop: "stage" },
+    //             { label: "线别", prop: "line" },
+    //         ],
+    //         tableStyle: tableStyle_,
+    //         apiList: [
+    //             {
+    //                 site: "lxsz",
+    //                 model: "rainer",
+    //                 stage: "hg",
+    //                 line: "L1",
+    //                 enable: "Y",
+    //             },
+    //             {
+    //                 site: "lxsz2",
+    //                 model: "rainer2",
+    //                 stage: "hg2",
+    //                 line: "L12",
+    //                 enable: "N",
+    //             },
+    //         ], //接口2 固定格式 数组数据
+    //     },
+    //     // 依次添加 小表 .........
+    // ];
+
+    // // 使用方式
+    // let excelData={
+    //     fileName:'导出文件.xlsx',
+    //     // 多个sheet 工作簿
+    //     sheetArr:[
+    //         {
+    //             sheetName: "垂直布局sheet1",
+    //             tables: [],// 每个sheet 多个表格 需要 数据处理,生成 exceljs格式数据
+    //             direction: "vertical",
+    //             spacingRows: 2,
+    //         },
+    //         {
+    //             sheetName: "水平布局sheet2",
+    //             tables: [],// 每个sheet 多个表格 需要 数据处理,生成 exceljs格式数据
+    //             direction: "horizontal",
+    //             spacingColumns: 2,
+    //         },
+    //         {
+    //             sheetName: "网格布局sheet3",
+    //             tables: tableListSort,// 每个sheet 多个表格 需要 数据处理,生成 exceljs格式数据
+    //             direction: "grid",
+    //             gridCols: 2,//一行2个表
+    //             spacingRows: 2,
+    //             spacingColumns: 2,
+    //         },
+    //         // 依次添加  sheet 对象 ...........
+    //     ],
+    // }
+
+    let excelData = excelData_||{}
+    
+    excelData.sheetArr?.forEach(item=>{
+        item.tables = generateSampleTables(item.tables||[]) // 每个sheet 多个表格 // 数据处理,生成 exceljs格式数据
+        item.tables?.forEach(item2=>{
+            if(!item2.tableStyle){
+                item2.tableStyle = tableStyle_
+            }
+        })
+    })
+    console.log(excelData);
+    
+    
     try {
         // 示例：导出多个工作表，每个工作表使用不同布局
-        const result = await exportMultipleSheets(
-            [
-                {
-                    sheetName: "垂直布局工作表",
-                    // tables: dataList.slice(0,1),
-                    tables: dataList,
-                    direction: "vertical",
-                    spacingRows: 2,
-                },
-                {
-                    sheetName: "水平布局工作表",
-                    // tables: dataList.slice(1),
-                    tables: dataList,
-                    direction: "horizontal",
-                    spacingColumns: 3,
-                },
-                {
-                    sheetName: "网格布局工作表",
-                    tables: dataList,
-                    direction: "grid",
-                    gridCols: 2,
-                    spacingRows: 2,
-                    spacingColumns: 3,
-                },
-            ],
-            { fileName: "多工作表多布局示例.xlsx" }
-        );
+        const result = await exportMultipleSheets(excelData.sheetArr, { fileName: excelData.fileName });
         console.log(result.message);
     } catch (error) {
         console.error("导出失败：", error.message);
