@@ -31,8 +31,9 @@
         >
       </div>
     </div>
+    <Ma />
     <!-- 小蜜蜂 -->
-    <Bee />
+    <!-- <Bee /> -->
     <!-- 老鼠 -->
     <!-- <Pig /> -->
     <!-- <Dog /> -->
@@ -40,14 +41,16 @@
 </template>
 <script>
 import { setCookies } from '@/utils/cookies'
-import Bee from './components/bee'; // 导入小蜜蜂组件
-import Pig from './components/pig'; 
-import Dog from './components/dog'; 
+import Ma from './components/ma'; // 导入小蜜蜂组件
+// import Bee from './components/bee'; // 导入小蜜蜂组件
+// import Pig from './components/pig'; 
+// import Dog from './components/dog'; 
 export default {
   components: {
-    Bee,
-    Pig,
-    Dog,
+    Ma,
+    // Bee,
+    // Pig,
+    // Dog,
   },
   data() {
     return {
@@ -103,11 +106,15 @@ export default {
   width: 100vw;
   background-color: #c4c2c2;
   // background-image: url('@/assets/bgc.jpg');
-  // background-size: 100% 100%;
-}
+  background-image: url('https://dics.luxsan-ict.com/static/img/%E8%83%8C%E6%99%AF.f8a05e07.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+} 
 .login_in {
   width: 400px;
   height: 300px;
+  border-radius: 2%;
   background: #d3d2d2;
   transition: ease-in-out 0.5s;
 }
